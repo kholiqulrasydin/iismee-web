@@ -1,0 +1,169 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+import 'package:iismee/app/routes/app_pages.dart';
+import 'package:iismee/app/views/admin_layout/constants.dart';
+import 'package:iismee/app/views/admin_layout/controllers/MenuController.dart';
+import 'package:iismee/app/views/admin_layout/responsive.dart';
+import 'package:iismee/app/views/admin_layout/screens/main/components/side_menu.dart';
+import 'package:provider/provider.dart';
+
+class SideMenu extends StatefulWidget {
+  const SideMenu({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  State<SideMenu> createState() => _SideMenuState();
+}
+
+class _SideMenuState extends State<SideMenu> {
+  List<DrawerListTile> drawerItems = [];
+
+  List<Widget> header = [
+    Image.asset('assets/logo-unesa.png', width: 100, height: 100,),
+    Text('IISMEE', style: TextStyle(color: Colors.white, fontSize: 24)),
+  ];
+
+  placePages(){
+    List<GetPage> pages = context.read<MenuController>().role > 1 ? AppPages.routes : AppPages.routes.where((element) => element.title!.split('_')[0] == 'dosen').toList();
+    List<DrawerListTile> listItem = []; 
+    for(int i = context.read<MenuController>().role > 1 ? 1 : 0; i<pages.length; i++){
+      listItem.add(
+        DrawerListTile(
+          title: context.read<MenuController>().role > 1 ? pages[i].name.substring(1).capitalizeFirst.toString() : "${pages[i].name.substring(1).split('-')[0].capitalizeFirst} ${pages[i].name.substring(1).split('-')[1].capitalizeFirst}", 
+          svgSrc: "assets/icons/${pages[i].title}.svg", 
+          press: (){
+            Get.to(pages[i].page);
+            context.read<MenuController>().role > 1 ? context.read<MenuController>().selectedDrawerItem = i-1 : context.read<MenuController>().selectedDrawerItem = i;
+            setState(() {
+            });
+          },
+          isSelected: false,
+        )
+      );
+    }
+
+    setState(() {
+      drawerItems = listItem;
+    });
+
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    placePages();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.05,
+          ),
+          ...header,
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.15,
+          ),
+          Expanded(
+            child: ListView.builder(
+              itemCount: drawerItems.length,
+              itemBuilder: (context, index){
+                final item = drawerItems[index];
+                return DrawerListTile(
+                  title: item.title, 
+                  svgSrc: item.svgSrc, 
+                  press: item.press, 
+                  isSelected: context.read<MenuController>().selectedDrawerItem == index
+                  );
+              }
+              ),
+          ),
+        ]
+      );
+  }
+}
+
+class DrawerListTile extends StatelessWidget {
+  DrawerListTile({
+    Key? key,
+    // For selecting those three line once press "Command+D"
+    required this.title,
+    required this.svgSrc,
+    required this.press,
+    required this.isSelected
+  }) : super(key: key);
+
+  final String title, svgSrc;
+  final VoidCallback press;
+  bool isSelected;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(left: 15),
+      decoration: BoxDecoration(
+        color: isSelected ? Color.fromARGB(252, 242, 242, 255) : Colors.blue,
+        borderRadius: const BorderRadius.only(topLeft: Radius.circular(15), bottomLeft: Radius.circular(15)),
+      ),
+      child: ListTile(
+        selectedColor: Color.fromARGB(252, 242, 242, 255),
+        minVerticalPadding: MediaQuery.of(context).size.height * 0.01,
+        tileColor: isSelected ? Color.fromARGB(252, 242, 242, 255) : Colors.blue,
+        onTap: press,
+        horizontalTitleGap: 0.0,
+        leading: SvgPicture.asset(
+          svgSrc,
+          color: isSelected ? Colors.blueGrey.shade600 : Color.fromARGB(252, 242, 242, 255),
+          height: 16,
+        ),
+        title: Text(
+          title,
+          style: TextStyle(color: isSelected ? Colors.blueGrey.shade600 : Color.fromARGB(252, 242, 242, 255)),
+        ),
+      ),
+    );
+  }
+}
+
+class ProfileCard extends StatelessWidget {
+  const ProfileCard({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 240,
+      margin: EdgeInsets.only(left: 15),
+      padding: EdgeInsets.symmetric(
+        horizontal: defaultPadding,
+        vertical: defaultPadding / 2,
+      ),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: const BorderRadius.all(Radius.circular(10)),
+        border: Border.all(color: Colors.white),
+      ),
+      child: Row(
+        children: [
+          Image.asset(
+            "assets/images/profile_pic.png",
+            height: 38,
+          ),
+          if (!Responsive.isMobile(context))
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: defaultPadding / 2),
+              child: Text("Laila Canggung", style: TextStyle(color: Colors.blueGrey.shade800),),
+            ),
+          Icon(Icons.keyboard_arrow_down, color: Colors.blueGrey.shade800,),
+        ],
+      ),
+    );
+  }
+}
