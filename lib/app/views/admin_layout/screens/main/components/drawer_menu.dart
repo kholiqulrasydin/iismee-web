@@ -6,6 +6,7 @@ import 'package:iismee/app/views/admin_layout/constants.dart';
 import 'package:iismee/app/views/admin_layout/controllers/MenuController.dart';
 import 'package:iismee/app/views/admin_layout/responsive.dart';
 import 'package:iismee/app/views/admin_layout/screens/main/components/side_menu.dart';
+import 'package:iismee/app/views/components/colors.dart';
 import 'package:provider/provider.dart';
 
 class SideMenu extends StatefulWidget {
@@ -21,14 +22,14 @@ class _SideMenuState extends State<SideMenu> {
   List<DrawerListTile> drawerItems = [];
 
   List<Widget> header = [
-    Image.asset('assets/logo-unesa.png', width: 100, height: 100,),
-    Text('IISMEE', style: TextStyle(color: Colors.white, fontSize: 24)),
+    Logo(),
+    // Text('IISMEE', style: TextStyle(color: Colors.white, fontSize: 24)),
   ];
 
   placePages(){
     List<GetPage> pages = context.read<MenuController>().role > 1 ? AppPages.routes : AppPages.routes.where((element) => element.title!.split('_')[0] == 'dosen').toList();
     List<DrawerListTile> listItem = []; 
-    for(int i = context.read<MenuController>().role > 1 ? 1 : 0; i<pages.length; i++){
+    for(int i = context.read<MenuController>().role > 1 ? 1 : 0; i< (context.read<MenuController>().role > 1 ? 4 : pages.length); i++){
       listItem.add(
         DrawerListTile(
           title: context.read<MenuController>().role > 1 ? pages[i].name.substring(1).capitalizeFirst.toString() : "${pages[i].name.substring(1).split('-')[0].capitalizeFirst} ${pages[i].name.substring(1).split('-')[1].capitalizeFirst}", 
@@ -85,6 +86,32 @@ class _SideMenuState extends State<SideMenu> {
           ),
         ]
       );
+  }
+}
+
+class Logo extends StatelessWidget {
+  const Logo({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: MediaQuery.of(context).size.width * (Responsive.isDesktop(context) ? 0.15 : 0.4),
+      height: MediaQuery.of(context).size.height * (Responsive.isDesktop(context) ? 0.25: 0.3),
+      alignment: Alignment.center,
+      decoration: BoxDecoration(
+        color: primaryBackgroundColor,
+        borderRadius: BorderRadius.circular(15)
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Image.asset('assets/logo-unesa.png', width: 100, height: 100,),
+          Text('IISMEE', style: TextStyle(color: Colors.blueGrey.shade600, fontSize: 24)),
+        ],
+      )
+    );
   }
 }
 
@@ -145,9 +172,9 @@ class ProfileCard extends StatelessWidget {
         vertical: defaultPadding / 2,
       ),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: primaryBackgroundColor,
         borderRadius: const BorderRadius.all(Radius.circular(10)),
-        border: Border.all(color: Colors.white),
+        border: Border.all(color: primaryBackgroundColor),
       ),
       child: Row(
         children: [
@@ -159,7 +186,7 @@ class ProfileCard extends StatelessWidget {
             Padding(
               padding:
                   const EdgeInsets.symmetric(horizontal: defaultPadding / 2),
-              child: Text("Laila Canggung", style: TextStyle(color: Colors.blueGrey.shade800),),
+              child: Text("Nandya Asmara", style: TextStyle(color: Colors.blueGrey.shade800),),
             ),
           Icon(Icons.keyboard_arrow_down, color: Colors.blueGrey.shade800,),
         ],

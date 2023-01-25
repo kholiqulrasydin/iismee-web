@@ -9,6 +9,7 @@ import 'package:iismee/app/controllers/size_controller.dart';
 import 'package:iismee/app/views/admin_layout/components/dashed_rect.dart';
 // import 'package:iismee/app/views/admin_layout/responsive.dart';
 import 'package:iismee/app/views/admin_layout/screens/main/main_screen.dart';
+import 'package:iismee/app/views/components/colors.dart';
 import 'package:intl/intl.dart';
 
 import '../controllers/presensi_controller.dart';
@@ -619,7 +620,7 @@ class PageMenu extends StatelessWidget {
               height: 2,
               width: 50,
               decoration: BoxDecoration(
-                  color: isSelected ? Colors.blueAccent.shade100 : Colors.white,
+                  color: isSelected ? Colors.blueAccent.shade100 : primaryBackgroundColor,
                   borderRadius: BorderRadius.circular(15)),
             )
           ],

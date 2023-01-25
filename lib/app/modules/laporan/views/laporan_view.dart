@@ -146,13 +146,13 @@ class LaporanView extends GetView<LaporanController> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                'Status Laporan',
+                                'Simpan Laporan',
                                 style: TextStyle(
                                     fontSize: 12,
                                     color: Colors.blueGrey.shade800),
                               ),
                               Text(
-                                'Belum diupload',
+                                'Belum disimpan',
                                 style: TextStyle(
                                     fontSize: 16, color: Colors.red.shade800),
                               ),
@@ -207,13 +207,13 @@ class LaporanView extends GetView<LaporanController> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                'Status Laporan',
+                                'Penilaian Laporan',
                                 style: TextStyle(
                                     fontSize: 12,
                                     color: Colors.blueGrey.shade800),
                               ),
                               Text(
-                                'Belum diupload',
+                                'Belum dinilai',
                                 style: TextStyle(
                                     fontSize: 16, color: Colors.red.shade800),
                               ),

@@ -9,15 +9,9 @@ class LogBookView extends GetView<LogBookController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('LogBookView'),
-        centerTitle: true,
-      ),
+      
       body: Center(
-        child: Text(
-          'LogBookView is working',
-          style: TextStyle(fontSize: 20),
-        ),
+        child: Container(),
       ),
     );
   }

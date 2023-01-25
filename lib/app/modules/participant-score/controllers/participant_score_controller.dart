@@ -80,6 +80,7 @@ class ParticipantScoreController extends GetxController {
     participantsList = List.generate(participantList.length, (index) {
       return Participant(
           isSelected: selectedParticipant != null ? selectedParticipant!.value == index : false,
+          isTableNull: selectedParticipant == null,
           onTap: (){
             participantOnTap(index);
           },
@@ -102,6 +103,8 @@ class ParticipantScoreController extends GetxController {
             'Harap pilih salah satu Mahasiswa terlebih dahulu\nuntuk melihat nilai Mata Kuliah ${mpk[selectedMpk.value]}',
             textAlign: TextAlign.center,
           ).obs
-        : Container().obs;
+        : ScoringTable().obs;
   }
+
+
 }

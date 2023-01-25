@@ -4,7 +4,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:iismee/app/controllers/size_controller.dart';
 import 'package:iismee/app/data/constants/theme.dart';
+import 'package:iismee/app/modules/Login/controllers/login_controller.dart';
+import 'package:iismee/app/modules/Login/views/login_view.dart';
 import 'package:iismee/app/modules/laporan/controllers/laporan_controller.dart';
+import 'package:iismee/app/modules/participant-score/controllers/participant_score_controller.dart';
 import 'package:iismee/app/modules/presensi/controllers/presensi_controller.dart';
 import 'package:iismee/app/modules/presensi/views/presensi_view.dart';
 import 'package:iismee/app/routes/app_pages.dart';
@@ -25,7 +28,22 @@ class MainScreen extends StatelessWidget {
         color: Colors.white,
         width: MediaQuery.of(context).size.width * 1,
         height: MediaQuery.of(context).size.height * 1,
-        child: Stack(
+        child: context.read<MenuController>().role == 99 ? 
+        GetMaterialApp(
+                    color: Colors.white,
+                    theme: lightTheme,
+                    darkTheme: darkTheme,
+                    themeMode: ThemeMode.system,
+                    initialBinding: BindingsBuilder(() {
+                      // Get.put(SizeController());
+                      Get.lazyPut<SizeController>(
+                        () => SizeController(),
+                      );
+                      // add more bindings in here
+                    }),
+                    initialRoute: AppPages.routes.first.name,
+                    getPages: AppPages.routes,
+                  ) : Stack(
           children: [
             // We want this side menu only for large screen
             if (Responsive.isDesktop(context))
@@ -48,7 +66,7 @@ class MainScreen extends StatelessWidget {
                     width: MediaQuery.of(context).size.width * 0.18,
                     child: SideMenu())),
             Positioned(
-                bottom: MediaQuery.of(context).size.height * 0.1,
+                top: MediaQuery.of(context).size.height * 0.35,
                 left: 5,
                 child: ProfileCard()),
             Positioned(
@@ -94,6 +112,10 @@ class MainScreen extends StatelessWidget {
 
                       Get.lazyPut<LaporanController>(
                         () => LaporanController(),
+                      );
+
+                      Get.lazyPut<ParticipantScoreController>(
+                        () => ParticipantScoreController(),
                       );
                       // add more bindings in here
                     }),

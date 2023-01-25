@@ -59,16 +59,16 @@ class LoginRightSide extends StatelessWidget {
     return Container(
       width: sizeControl.getWidthFromPrecentage(40),
       decoration: BoxDecoration(
-          color: Colors.blueAccent,
+          color: Colors.blue.shade900,
           borderRadius: BorderRadius.only(topRight: Radius.circular(15), bottomRight: Radius.circular(15))
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Image.asset('assets/shopping-bag.png', width: sizeControl.getWidthFromPrecentage(25), height: sizeControl.getWidthFromPrecentage(25),),
+          Image.asset('assets/logo-unesa.png', width: sizeControl.getWidthFromPrecentage(25), height: sizeControl.getWidthFromPrecentage(25),),
           // SizedBox(height: sizeControl.getHeightFromPrecentage(0.2),),
-          Text('Kartal (Kasir Digital)', style: TextStyle(color: Colors.white),)
+          Text('Internship Information System of Mechanical Engineering (IISMEE)', style: TextStyle(color: Colors.white),)
         ],
       ),
     );
@@ -108,10 +108,10 @@ class _LoginFormState extends State<LoginForm> {
         crossAxisAlignment: MediaQuery.of(context).orientation == Orientation.landscape && widget.sizeControl.getDifferencePrecentage(widget.sizeControl.width.value, widget.sizeControl.height.value) > 20 ? CrossAxisAlignment.start : CrossAxisAlignment.center,
         children: [
           if(MediaQuery.of(context).orientation == Orientation.portrait )
-            Image.asset('assets/shopping-bag-accent.png', width: widget.sizeControl.getWidthFromPrecentage(25), height: widget.sizeControl.getWidthFromPrecentage(25),),
+            Image.asset('assets/logo-unesa.png', width: widget.sizeControl.getWidthFromPrecentage(25), height: widget.sizeControl.getWidthFromPrecentage(25),),
             SizedBox(height: widget.sizeControl.getHeightFromPrecentage(1),),
           Text(
-            'Login kartal',
+            'Login IISMEE',
             style: TextStyle(
               color: Colors.blue,
               fontSize: 24

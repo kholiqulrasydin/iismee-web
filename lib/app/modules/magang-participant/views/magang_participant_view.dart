@@ -359,7 +359,7 @@ class Participant extends StatelessWidget {
                             color: Colors.blueGrey.shade900,
                           ),
                           SizedBox(
-                              width: sizeControl.getWidthFromPrecentage(18),
+                              width: sizeControl.getWidthFromPrecentage(15),
                               child: RichText(
                                   overflow: TextOverflow.clip,
                                   text: TextSpan(
@@ -389,7 +389,7 @@ class Participant extends StatelessWidget {
                             color: Colors.blueGrey.shade900,
                           ),
                           SizedBox(
-                              width: sizeControl.getWidthFromPrecentage(18),
+                              width: sizeControl.getWidthFromPrecentage(15),
                               child: RichText(
                                   overflow: TextOverflow.clip,
                                   text: TextSpan(
@@ -398,12 +398,12 @@ class Participant extends StatelessWidget {
                                     ),
                                     children: <TextSpan>[
                                       TextSpan(
-                                          text: 'Nama Instansi : ',
+                                          text: 'Bidang Instansi : ',
                                           style: const TextStyle(
                                               fontWeight: FontWeight.bold)),
                                       TextSpan(
                                           text:
-                                              'PT. Pelayaran Nasional Indonesia'),
+                                              'Teknologi'),
                                     ],
                                   )))
                         ],
@@ -419,7 +419,7 @@ class Participant extends StatelessWidget {
                             color: Colors.blueGrey.shade900,
                           ),
                           SizedBox(
-                              width: sizeControl.getWidthFromPrecentage(18),
+                              width: sizeControl.getWidthFromPrecentage(15),
                               child: RichText(
                                   overflow: TextOverflow.clip,
                                   text: TextSpan(
@@ -428,12 +428,12 @@ class Participant extends StatelessWidget {
                                     ),
                                     children: <TextSpan>[
                                       TextSpan(
-                                          text: 'Nama Instansi : ',
+                                          text: 'Periode Magang : ',
                                           style: const TextStyle(
                                               fontWeight: FontWeight.bold)),
                                       TextSpan(
                                           text:
-                                              'PT. Pelayaran Nasional Indonesia'),
+                                              'Semester 2021 / 2022'),
                                     ],
                                   )))
                         ],
@@ -449,7 +449,7 @@ class Participant extends StatelessWidget {
                             color: Colors.blueGrey.shade900,
                           ),
                           SizedBox(
-                              width: sizeControl.getWidthFromPrecentage(18),
+                              width: sizeControl.getWidthFromPrecentage(15),
                               child: RichText(
                                   overflow: TextOverflow.clip,
                                   text: TextSpan(
@@ -458,12 +458,12 @@ class Participant extends StatelessWidget {
                                     ),
                                     children: <TextSpan>[
                                       TextSpan(
-                                          text: 'Nama Instansi : ',
+                                          text: 'Program : ',
                                           style: const TextStyle(
                                               fontWeight: FontWeight.bold)),
                                       TextSpan(
                                           text:
-                                              'PT. Pelayaran Nasional Indonesia'),
+                                              'Mandiri Program Studi (20 SKS)'),
                                     ],
                                   )))
                         ],
@@ -479,7 +479,7 @@ class Participant extends StatelessWidget {
                             color: Colors.blueGrey.shade900,
                           ),
                           SizedBox(
-                              width: sizeControl.getWidthFromPrecentage(18),
+                              width: sizeControl.getWidthFromPrecentage(15),
                               child: RichText(
                                   overflow: TextOverflow.clip,
                                   text: TextSpan(
@@ -488,12 +488,12 @@ class Participant extends StatelessWidget {
                                     ),
                                     children: <TextSpan>[
                                       TextSpan(
-                                          text: 'Nama Instansi : ',
+                                          text: 'Jenis Magang : ',
                                           style: const TextStyle(
                                               fontWeight: FontWeight.bold)),
                                       TextSpan(
                                           text:
-                                              'PT. Pelayaran Nasional Indonesia'),
+                                              'Praktik Industri'),
                                     ],
                                   )))
                         ],
@@ -509,7 +509,7 @@ class Participant extends StatelessWidget {
                             color: Colors.blueGrey.shade900,
                           ),
                           SizedBox(
-                              width: sizeControl.getWidthFromPrecentage(18),
+                              width: sizeControl.getWidthFromPrecentage(15),
                               child: RichText(
                                   overflow: TextOverflow.clip,
                                   text: TextSpan(
@@ -518,12 +518,12 @@ class Participant extends StatelessWidget {
                                     ),
                                     children: <TextSpan>[
                                       TextSpan(
-                                          text: 'Nama Instansi : ',
+                                          text: 'Jenis Konversi : ',
                                           style: const TextStyle(
                                               fontWeight: FontWeight.bold)),
                                       TextSpan(
                                           text:
-                                              'PT. Pelayaran Nasional Indonesia'),
+                                              'Konversi Matakuliah Umum'),
                                     ],
                                   )))
                         ],
@@ -539,7 +539,7 @@ class Participant extends StatelessWidget {
                             color: Colors.blueGrey.shade900,
                           ),
                           SizedBox(
-                              width: sizeControl.getWidthFromPrecentage(18),
+                              width: sizeControl.getWidthFromPrecentage(15),
                               child: RichText(
                                   overflow: TextOverflow.clip,
                                   text: TextSpan(
@@ -548,12 +548,12 @@ class Participant extends StatelessWidget {
                                     ),
                                     children: <TextSpan>[
                                       TextSpan(
-                                          text: 'Nama Instansi : ',
+                                          text: 'Posisi Magang : ',
                                           style: const TextStyle(
                                               fontWeight: FontWeight.bold)),
                                       TextSpan(
                                           text:
-                                              'PT. Pelayaran Nasional Indonesia'),
+                                              'Layanan Aplikasi'),
                                     ],
                                   )))
                         ],
@@ -569,7 +569,7 @@ class Participant extends StatelessWidget {
                             color: Colors.blueGrey.shade900,
                           ),
                           SizedBox(
-                              width: sizeControl.getWidthFromPrecentage(18),
+                              width: sizeControl.getWidthFromPrecentage(15),
                               child: RichText(
                                   overflow: TextOverflow.clip,
                                   text: TextSpan(
@@ -578,12 +578,12 @@ class Participant extends StatelessWidget {
                                     ),
                                     children: <TextSpan>[
                                       TextSpan(
-                                          text: 'Nama Instansi : ',
+                                          text: 'Tanggal Pelaksanaan : ',
                                           style: const TextStyle(
                                               fontWeight: FontWeight.bold)),
                                       TextSpan(
                                           text:
-                                              'PT. Pelayaran Nasional Indonesia'),
+                                              '19-05-2022 Sampai 24-07-2022'),
                                     ],
                                   )))
                         ],

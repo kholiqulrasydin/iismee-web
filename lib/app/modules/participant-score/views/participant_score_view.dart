@@ -1,3 +1,4 @@
+import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -15,54 +16,283 @@ class ParticipantScoreView extends GetView<ParticipantScoreController> {
   Widget build(BuildContext context) {
     controller.createSize(context);
     sizeControl.createSize(context);
-    return GetBuilder<ParticipantScoreController>(
-      builder: ((controller) {
-        return MainAdminLayout(
-          body: Padding(
-            padding: EdgeInsets.symmetric(horizontal: sizeControl.getWidthFromPrecentage(5)),
-            child: Column(
-              children: [
-                if(sizeControl.isLargeScreen.value)
-                  Container(
-                      margin: EdgeInsets.symmetric(vertical: sizeControl.getHeightFromPrecentage(2)),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          SearchWidget(sizeControl: sizeControl),
-                          SizedBox(
-                            width: 250,
-                            height: 50,
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: controller.menuPages.isEmpty ? [Container()] : controller.menuPages,
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: controller.participantsList.isEmpty ? [Container()] : controller.participantsList,
-                    ),
-                    Container(
-                      width: sizeControl.getWidthFromPrecentage(30),
+    return GetBuilder<ParticipantScoreController>(builder: ((controller) {
+      return MainAdminLayout(
+        body: Padding(
+          padding: EdgeInsets.symmetric(
+              horizontal: sizeControl.getWidthFromPrecentage(5)),
+          child: Column(
+            children: [
+              if (sizeControl.isLargeScreen.value)
+                Container(
+                  margin: EdgeInsets.symmetric(
+                      vertical: sizeControl.getHeightFromPrecentage(2)),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SearchWidget(sizeControl: sizeControl),
+                      SizedBox(
+                        width: 250,
+                        height: 50,
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: controller.menuPages.isEmpty
+                              ? [Container()]
+                              : controller.menuPages,
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: controller.participantsList.isEmpty
+                        ? [Container()]
+                        : controller.participantsList,
+                  ),
+                  Expanded(
+                    child: AnimatedContainer(
+                      duration: const Duration(milliseconds: 500),
+                      // width: sizeControl.getWidthFromPrecentage(controller.selectedParticipant != null ? 45 : 35),
                       height: 600,
                       alignment: Alignment.center,
                       child: controller.table.value,
-                    )
+                    ),
+                  )
+                ],
+              ),
+            ],
+          ),
+        ),
+        sizeControl: sizeControl,
+      );
+    }));
+  }
+}
+
+class ScoringTable extends StatefulWidget {
+  const ScoringTable({super.key});
+
+  @override
+  State<ScoringTable> createState() => _ScoringTableState();
+}
+
+class _ScoringTableState extends State<ScoringTable> {
+  @override
+  Widget build(BuildContext context) {
+    return DataTable2(
+        columnSpacing: 12,
+        horizontalMargin: 12,
+        minWidth: 600,
+        dataRowHeight: 250,
+        columns: [
+          DataColumn2(
+            label: Text('Aspek'),
+            fixedWidth: 150,
+            size: ColumnSize.L
+          ),
+          DataColumn2(
+            label: Text('Variabel'),
+            fixedWidth: 100,
+            size: ColumnSize.L
+          ),
+          DataColumn2(
+            label: Text('Skor'),
+            size: ColumnSize.L
+          ),
+          DataColumn2(
+            label: Text('Unggahan Berkas'),
+            fixedWidth: 125,
+            size: ColumnSize.L
+          ),
+          DataColumn2(
+            label: Text('Validasi Dosen'),
+            fixedWidth: 125,
+            size: ColumnSize.L
+          ),
+          DataColumn2(
+            label: Text('Skor Akhir'),
+            size: ColumnSize.L
+          ),
+        ],
+        rows: [
+          DataRow(cells: [
+            DataCell(
+              SizedBox(
+                height: 250,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(height: 5,),
+                    Text('1. Proposal'),
+                    Container(
+                      margin: EdgeInsets.only(top: 20, left: 15),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            margin: EdgeInsets.symmetric(vertical: 8),
+                            child: Text('Nama Kegiatan')
+                          ),
+                          Container(
+                            margin: EdgeInsets.symmetric(vertical: 8),
+                            child: Text('Latar Belakang')
+                          ),
+                          Container(
+                            margin: EdgeInsets.symmetric(vertical: 8),
+                            child: Text('Tujuan')
+                          ),
+                          Container(
+                            margin: EdgeInsets.symmetric(vertical: 8),
+                            child: Text('Tema')
+                          ),
+                        ],
+                      )
+                      )
                   ],
                 ),
-              ],
+              )
             ),
-          ), sizeControl: sizeControl,
-        );
-      }
-    ));
+    
+            DataCell(
+              SizedBox(
+                height: 250,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(height: 5,),
+                    Text('10 Unsur'),
+                    Container(
+                      margin: EdgeInsets.only(top: 20),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            margin: EdgeInsets.symmetric(vertical: 8),
+                            child: Text('4 Unsur')
+                          ),
+                          Container(
+                            margin: EdgeInsets.symmetric(vertical: 8),
+                            child: Text('7 Unsur')
+                          ),
+                          Container(
+                            margin: EdgeInsets.symmetric(vertical: 8),
+                            child: Text('2 Unsur')
+                          ),
+                          Container(
+                            margin: EdgeInsets.symmetric(vertical: 8),
+                            child: Text('3 Unsur')
+                          ),
+                        ],
+                      )
+                      )
+                  ],
+                ),
+              )
+            ),
+    
+            DataCell(
+              SizedBox(
+                height: 250,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    SizedBox(height: 5,),
+                    Text('5'),
+                    Container(
+                      margin: EdgeInsets.only(top: 20),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Container(
+                            margin: EdgeInsets.symmetric(vertical: 8),
+                            child: Text('4')
+                          ),
+                          Container(
+                            margin: EdgeInsets.symmetric(vertical: 8),
+                            child: Text('3')
+                          ),
+                          Container(
+                            margin: EdgeInsets.symmetric(vertical: 8),
+                            child: Text('2')
+                          ),
+                          Container(
+                            margin: EdgeInsets.symmetric(vertical: 8),
+                            child: Text('1')
+                          ),
+                        ],
+                      )
+                      )
+                  ],
+                ),
+              )
+            ),
+    
+            DataCell(
+              SizedBox(
+                height: 250,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    SvgPicture.asset(
+                              'assets/icons/pdf_file.svg',
+                              height: 25,
+                            ),
+                    Text('Proposal.pdf'),
+                  ],
+                ),
+              )
+            ),
+    
+            DataCell(
+              SizedBox(
+                height: 250,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Checkbox(value: false, onChanged: (isTrue) {}),
+                    Container(
+                      margin: EdgeInsets.only(top: 10),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Checkbox(value: false, onChanged: (isTrue) {}),
+                          Checkbox(value: false, onChanged: (isTrue) {}),
+                          Checkbox(value: false, onChanged: (isTrue) {}),
+                          Checkbox(value: false, onChanged: (isTrue) {}),
+                        ],
+                      )
+                      )
+                  ],
+                ),
+              )
+            ),
+    
+            DataCell(
+              Container(
+                height: 250,
+                width: 150,
+                alignment: Alignment.center,
+                child: const Text('5')
+                )
+            ),
+          ])
+        ],
+        // rows: List<DataRow>.generate(
+        //     100,
+        //     (index) => DataRow(cells: [
+        //           DataCell(Text('A' * (10 - index % 10))),
+        //           DataCell(Text('B' * (10 - (index + 5) % 10))),
+        //           DataCell(Text('C' * (15 - (index + 5) % 10))),
+        //         ]))
+    );
   }
 }
 
@@ -92,7 +322,9 @@ class PageMenu extends StatelessWidget {
               height: 2,
               width: 50,
               decoration: BoxDecoration(
-                  color: isSelected ? Colors.blueAccent.shade100 : Color.fromARGB(252, 242, 242, 255),
+                  color: isSelected
+                      ? Colors.blueAccent.shade100
+                      : Color.fromARGB(252, 242, 242, 255),
                   borderRadius: BorderRadius.circular(15)),
             )
           ],
@@ -176,16 +408,22 @@ class SearchWidget extends StatelessWidget {
 }
 
 class Participant extends StatelessWidget {
-  const Participant({
-    Key? key,
-    required this.name, required this.sizeControl, required this.details, this.onTap, required this.isSelected
-  }) : super(key: key);
+  const Participant(
+      {Key? key,
+      required this.name,
+      required this.sizeControl,
+      required this.details,
+      this.onTap,
+      required this.isSelected,
+      required this.isTableNull})
+      : super(key: key);
 
   final bool isSelected;
   final Function()? onTap;
   final String name;
   final SizeController sizeControl;
   final List<ParticipantDetail> details;
+  final bool isTableNull;
 
   @override
   Widget build(BuildContext context) {
@@ -193,22 +431,27 @@ class Participant extends StatelessWidget {
       onTap: onTap,
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 500),
-        width: sizeControl.getWidthFromPrecentage(isSelected ? 33 : 32),
+        width: sizeControl.getWidthFromPrecentage(isTableNull
+            ? 32
+            : isSelected
+                ? 22
+                : 20),
         margin: EdgeInsets.symmetric(vertical: 5),
         padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
         decoration: BoxDecoration(
-        border: Border.all(color: isSelected ? Colors.blue : Colors.transparent),
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(15),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.5),
-            spreadRadius: 1,
-            blurRadius: 3,
-            offset: const Offset(-1, 1), // changes position of shadow
-          ),
-        ],
-      ),
+          border:
+              Border.all(color: isSelected ? Colors.blue : Colors.transparent),
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(15),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5),
+              spreadRadius: 1,
+              blurRadius: 3,
+              offset: const Offset(-1, 1), // changes position of shadow
+            ),
+          ],
+        ),
         child: Column(
           children: [
             // Padding(
@@ -243,7 +486,7 @@ class Participant extends StatelessWidget {
             //       ),
             //       IconButton(
             //           onPressed: () {
-            //             // Log book & presensi 
+            //             // Log book & presensi
             //             // lihat Laporan
             //             // lihat nilai akhir
             //           },
@@ -274,7 +517,9 @@ class Participant extends StatelessWidget {
                   horizontal: sizeControl.getWidthFromPrecentage(1)),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: isTableNull
+                    ? CrossAxisAlignment.start
+                    : CrossAxisAlignment.center,
                 children: [
                   ClipRRect(
                     borderRadius: BorderRadius.circular(12),
@@ -292,23 +537,50 @@ class Participant extends StatelessWidget {
                         name.capitalize!,
                         overflow: TextOverflow.clip,
                         style: TextStyle(
-                            color: Colors.blueGrey.shade700,
-                            fontSize: 14),
+                            color: Colors.blueGrey.shade700, fontSize: 14),
                       ),
                       SizedBox(
                         height: 2,
                       ),
-                      Row(
-                        children: [
-                          Icon(Icons.view_quilt_rounded),
-                          Text('D4 Manajemen Informatika')
-                        ],
-                      ),
-                      SizedBox(
-                        height: 2,
-                      ),
-                      ...details
-                      
+                      if (isTableNull)
+                        Row(
+                          children: [
+                            Icon(Icons.view_quilt_rounded),
+                            Text('D4 Manajemen Informatika')
+                          ],
+                        ),
+                      if (isTableNull)
+                        SizedBox(
+                          height: 2,
+                        ),
+                      if (isTableNull) ...details,
+                      if (!isTableNull)
+                        SizedBox(
+                          child: Column(
+                            children: [
+                              SizedBox(
+                                height: 2,
+                              ),
+                              Container(
+                                  // margin: EdgeInsets.only(left: sizeControl.getWidthFromPrecentage(1)),
+                                  width: sizeControl.getWidthFromPrecentage(10),
+                                  child: RichText(
+                                      overflow: TextOverflow.clip,
+                                      text: TextSpan(
+                                        style: TextStyle(
+                                          color: Colors.blueGrey.shade700,
+                                        ),
+                                        children: <TextSpan>[
+                                          TextSpan(
+                                              text: 'NIM : ',
+                                              style: const TextStyle(
+                                                  fontWeight: FontWeight.bold)),
+                                          TextSpan(text: '190051397046'),
+                                        ],
+                                      )))
+                            ],
+                          ),
+                        ),
                     ],
                   )
                 ],
@@ -324,7 +596,9 @@ class Participant extends StatelessWidget {
 class ParticipantDetail extends StatelessWidget {
   const ParticipantDetail({
     Key? key,
-    required this.sizeControl, required this.title, required this.detail,
+    required this.sizeControl,
+    required this.title,
+    required this.detail,
   }) : super(key: key);
 
   final SizeController sizeControl;
@@ -344,8 +618,7 @@ class ParticipantDetail extends StatelessWidget {
           color: Colors.blueGrey.shade900,
         ),
         SizedBox(
-            width:
-                sizeControl.getWidthFromPrecentage(18),
+            width: sizeControl.getWidthFromPrecentage(18),
             child: RichText(
                 overflow: TextOverflow.clip,
                 text: TextSpan(
@@ -355,13 +628,8 @@ class ParticipantDetail extends StatelessWidget {
                   children: <TextSpan>[
                     TextSpan(
                         text: title,
-                        style: const TextStyle(
-                            fontWeight:
-                                FontWeight.bold)),
-                    TextSpan(
-                        text:
-                            detail
-                            ),
+                        style: const TextStyle(fontWeight: FontWeight.bold)),
+                    TextSpan(text: detail),
                   ],
                 )))
       ],
