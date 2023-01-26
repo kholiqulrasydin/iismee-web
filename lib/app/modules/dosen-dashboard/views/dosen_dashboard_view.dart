@@ -179,8 +179,8 @@ class DosenDashboardView extends GetView<DosenDashboardController> {
                     children: [
                       MahasiswaPieChart(),
                       Positioned(
-                        top: 5,
-                        left: 15,
+                        top: 15,
+                        left: 20,
                         child: Text('Presentase Mahasiswa Upload Laporan : ', style: TextStyle(fontWeight: FontWeight.w600),),)
                     ],
                   ),

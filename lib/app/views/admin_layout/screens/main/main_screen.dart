@@ -119,8 +119,8 @@ class MainScreen extends StatelessWidget {
                       );
                       // add more bindings in here
                     }),
-                    initialRoute: context.read<MenuController>().role > 1 ? AppPages.routes[context.read<MenuController>().selectedDrawerItem + 1].name : AppPages.routes.where((element) => element.title!.split('_')[0] == 'dosen').toList()[context.read<MenuController>().selectedDrawerItem].name,
-                    getPages: context.read<MenuController>().role > 1 ? AppPages.routes : AppPages.routes.where((element) => element.title!.split('_')[0] == 'dosen').toList()
+                    initialRoute: context.read<MenuController>().role > 1 ? AppPages.routes[context.read<MenuController>().selectedDrawerItem + 1].name : context.read<MenuController>().role == 0 ? AppPages.routes.where((element) => element.title!.split('_')[0] != 'dosen').toList()[context.read<MenuController>().selectedDrawerItem].name : AppPages.routes.where((element) => element.title!.split('_')[0] == 'dosen').toList()[context.read<MenuController>().selectedDrawerItem].name,
+                    getPages: context.read<MenuController>().role > 1 ? AppPages.routes : context.read<MenuController>().role == 0 ? AppPages.routes.where((element) => element.title!.split('_')[0] != 'dosen').toList() : AppPages.routes.where((element) => element.title!.split('_')[0] == 'dosen').toList()
                   ),
                 ),
                 // child: SingleChildScrollView(

@@ -14,10 +14,10 @@ class DashboardView extends GetView<DashboardController> {
     sizeControl.createSize(context);
     return MainAdminLayout(
       body: Center(
-        child: Text(
-          'DashboardView is working \n\n - Notification Panel \n - Presention Calendar \n - Last Proposal / Laporan Comments \n - Presention Score \n - Proposal / Laporan Score \n - Magang Profile',
-          style: TextStyle(fontSize: 20),
-        ),
+        // child: Text(
+        //   'DashboardView is working \n\n - Notification Panel \n - Presention Calendar \n - Last Proposal / Laporan Comments \n - Presention Score \n - Proposal / Laporan Score \n - Magang Profile',
+        //   style: TextStyle(fontSize: 20),
+        // ),
       ), 
       sizeControl: sizeControl,
     );
