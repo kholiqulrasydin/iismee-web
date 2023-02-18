@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:iismee/app/views/admin_layout/controllers/MenuController.dart';
+import 'package:iismee/app/views/admin_layout/controllers/MenuController.dart'
+    as navMenu;
 import 'package:iismee/app/views/admin_layout/responsive.dart';
 import 'package:provider/provider.dart';
 
@@ -18,7 +19,7 @@ class Header extends StatelessWidget {
         if (!Responsive.isDesktop(context))
           IconButton(
             icon: Icon(Icons.menu),
-            onPressed: context.read<MenuController>().controlMenu,
+            onPressed: context.read<navMenu.MenuController>().controlMenu,
           ),
         if (!Responsive.isMobile(context))
           Text(

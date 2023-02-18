@@ -7,12 +7,14 @@ import 'package:iismee/app/data/constants/theme.dart';
 import 'package:iismee/app/modules/Login/controllers/login_controller.dart';
 import 'package:iismee/app/modules/Login/views/login_view.dart';
 import 'package:iismee/app/modules/laporan/controllers/laporan_controller.dart';
+import 'package:iismee/app/modules/log-book/controllers/log_book_controller.dart';
 import 'package:iismee/app/modules/participant-score/controllers/participant_score_controller.dart';
 import 'package:iismee/app/modules/presensi/controllers/presensi_controller.dart';
 import 'package:iismee/app/modules/presensi/views/presensi_view.dart';
 import 'package:iismee/app/routes/app_pages.dart';
 import 'package:iismee/app/views/admin_layout/constants.dart';
-import 'package:iismee/app/views/admin_layout/controllers/MenuController.dart';
+import 'package:iismee/app/views/admin_layout/controllers/MenuController.dart'
+    as navMenu;
 import 'package:iismee/app/views/admin_layout/responsive.dart';
 import 'package:iismee/app/views/admin_layout/screens/main/components/drawer_menu.dart';
 import 'package:provider/provider.dart';
@@ -22,137 +24,186 @@ class MainScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.blue,
-      key: context.read<MenuController>().scaffoldKey,
+      key: context.read<navMenu.MenuController>().scaffoldKey,
       drawer: Drawer(backgroundColor: Colors.blue, child: SideMenu()),
       body: Container(
         color: Colors.white,
         width: MediaQuery.of(context).size.width * 1,
         height: MediaQuery.of(context).size.height * 1,
-        child: context.read<MenuController>().role == 99 ? 
-        GetMaterialApp(
-                    color: Colors.white,
-                    theme: lightTheme,
-                    darkTheme: darkTheme,
-                    themeMode: ThemeMode.system,
-                    initialBinding: BindingsBuilder(() {
-                      // Get.put(SizeController());
-                      Get.lazyPut<SizeController>(
-                        () => SizeController(),
-                      );
-                      // add more bindings in here
-                    }),
-                    initialRoute: AppPages.routes.first.name,
-                    getPages: AppPages.routes,
-                  ) : Stack(
-          children: [
-            // We want this side menu only for large screen
-            if (Responsive.isDesktop(context))
-              Positioned(
-                  top: 0,
-                  child: Container(
-                    width: MediaQuery.of(context).size.width * 1,
-                    height: MediaQuery.of(context).size.height * 0.1,
-                    color: Colors.blue,
-                  )),
-            Container(
-                width: MediaQuery.of(context).size.width * 0.18,
-                height: MediaQuery.of(context).size.height * 1,
-                decoration: BoxDecoration(
-                    color: Colors.blue,
-                    borderRadius:
-                        BorderRadius.only(bottomRight: Radius.circular(15))),
-                alignment: Alignment.centerLeft,
-                child: SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.18,
-                    child: SideMenu())),
-            Positioned(
-                top: MediaQuery.of(context).size.height * 0.35,
-                left: 5,
-                child: ProfileCard()),
-            Positioned(
-              right: MediaQuery.of(context).size.width *
-                  (Responsive.isDesktop(context) ? 0 : 0),
-              top: MediaQuery.of(context).size.height *
-                  (Responsive.isDesktop(context) ? 0.02 : 0),
-              child: Container(
-                width: MediaQuery.of(context).size.width *
-                    (Responsive.isDesktop(context) ? 0.82 : 1),
-                height: MediaQuery.of(context).size.height *
-                    (Responsive.isDesktop(context) ? 0.98 : 1),
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius:
-                        BorderRadius.only(topLeft: Radius.circular(15))
-                    // borderRadius: BorderRadius.circular((Responsive.isDesktop(context) ? 15 : 0)),
-                    // boxShadow: [
-                    //   BoxShadow(
-                    //     color: Colors.grey.withOpacity(0.5),
-                    //     spreadRadius: 3,
-                    //     blurRadius: 5,
-                    //     offset: Offset(0, 3), // changes position of shadow
-                    //   ),
-                    // ],
+        child: context.read<navMenu.MenuController>().role == 99
+            ? GetMaterialApp(
+                color: Colors.white,
+                theme: lightTheme,
+                darkTheme: darkTheme,
+                themeMode: ThemeMode.system,
+                initialBinding: BindingsBuilder(() {
+                  // Get.put(SizeController());
+                  Get.lazyPut<SizeController>(
+                    () => SizeController(),
+                  );
+                  // add more bindings in here
+                }),
+                initialRoute: AppPages.routes.first.name,
+                getPages: AppPages.routes,
+              )
+            : Stack(
+                children: [
+                  // We want this side menu only for large screen
+                  if (Responsive.isDesktop(context))
+                    Positioned(
+                        top: 0,
+                        child: Container(
+                          width: MediaQuery.of(context).size.width * 1,
+                          height: MediaQuery.of(context).size.height * 0.1,
+                          color: Colors.blue,
+                        )),
+                  Container(
+                      width: MediaQuery.of(context).size.width * 0.18,
+                      height: MediaQuery.of(context).size.height * 1,
+                      decoration: BoxDecoration(
+                          color: Colors.blue,
+                          borderRadius: BorderRadius.only(
+                              bottomRight: Radius.circular(15))),
+                      alignment: Alignment.centerLeft,
+                      child: SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.18,
+                          child: SideMenu())),
+                  Positioned(
+                      top: MediaQuery.of(context).size.height * 0.35,
+                      left: 5,
+                      child: ProfileCard()),
+                  Positioned(
+                    right: MediaQuery.of(context).size.width *
+                        (Responsive.isDesktop(context) ? 0 : 0),
+                    top: MediaQuery.of(context).size.height *
+                        (Responsive.isDesktop(context) ? 0.02 : 0),
+                    child: Container(
+                      width: MediaQuery.of(context).size.width *
+                          (Responsive.isDesktop(context) ? 0.82 : 1),
+                      height: MediaQuery.of(context).size.height *
+                          (Responsive.isDesktop(context) ? 0.98 : 1),
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius:
+                              BorderRadius.only(topLeft: Radius.circular(15))
+                          // borderRadius: BorderRadius.circular((Responsive.isDesktop(context) ? 15 : 0)),
+                          // boxShadow: [
+                          //   BoxShadow(
+                          //     color: Colors.grey.withOpacity(0.5),
+                          //     spreadRadius: 3,
+                          //     blurRadius: 5,
+                          //     offset: Offset(0, 3), // changes position of shadow
+                          //   ),
+                          // ],
+                          ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(
+                            (Responsive.isDesktop(context) ? 15 : 0)),
+                        child: GetMaterialApp(
+                            color: Colors.white,
+                            theme: lightTheme,
+                            darkTheme: darkTheme,
+                            themeMode: ThemeMode.system,
+                            initialBinding: BindingsBuilder(() {
+                              if (context.read<navMenu.MenuController>().role >
+                                  1) {
+                                Get.lazyPut<PresensiController>(
+                                  () => PresensiController(),
+                                );
+
+                                Get.lazyPut<LaporanController>(
+                                  () => LaporanController(),
+                                );
+                              }
+
+                              if (context.read<navMenu.MenuController>().role <
+                                  2) {
+                                Get.lazyPut<LogBookController>(
+                                  () => LogBookController(),
+                                );
+                              }
+
+                              Get.lazyPut<SizeController>(
+                                () => SizeController(),
+                              );
+
+                              Get.lazyPut<ParticipantScoreController>(
+                                () => ParticipantScoreController(),
+                              );
+                              // add more bindings in here
+                            }),
+                            initialRoute:
+                                context.read<navMenu.MenuController>().role > 1
+                                    ? AppPages
+                                        .routes[context
+                                                .read<navMenu.MenuController>()
+                                                .selectedDrawerItem +
+                                            1]
+                                        .name
+                                    : context
+                                                .read<navMenu.MenuController>()
+                                                .role ==
+                                            0
+                                        ? AppPages.routes
+                                            .where((element) =>
+                                                element.title!.split('_')[0] !=
+                                                'dosen')
+                                            .toList()[context
+                                                .read<navMenu.MenuController>()
+                                                .selectedDrawerItem]
+                                            .name
+                                        : AppPages.routes
+                                            .where((element) =>
+                                                element.title!.split('_')[0] ==
+                                                'dosen')
+                                            .toList()[context
+                                                .read<navMenu.MenuController>()
+                                                .selectedDrawerItem]
+                                            .name,
+                            getPages: context.read<navMenu.MenuController>().role >
+                                    1
+                                ? AppPages.routes
+                                : context.read<navMenu.MenuController>().role ==
+                                        0
+                                    ? AppPages.routes
+                                        .where((element) =>
+                                            element.title!.split('_')[0] !=
+                                            'dosen')
+                                        .toList()
+                                    : AppPages.routes
+                                        .where((element) => element.title!.split('_')[0] == 'dosen')
+                                        .toList()),
+                      ),
+                      // child: SingleChildScrollView(
+                      //   scrollDirection: Axis.vertical,
+                      //   primary: false,
+                      //   padding: EdgeInsets.all(defaultPadding),
+                      //   child: Column(
+                      //     children: [
+                      //       // Header(),
+                      //       // SizedBox(height: defaultPadding),
+                      //       GetMaterialApp(
+                      //         theme: lightTheme,
+                      //         darkTheme: darkTheme,
+                      //         themeMode: ThemeMode.system,
+                      //         initialBinding: BindingsBuilder(() {
+
+                      //           Get.lazyPut<SizeController>(
+                      //                 () => SizeController(),
+                      //           );
+                      //           // add more bindings in here
+
+                      //         }),
+                      //         initialRoute: Routes.DASHBOARD,
+                      //         getPages: AppPages.routes,
+                      //       )
+                      //     ],
+                      //   ),
+                      // ),
                     ),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(
-                      (Responsive.isDesktop(context) ? 15 : 0)),
-                  child: GetMaterialApp(
-                    color: Colors.white,
-                    theme: lightTheme,
-                    darkTheme: darkTheme,
-                    themeMode: ThemeMode.system,
-                    initialBinding: BindingsBuilder(() {
-                      Get.lazyPut<SizeController>(
-                        () => SizeController(),
-                      );
-
-                      Get.lazyPut<PresensiController>(
-                        () => PresensiController(),
-                      );
-
-                      Get.lazyPut<LaporanController>(
-                        () => LaporanController(),
-                      );
-
-                      Get.lazyPut<ParticipantScoreController>(
-                        () => ParticipantScoreController(),
-                      );
-                      // add more bindings in here
-                    }),
-                    initialRoute: context.read<MenuController>().role > 1 ? AppPages.routes[context.read<MenuController>().selectedDrawerItem + 1].name : context.read<MenuController>().role == 0 ? AppPages.routes.where((element) => element.title!.split('_')[0] != 'dosen').toList()[context.read<MenuController>().selectedDrawerItem].name : AppPages.routes.where((element) => element.title!.split('_')[0] == 'dosen').toList()[context.read<MenuController>().selectedDrawerItem].name,
-                    getPages: context.read<MenuController>().role > 1 ? AppPages.routes : context.read<MenuController>().role == 0 ? AppPages.routes.where((element) => element.title!.split('_')[0] != 'dosen').toList() : AppPages.routes.where((element) => element.title!.split('_')[0] == 'dosen').toList()
                   ),
-                ),
-                // child: SingleChildScrollView(
-                //   scrollDirection: Axis.vertical,
-                //   primary: false,
-                //   padding: EdgeInsets.all(defaultPadding),
-                //   child: Column(
-                //     children: [
-                //       // Header(),
-                //       // SizedBox(height: defaultPadding),
-                //       GetMaterialApp(
-                //         theme: lightTheme,
-                //         darkTheme: darkTheme,
-                //         themeMode: ThemeMode.system,
-                //         initialBinding: BindingsBuilder(() {
-
-                //           Get.lazyPut<SizeController>(
-                //                 () => SizeController(),
-                //           );
-                //           // add more bindings in here
-
-                //         }),
-                //         initialRoute: Routes.DASHBOARD,
-                //         getPages: AppPages.routes,
-                //       )
-                //     ],
-                //   ),
-                // ),
+                ],
               ),
-            ),
-          ],
-        ),
       ),
     );
   }
@@ -187,27 +238,38 @@ class MainAdminLayout extends StatelessWidget {
           ? Padding(
               padding: const EdgeInsets.all(8.0),
               child: SingleChildScrollView(
-                  physics: const AlwaysScrollableScrollPhysics(
-                    parent: BouncingScrollPhysics()
-                  ),
+                physics: const AlwaysScrollableScrollPhysics(
+                    parent: BouncingScrollPhysics()),
                 scrollDirection: Axis.vertical,
                 child: Column(
                   children: [
                     body,
-                    SizedBox(height: 50,),
+                    SizedBox(
+                      height: 50,
+                    ),
                     Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Image.asset('assets/flutter-logo.png', height: 20,),
-                              SizedBox(width: 20,),
-                              Text("Made With Love - Vokasi UNESA "),
-                              SizedBox(width: 20,),
-                              Image.asset('assets/logo-unesa.png', height: 20,)
-                            ]
-                            ),
-                            
-                    SizedBox(height: 10,),
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Image.asset(
+                            'assets/flutter-logo.png',
+                            height: 20,
+                          ),
+                          SizedBox(
+                            width: 20,
+                          ),
+                          Text("Made With Love - Vokasi UNESA "),
+                          SizedBox(
+                            width: 20,
+                          ),
+                          Image.asset(
+                            'assets/logo-unesa.png',
+                            height: 20,
+                          )
+                        ]),
+                    SizedBox(
+                      height: 10,
+                    ),
                   ],
                 ),
               ),
@@ -218,32 +280,40 @@ class MainAdminLayout extends StatelessWidget {
                   height: sizeControl.height.value,
                   padding: const EdgeInsets.all(8.0),
                   child: SingleChildScrollView(
-                  physics: const AlwaysScrollableScrollPhysics(
-                    parent: BouncingScrollPhysics()
-                  ),
-                  scrollDirection: Axis.vertical,
+                    physics: const AlwaysScrollableScrollPhysics(
+                        parent: BouncingScrollPhysics()),
+                    scrollDirection: Axis.vertical,
                     child: Column(
                       children: [
                         SizedBox(
                           height: 40,
                         ),
                         Container(
-                          margin: EdgeInsets.only(top: 20, bottom: 20),
-                          child: body
-                        ),
+                            margin: EdgeInsets.only(top: 20, bottom: 20),
+                            child: body),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Image.asset('assets/flutter-logo.png', height: 20,),
-                              SizedBox(width: 20,),
-                            Text("Made With Love - Vokasi UNESA "),
-                              SizedBox(width: 20,),
-                            Image.asset('assets/logo-unesa.png', height: 20,)
-                          ]
-                          ),
-                        
-                    SizedBox(height: 10,),
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Image.asset(
+                                'assets/flutter-logo.png',
+                                height: 20,
+                              ),
+                              SizedBox(
+                                width: 20,
+                              ),
+                              Text("Made With Love - Vokasi UNESA "),
+                              SizedBox(
+                                width: 20,
+                              ),
+                              Image.asset(
+                                'assets/logo-unesa.png',
+                                height: 20,
+                              )
+                            ]),
+                        SizedBox(
+                          height: 10,
+                        ),
                       ],
                     ),
                   ),
@@ -307,7 +377,7 @@ class AppBarSearchWidget extends StatelessWidget {
         children: [
           IconButton(
               padding: const EdgeInsets.all(0),
-              onPressed: context.read<MenuController>().controlMenu,
+              onPressed: context.read<navMenu.MenuController>().controlMenu,
               icon: Icon(Icons.menu_rounded)),
           Padding(
             padding: const EdgeInsets.only(top: 2, bottom: 2),

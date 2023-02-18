@@ -1,9 +1,11 @@
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:get/get.dart';
 import 'package:iismee/app/controllers/size_controller.dart';
+import 'package:iismee/app/modules/participant-score/controllers/instrument.dart';
 import 'package:iismee/app/views/admin_layout/screens/main/main_screen.dart';
 
 import '../controllers/participant_score_controller.dart';
@@ -33,7 +35,7 @@ class ParticipantScoreView extends GetView<ParticipantScoreController> {
                     children: [
                       SearchWidget(sizeControl: sizeControl),
                       SizedBox(
-                        width: 250,
+                        width: 500,
                         height: 50,
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -72,227 +74,6 @@ class ParticipantScoreView extends GetView<ParticipantScoreController> {
         sizeControl: sizeControl,
       );
     }));
-  }
-}
-
-class ScoringTable extends StatefulWidget {
-  const ScoringTable({super.key});
-
-  @override
-  State<ScoringTable> createState() => _ScoringTableState();
-}
-
-class _ScoringTableState extends State<ScoringTable> {
-  @override
-  Widget build(BuildContext context) {
-    return DataTable2(
-        columnSpacing: 12,
-        horizontalMargin: 12,
-        minWidth: 600,
-        dataRowHeight: 250,
-        columns: [
-          DataColumn2(
-            label: Text('Aspek'),
-            fixedWidth: 150,
-            size: ColumnSize.L
-          ),
-          DataColumn2(
-            label: Text('Variabel'),
-            fixedWidth: 100,
-            size: ColumnSize.L
-          ),
-          DataColumn2(
-            label: Text('Skor'),
-            size: ColumnSize.L
-          ),
-          DataColumn2(
-            label: Text('Unggahan Berkas'),
-            fixedWidth: 125,
-            size: ColumnSize.L
-          ),
-          DataColumn2(
-            label: Text('Validasi Dosen'),
-            fixedWidth: 125,
-            size: ColumnSize.L
-          ),
-          DataColumn2(
-            label: Text('Skor Akhir'),
-            size: ColumnSize.L
-          ),
-        ],
-        rows: [
-          DataRow(cells: [
-            DataCell(
-              SizedBox(
-                height: 250,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(height: 5,),
-                    Text('1. Proposal'),
-                    Container(
-                      margin: EdgeInsets.only(top: 20, left: 15),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            margin: EdgeInsets.symmetric(vertical: 8),
-                            child: Text('Nama Kegiatan')
-                          ),
-                          Container(
-                            margin: EdgeInsets.symmetric(vertical: 8),
-                            child: Text('Latar Belakang')
-                          ),
-                          Container(
-                            margin: EdgeInsets.symmetric(vertical: 8),
-                            child: Text('Tujuan')
-                          ),
-                          Container(
-                            margin: EdgeInsets.symmetric(vertical: 8),
-                            child: Text('Tema')
-                          ),
-                        ],
-                      )
-                      )
-                  ],
-                ),
-              )
-            ),
-    
-            DataCell(
-              SizedBox(
-                height: 250,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(height: 5,),
-                    Text('10 Unsur'),
-                    Container(
-                      margin: EdgeInsets.only(top: 20),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            margin: EdgeInsets.symmetric(vertical: 8),
-                            child: Text('4 Unsur')
-                          ),
-                          Container(
-                            margin: EdgeInsets.symmetric(vertical: 8),
-                            child: Text('7 Unsur')
-                          ),
-                          Container(
-                            margin: EdgeInsets.symmetric(vertical: 8),
-                            child: Text('2 Unsur')
-                          ),
-                          Container(
-                            margin: EdgeInsets.symmetric(vertical: 8),
-                            child: Text('3 Unsur')
-                          ),
-                        ],
-                      )
-                      )
-                  ],
-                ),
-              )
-            ),
-    
-            DataCell(
-              SizedBox(
-                height: 250,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    SizedBox(height: 5,),
-                    Text('5'),
-                    Container(
-                      margin: EdgeInsets.only(top: 20),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Container(
-                            margin: EdgeInsets.symmetric(vertical: 8),
-                            child: Text('4')
-                          ),
-                          Container(
-                            margin: EdgeInsets.symmetric(vertical: 8),
-                            child: Text('3')
-                          ),
-                          Container(
-                            margin: EdgeInsets.symmetric(vertical: 8),
-                            child: Text('2')
-                          ),
-                          Container(
-                            margin: EdgeInsets.symmetric(vertical: 8),
-                            child: Text('1')
-                          ),
-                        ],
-                      )
-                      )
-                  ],
-                ),
-              )
-            ),
-    
-            DataCell(
-              SizedBox(
-                height: 250,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    SvgPicture.asset(
-                              'assets/icons/pdf_file.svg',
-                              height: 25,
-                            ),
-                    Text('Proposal.pdf'),
-                  ],
-                ),
-              )
-            ),
-    
-            DataCell(
-              SizedBox(
-                height: 250,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Checkbox(value: false, onChanged: (isTrue) {}),
-                    Container(
-                      margin: EdgeInsets.only(top: 10),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Checkbox(value: false, onChanged: (isTrue) {}),
-                          Checkbox(value: false, onChanged: (isTrue) {}),
-                          Checkbox(value: false, onChanged: (isTrue) {}),
-                          Checkbox(value: false, onChanged: (isTrue) {}),
-                        ],
-                      )
-                      )
-                  ],
-                ),
-              )
-            ),
-    
-            DataCell(
-              Container(
-                height: 250,
-                width: 150,
-                alignment: Alignment.center,
-                child: const Text('5')
-                )
-            ),
-          ])
-        ],
-        // rows: List<DataRow>.generate(
-        //     100,
-        //     (index) => DataRow(cells: [
-        //           DataCell(Text('A' * (10 - index % 10))),
-        //           DataCell(Text('B' * (10 - (index + 5) % 10))),
-        //           DataCell(Text('C' * (15 - (index + 5) % 10))),
-        //         ]))
-    );
   }
 }
 
@@ -632,6 +413,364 @@ class ParticipantDetail extends StatelessWidget {
                     TextSpan(text: detail),
                   ],
                 )))
+      ],
+    );
+  }
+}
+
+// class ScoringTable extends StatefulWidget {
+//   const ScoringTable({super.key});
+
+//   @override
+//   State<ScoringTable> createState() => _ScoringTableState();
+// }
+
+// class _ScoringTableState extends State<ScoringTable> {
+//   @override
+//   Widget build(BuildContext context) {
+//     return DataTable2(
+//       columnSpacing: 12,
+//       horizontalMargin: 12,
+//       minWidth: 600,
+//       dataRowHeight: 250,
+//       columns: [
+//         DataColumn2(label: Text('Aspek'), fixedWidth: 150, size: ColumnSize.L),
+//         DataColumn2(
+//             label: Text('Variabel'), fixedWidth: 100, size: ColumnSize.L),
+//         DataColumn2(label: Text('Skor'), size: ColumnSize.L),
+//         DataColumn2(
+//             label: Text('Unggahan Berkas'),
+//             fixedWidth: 125,
+//             size: ColumnSize.L),
+//         DataColumn2(
+//             label: Text('Validasi Dosen'), fixedWidth: 125, size: ColumnSize.L),
+//         DataColumn2(label: Text('Skor Akhir'), size: ColumnSize.L),
+//       ],
+//       rows: [
+//         DataRow(cells: [
+//           DataCell(SizedBox(
+//             height: 250,
+//             child: Column(
+//               crossAxisAlignment: CrossAxisAlignment.start,
+//               children: [
+//                 SizedBox(
+//                   height: 5,
+//                 ),
+//                 Text('1. Proposal'),
+//                 Container(
+//                     margin: EdgeInsets.only(top: 20, left: 15),
+//                     child: Column(
+//                       crossAxisAlignment: CrossAxisAlignment.start,
+//                       children: [
+//                         Container(
+//                             margin: EdgeInsets.symmetric(vertical: 8),
+//                             child: Text('Nama Kegiatan')),
+//                         Container(
+//                             margin: EdgeInsets.symmetric(vertical: 8),
+//                             child: Text('Latar Belakang')),
+//                         Container(
+//                             margin: EdgeInsets.symmetric(vertical: 8),
+//                             child: Text('Tujuan')),
+//                         Container(
+//                             margin: EdgeInsets.symmetric(vertical: 8),
+//                             child: Text('Tema')),
+//                       ],
+//                     ))
+//               ],
+//             ),
+//           )),
+//           DataCell(SizedBox(
+//             height: 250,
+//             child: Column(
+//               crossAxisAlignment: CrossAxisAlignment.start,
+//               children: [
+//                 SizedBox(
+//                   height: 5,
+//                 ),
+//                 Text('10 Unsur'),
+//                 Container(
+//                     margin: EdgeInsets.only(top: 20),
+//                     child: Column(
+//                       crossAxisAlignment: CrossAxisAlignment.start,
+//                       children: [
+//                         Container(
+//                             margin: EdgeInsets.symmetric(vertical: 8),
+//                             child: Text('4 Unsur')),
+//                         Container(
+//                             margin: EdgeInsets.symmetric(vertical: 8),
+//                             child: Text('7 Unsur')),
+//                         Container(
+//                             margin: EdgeInsets.symmetric(vertical: 8),
+//                             child: Text('2 Unsur')),
+//                         Container(
+//                             margin: EdgeInsets.symmetric(vertical: 8),
+//                             child: Text('3 Unsur')),
+//                       ],
+//                     ))
+//               ],
+//             ),
+//           )),
+//           DataCell(SizedBox(
+//             height: 250,
+//             child: Column(
+//               crossAxisAlignment: CrossAxisAlignment.center,
+//               children: [
+//                 SizedBox(
+//                   height: 5,
+//                 ),
+//                 Text('5'),
+//                 Container(
+//                     margin: EdgeInsets.only(top: 20),
+//                     child: Column(
+//                       crossAxisAlignment: CrossAxisAlignment.center,
+//                       children: [
+//                         Container(
+//                             margin: EdgeInsets.symmetric(vertical: 8),
+//                             child: Text('4')),
+//                         Container(
+//                             margin: EdgeInsets.symmetric(vertical: 8),
+//                             child: Text('3')),
+//                         Container(
+//                             margin: EdgeInsets.symmetric(vertical: 8),
+//                             child: Text('2')),
+//                         Container(
+//                             margin: EdgeInsets.symmetric(vertical: 8),
+//                             child: Text('1')),
+//                       ],
+//                     ))
+//               ],
+//             ),
+//           )),
+//           DataCell(SizedBox(
+//             height: 250,
+//             child: Column(
+//               mainAxisAlignment: MainAxisAlignment.center,
+//               crossAxisAlignment: CrossAxisAlignment.center,
+//               children: [
+//                 SvgPicture.asset(
+//                   'assets/icons/pdf_file.svg',
+//                   height: 25,
+//                 ),
+//                 Text('Proposal.pdf'),
+//               ],
+//             ),
+//           )),
+//           DataCell(SizedBox(
+//             height: 250,
+//             child: Column(
+//               crossAxisAlignment: CrossAxisAlignment.center,
+//               mainAxisAlignment: MainAxisAlignment.start,
+//               children: [
+//                 Checkbox(value: false, onChanged: (isTrue) {}),
+//                 Container(
+//                     margin: EdgeInsets.only(top: 10),
+//                     child: Column(
+//                       crossAxisAlignment: CrossAxisAlignment.center,
+//                       children: [
+//                         Checkbox(value: false, onChanged: (isTrue) {}),
+//                         Checkbox(value: false, onChanged: (isTrue) {}),
+//                         Checkbox(value: false, onChanged: (isTrue) {}),
+//                         Checkbox(value: false, onChanged: (isTrue) {}),
+//                       ],
+//                     ))
+//               ],
+//             ),
+//           )),
+//           DataCell(Container(
+//               height: 250,
+//               width: 150,
+//               alignment: Alignment.center,
+//               child: const Text('5'))),
+//         ])
+//       ],
+//       // rows: List<DataRow>.generate(
+//       //     100,
+//       //     (index) => DataRow(cells: [
+//       //           DataCell(Text('A' * (10 - index % 10))),
+//       //           DataCell(Text('B' * (10 - (index + 5) % 10))),
+//       //           DataCell(Text('C' * (15 - (index + 5) % 10))),
+//       //         ]))
+//     );
+//   }
+// }
+
+class PerencanaanProgramA extends StatefulWidget {
+  const PerencanaanProgramA({super.key});
+
+  @override
+  State<PerencanaanProgramA> createState() => _PerencanaanProgramAState();
+}
+
+class _PerencanaanProgramAState extends State<PerencanaanProgramA> {
+  List<Instrument> perencanaanProgramA = DummyInstrument.perencanaanProgramA;
+  int scoreTotal = 0;
+
+  giveScore(int index, int? value) {
+    if (value == null) {
+      print("Score is null");
+      setState(() {
+        perencanaanProgramA[index].finalScore = null;
+      });
+    } else {
+      setState(() {
+        perencanaanProgramA[index].finalScore = value;
+      });
+      getfinalScoreTotal();
+    }
+  }
+
+  getfinalScoreTotal() {
+    int total = 0;
+    perencanaanProgramA.forEach((element) {
+      if (element.finalScore != null) {
+        total += element.finalScore!;
+      }
+    });
+    total = (total / 33 * 100).toInt();
+    setState(() {
+      scoreTotal = total;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        DataTable2(
+          columnSpacing: 12,
+          horizontalMargin: 12,
+          minWidth: 600,
+          dataRowHeight: 250,
+          showBottomBorder: true,
+          columns: [
+            DataColumn2(label: Text('No'), fixedWidth: 50, size: ColumnSize.M),
+            DataColumn2(
+                label: Text('Aspek'), fixedWidth: 200, size: ColumnSize.L),
+            DataColumn2(
+                label: Text('Variabel Penilaian dan Skor'),
+                fixedWidth: 270,
+                size: ColumnSize.L),
+            // DataColumn2(label: Text('Skor'), fixedWidth: 50, size: ColumnSize.M),
+            DataColumn2(
+                label: Text('Skor Penilaian Variabel'),
+                fixedWidth: 200,
+                size: ColumnSize.S),
+          ],
+          rows: perencanaanProgramA
+              .map((e) => DataRow(cells: [
+                    DataCell(
+                        Text((perencanaanProgramA.indexOf(e) + 1).toString())),
+                    DataCell(Text(e.aspect)),
+                    DataCell(Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: e.variableDetail
+                          .map((element) => SizedBox(
+                                width: 270,
+                                child: Column(
+                                  children: [
+                                    Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        SizedBox(
+                                          width: 200,
+                                          child: Text(
+                                            element,
+                                            textAlign: TextAlign.left,
+                                          ),
+                                        ),
+                                        Text(e.score[
+                                            e.variableDetail.indexOf(element)])
+                                      ],
+                                    ),
+                                    Row(
+                                      children: const [
+                                        Expanded(
+                                          child: Divider(
+                                            color: Colors.black26,
+                                          ),
+                                        )
+                                      ],
+                                    )
+                                  ],
+                                ),
+                              ))
+                          .toList(),
+                    )),
+                    // DataCell(Column(
+                    //   crossAxisAlignment: CrossAxisAlignment.start,
+                    //   mainAxisAlignment: MainAxisAlignment.center,
+                    //   children: e.score
+                    //       .map((element) => SizedBox(
+                    //             height: 80,
+                    //             child: Column(
+                    //               children: [
+                    //                 Text(element),
+                    //                 Row(
+                    //                   children: const [
+                    //                     Expanded(
+                    //                       child: Divider(
+                    //                         color: Colors.black26,
+                    //                       ),
+                    //                     )
+                    //                   ],
+                    //                 )
+                    //               ],
+                    //             ),
+                    //           ))
+                    //       .toList(),
+                    // )),
+                    DataCell(Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 50),
+                      child: TextField(
+                        textAlign: TextAlign.center,
+                        keyboardType: TextInputType.number,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.allow(
+                              RegExp(r'^[1-3][0,3]*'))
+                        ],
+                        onChanged: (val) {
+                          print(val);
+                          if (val.isEmpty) {
+                            print("value is empty");
+                            giveScore(perencanaanProgramA.indexOf(e), null);
+                          } else {
+                            giveScore(
+                                perencanaanProgramA.indexOf(e), int.parse(val));
+                          }
+                        },
+                      ),
+                    ))
+                  ]))
+              .toList(),
+        ),
+        Positioned(
+          bottom: 0,
+          right: 0,
+          child: Container(
+            color: Color.fromARGB(252, 242, 242, 255),
+            width: 220,
+            height: 40,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  children: [
+                    Text("Total Skor Penilaian Variabel : "),
+                    Text(scoreTotal.toString())
+                  ],
+                )
+              ],
+            ),
+          ),
+        ),
       ],
     );
   }

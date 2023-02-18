@@ -6,7 +6,8 @@ import 'package:iismee/app/modules/participant-score/views/participant_score_vie
 class ParticipantScoreController extends GetxController {
   //TODO: Implement ParticipantScoreController
   final sizeControl = Get.find<SizeController>();
-  RxList<String> mpk = ['MPK 1', 'MPK 2', 'MPK 3'].obs;
+  RxList<String> mpk =
+      ['Perencanaan Program', 'Pelaksanaan Program', 'Pelaporan Program'].obs;
 
   RxList<Map<String, dynamic>> participantList = [
     {'nama': 'Agus Subarjo', 'instansi': 'PT. Gudang Garam tbk'},
@@ -46,13 +47,13 @@ class ParticipantScoreController extends GetxController {
     update();
   }
 
-  void createSize(BuildContext context){
+  void createSize(BuildContext context) {
     sizeControl.createSize(context);
   }
 
-  void initPage(){
+  void initPage() {
     buildPageMenu();
-    selectedParticipant = null;
+    selectedParticipant = 1.obs;
     buildTable();
     buildParticipant();
     update();
@@ -69,7 +70,7 @@ class ParticipantScoreController extends GetxController {
     }).toList().obs;
   }
 
-  participantOnTap(int index){
+  participantOnTap(int index) {
     selectedParticipant = index.obs;
     buildParticipant();
     buildTable();
@@ -79,9 +80,11 @@ class ParticipantScoreController extends GetxController {
   void buildParticipant() {
     participantsList = List.generate(participantList.length, (index) {
       return Participant(
-          isSelected: selectedParticipant != null ? selectedParticipant!.value == index : false,
+          isSelected: selectedParticipant != null
+              ? selectedParticipant!.value == index
+              : false,
           isTableNull: selectedParticipant == null,
-          onTap: (){
+          onTap: () {
             participantOnTap(index);
           },
           name: participantList[index]['nama'],
@@ -98,13 +101,30 @@ class ParticipantScoreController extends GetxController {
   }
 
   void buildTable() {
-     table = selectedParticipant == null
+    table = selectedParticipant == null
         ? Text(
             'Harap pilih salah satu Mahasiswa terlebih dahulu\nuntuk melihat nilai Mata Kuliah ${mpk[selectedMpk.value]}',
             textAlign: TextAlign.center,
           ).obs
-        : ScoringTable().obs;
+        : getScoringTable().obs;
   }
 
+  Widget getScoringTable() {
+    late Widget result;
+    switch (selectedMpk.value) {
+      case 0:
+        result = PerencanaanProgramA();
+        break;
+      case 1:
+        result = PerencanaanProgramA();
+        break;
+      case 2:
+        result = PerencanaanProgramA();
+        break;
 
+      default:
+        result = Container();
+    }
+    return result;
+  }
 }
