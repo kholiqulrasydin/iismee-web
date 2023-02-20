@@ -17,178 +17,180 @@ class LogBookView extends GetView<LogBookController> {
     controller.createSize(context);
     sizeControl.createSize(context);
 
-    return GetBuilder<LogBookController>(
-      builder: (context) {
-        return MainAdminLayout(
+    return GetBuilder<LogBookController>(builder: (context) {
+      return MainAdminLayout(
           body: Padding(
-            padding: EdgeInsets.symmetric(horizontal: sizeControl.getWidthFromPrecentage(5), vertical: sizeControl.getHeightFromPrecentage(1)),
+            padding: EdgeInsets.symmetric(
+                horizontal: sizeControl.getWidthFromPrecentage(5),
+                vertical: sizeControl.getHeightFromPrecentage(1)),
             child: Column(
-            crossAxisAlignment: sizeControl.isLargeScreen.value
-                ? CrossAxisAlignment.start
-                : CrossAxisAlignment.center,
-            children: [
-              if (sizeControl.isLargeScreen.value)
-                SizedBox(height: sizeControl.getHeightFromPrecentage(2)),
-              Container(
-                margin:
-                    EdgeInsets.only(top: sizeControl.getHeightFromPrecentage(1)),
-                height: !sizeControl.isLargeScreen.value ? 150 : 50,
-                child: !sizeControl.isLargeScreen.value
-                    ? Container(
-                        margin: EdgeInsets.only(
-                            left: sizeControl.getWidthFromPrecentage(5),
-                            right: sizeControl.getWidthFromPrecentage(10)),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: sizeControl.isLargeScreen.value
+                  ? CrossAxisAlignment.start
+                  : CrossAxisAlignment.center,
+              children: [
+                if (sizeControl.isLargeScreen.value)
+                  SizedBox(height: sizeControl.getHeightFromPrecentage(2)),
+                Container(
+                  margin: EdgeInsets.only(
+                      top: sizeControl.getHeightFromPrecentage(1)),
+                  height: !sizeControl.isLargeScreen.value ? 150 : 50,
+                  child: !sizeControl.isLargeScreen.value
+                      ? Container(
+                          margin: EdgeInsets.only(
+                              left: sizeControl.getWidthFromPrecentage(5),
+                              right: sizeControl.getWidthFromPrecentage(5)),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Log Book',
+                                style: TextStyle(
+                                    fontSize: 35,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.blueGrey.shade700),
+                              ),
+                              Row(
+                                children: [
+                                  Text('Periode  '),
+                                  PeriodeDropDown(
+                                    values: [
+                                      '2019 / 2020',
+                                      '2020 / 2021',
+                                      '2021 / 2022',
+                                      '2022 / 2023'
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  Text('Status  '),
+                                  PeriodeDropDown(
+                                    values: [
+                                      'Masih Magang',
+                                      'Sudah Berakhir',
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        )
+                      : Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Text(
                               'Log Book',
                               style: TextStyle(
-                                  fontSize: 35,
+                                  fontSize: 28,
                                   fontWeight: FontWeight.w500,
                                   color: Colors.blueGrey.shade700),
                             ),
-                            Row(
-                              children: [
-                                Text('Periode  '),
-                                PeriodeDropDown(
-                                  values: [
-                                    '2019 / 2020',
-                                    '2020 / 2021',
-                                    '2021 / 2022',
-                                    '2022 / 2023'
-                                  ],
-                                ),
-                              ],
+                            SizedBox(
+                              width: sizeControl.getWidthFromPrecentage(
+                                  controller.selectedParticipant == null
+                                      ? 25
+                                      : 8),
                             ),
-                            Row(
-                              children: [
-                                Text('Status  '),
-                                PeriodeDropDown(
-                                  values: [
-                                    'Masih Magang',
-                                    'Sudah Berakhir',
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      )
-                    : Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Log Book',
-                            style: TextStyle(
-                                fontSize: 28,
-                                fontWeight: FontWeight.w500,
-                                color: Colors.blueGrey.shade700),
-                          ),
-                          SizedBox(
-                            width: sizeControl.getWidthFromPrecentage( controller.selectedParticipant == null ? 25 : 8),
-                          ),
-                            
-                          Container(
-                            width: sizeControl.getWidthFromPrecentage(24),
-                            margin: EdgeInsets.symmetric(
-                                horizontal: sizeControl.getWidthFromPrecentage(1)),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                Row(
-                                  children: [
-                                    Text('Periode  '),
-                                    PeriodeDropDown(
-                                      values: [
-                                        '2019 / 2020',
-                                        '2020 / 2021',
-                                        '2021 / 2022',
-                                        '2022 / 2023'
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    Text('Status  '),
-                                    PeriodeDropDown(
-                                      values: [
-                                        'Semua',
-                                        'Masih Magang',
-                                        'Sudah Berakhir',
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                          // SizedBox(width: sizeControl.getWidthFromPrecentage(18)),
-                          // Container(
-                          //     margin: const EdgeInsets.only(top: 25),
-                          //     width: sizeControl.getWidthFromPrecentage(20),
-                          //     child: SingleChildScrollView(
-                          //       scrollDirection: Axis.horizontal,
-                          //       child: Row(
-                          //         mainAxisAlignment: MainAxisAlignment.start,
-                          //         children: controller.pageMenus,
-                          //       ),
-                          //     )),
-                          if(controller.selectedParticipant != null)
-                            SearchWidget(sizeControl: sizeControl),
-                          Container(
-                            margin: EdgeInsets.only(
-                                left: sizeControl.getWidthFromPrecentage(1)),
-                            child: IconButton(
-                                onPressed: () {},
-                                icon: const Icon(
-                                  Icons.print_rounded,
-                                  color: Colors.blueGrey,
-                                  size: 20,
-                                )),
-                            // child: GestureDetector(
-                            //   onTap: () {},
-                            //   child: SvgPicture.asset(
-                            //     'assets/icons/menu_notification.svg',
-                            //     color: Colors.blueGrey,
-                            //     height: 20,
-                            //   ),
-                            // ),
-                          ),
-                          Container(
-                            margin: EdgeInsets.only(
-                                left: sizeControl.getWidthFromPrecentage(1)),
-                            child: IconButton(
-                              onPressed: () {},
-                              icon: const Icon(
-                                Icons.more_vert_rounded,
-                                color: Colors.blueGrey,
+
+                            Container(
+                              width: sizeControl.getWidthFromPrecentage(24),
+                              margin: EdgeInsets.symmetric(
+                                  horizontal:
+                                      sizeControl.getWidthFromPrecentage(1)),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Text('Periode  '),
+                                      PeriodeDropDown(
+                                        values: [
+                                          '2019 / 2020',
+                                          '2020 / 2021',
+                                          '2021 / 2022',
+                                          '2022 / 2023'
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text('Status  '),
+                                      PeriodeDropDown(
+                                        values: [
+                                          'Semua',
+                                          'Masih Magang',
+                                          'Sudah Berakhir',
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ],
                               ),
                             ),
-                          )
-                        ],
-                      ),
-              ),
-              const SizedBox(
-                height: 50,
-              ),
-              if(controller.selectedParticipant == null)
-                Center(
-                  child: SearchWidget(
-                      sizeControl: sizeControl,
-                      width: sizeControl.getWidthFromPrecentage(25)
-                    )
+                            // SizedBox(width: sizeControl.getWidthFromPrecentage(18)),
+                            // Container(
+                            //     margin: const EdgeInsets.only(top: 25),
+                            //     width: sizeControl.getWidthFromPrecentage(20),
+                            //     child: SingleChildScrollView(
+                            //       scrollDirection: Axis.horizontal,
+                            //       child: Row(
+                            //         mainAxisAlignment: MainAxisAlignment.start,
+                            //         children: controller.pageMenus,
+                            //       ),
+                            //     )),
+                            if (controller.selectedParticipant != null)
+                              SearchWidget(sizeControl: sizeControl),
+                            Container(
+                              margin: EdgeInsets.only(
+                                  left: sizeControl.getWidthFromPrecentage(1)),
+                              child: IconButton(
+                                  onPressed: () {},
+                                  icon: const Icon(
+                                    Icons.print_rounded,
+                                    color: Colors.blueGrey,
+                                    size: 20,
+                                  )),
+                              // child: GestureDetector(
+                              //   onTap: () {},
+                              //   child: SvgPicture.asset(
+                              //     'assets/icons/menu_notification.svg',
+                              //     color: Colors.blueGrey,
+                              //     height: 20,
+                              //   ),
+                              // ),
+                            ),
+                            Container(
+                              margin: EdgeInsets.only(
+                                  left: sizeControl.getWidthFromPrecentage(1)),
+                              child: IconButton(
+                                onPressed: () {},
+                                icon: const Icon(
+                                  Icons.more_vert_rounded,
+                                  color: Colors.blueGrey,
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
                 ),
-              
-              const SizedBox(
-                height: 30,
-              ),
-
-              if(controller.selectedParticipant != null)
-                Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                const SizedBox(
+                  height: 50,
+                ),
+                if (controller.selectedParticipant == null)
+                  Center(
+                      child: SearchWidget(
+                          sizeControl: sizeControl,
+                          width: sizeControl.getWidthFromPrecentage(25))),
+                const SizedBox(
+                  height: 30,
+                ),
+                if (controller.selectedParticipant != null)
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       SizedBox(
                         height: 600,
@@ -206,22 +208,21 @@ class LogBookView extends GetView<LogBookController> {
                         child: AnimatedContainer(
                           duration: const Duration(milliseconds: 500),
                           height: 600,
-                          alignment: Alignment.center,
+                          // alignment: Alignment.center,
                           child: controller.table!.value,
                         ),
                       )
                     ],
                   ),
-
-              if(controller.selectedParticipant == null)
-                controller.table == null ? Container() : SizedBox(height: 800, child: controller.table!.value)
-            ],
+                if (controller.selectedParticipant == null)
+                  controller.table == null
+                      ? Container()
+                      : SizedBox(height: 800, child: controller.table!.value)
+              ],
+            ),
           ),
-          ), 
-          sizeControl: sizeControl
-        );
-      }
-    );
+          sizeControl: sizeControl);
+    });
   }
 }
 
@@ -232,11 +233,11 @@ class Participants extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GridView.count(
-          crossAxisCount: 4,
-          children: List.generate(participants.length, (index) {
-            return participants[index];
-          }),
-        );
+      crossAxisCount: 4,
+      children: List.generate(participants.length, (index) {
+        return participants[index];
+      }),
+    );
   }
 }
 
@@ -252,139 +253,152 @@ class _LogBookTableState extends State<LogBookTable> {
   @override
   Widget build(BuildContext context) {
     return DataTable2(
-        columnSpacing: 12,
-        horizontalMargin: 12,
-        dataRowHeight: 150,
-        columns: [
-          DataColumn2(
-            label: Text('Deskripsi'),
-            fixedWidth: sizeControl.getWidthFromPrecentage(8),
-            size: ColumnSize.L
-          ),
-          DataColumn2(
-            label: Text('Masalah'),
-            fixedWidth: sizeControl.getWidthFromPrecentage(12),
-            size: ColumnSize.L
-          ),
-          DataColumn2(
-            label: Text('Solusi'),
+      columnSpacing: 12,
+      horizontalMargin: 12,
+      dataRowHeight: 150,
+      columns: [
+        DataColumn2(label: Text('No'), fixedWidth: 50, size: ColumnSize.M),
+        DataColumn2(
+            label: Text('Nama Kegiatan'), fixedWidth: 150, size: ColumnSize.M),
+        DataColumn2(
+            label: Text('Deskripsi Kegiatan'),
             size: ColumnSize.L,
-            fixedWidth: sizeControl.getWidthFromPrecentage(12)
+            fixedWidth: 150),
+        DataColumn2(
+            label: Text('Keterangan'), fixedWidth: 125, size: ColumnSize.L),
+        DataColumn2(
+            label: Text('Masukan Pembimbing'),
+            fixedWidth: 200,
+            size: ColumnSize.L),
+      ],
+      rows: [
+        DataRow(cells: [
+          DataCell(Text('1')),
+          DataCell(Text('Mengelola alat K3')),
+          DataCell(Text(
+              'Menyortir perlengkapan K3 dengan susunan yang lebih efektif')),
+          DataCell(Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text('Bersama Karyawan : '),
+                SizedBox(
+                  height: 5,
+                ),
+                SvgPicture.asset(
+                  'assets/icons/pdf_file.svg',
+                  height: 25,
+                ),
+                Text(
+                  'photo.jpg',
+                  style: TextStyle(
+                      fontWeight: FontWeight.w300, color: Colors.blue),
+                ),
+                SizedBox(
+                  height: 5,
+                ),
+                Text('Diunggah pada 24 Februari 2023')
+              ],
+            ),
+          )),
+          DataCell(
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 10),
+              child: TextField(
+                textAlign: TextAlign.center,
+                keyboardType: TextInputType.text,
+                onChanged: (val) {},
+              ),
+            ),
           ),
-          DataColumn2(
-            label: Text('Keterangan'),
-            fixedWidth: 125,
-            size: ColumnSize.L
+        ]),
+        DataRow(cells: [
+          DataCell(Text('1')),
+          DataCell(Text('Mengelola alat K3')),
+          DataCell(Text(
+              'Menyortir perlengkapan K3 dengan susunan yang lebih efektif')),
+          DataCell(Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text('Bersama Karyawan : '),
+                SizedBox(
+                  height: 5,
+                ),
+                SvgPicture.asset(
+                  'assets/icons/pdf_file.svg',
+                  height: 25,
+                ),
+                Text(
+                  'photo.jpg',
+                  style: TextStyle(
+                      fontWeight: FontWeight.w300, color: Colors.blue),
+                ),
+                SizedBox(
+                  height: 5,
+                ),
+                Text('Diunggah pada 24 Februari 2023')
+              ],
+            ),
+          )),
+          DataCell(
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 10),
+              child: TextField(
+                textAlign: TextAlign.center,
+                keyboardType: TextInputType.text,
+                onChanged: (val) {},
+              ),
+            ),
           ),
-        ],
-        rows: [
-          DataRow(cells: [
-            DataCell(
-              Text('Contoh Text')
-            ),
-    
-            DataCell(
-              Text('Contoh Text')
-            ),
-    
-            DataCell(
-              Text('Contoh Text')
-            ),
-    
-            DataCell(
-              Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text('Bersama Karyawan : '),
-                    SizedBox(height: 5,),
-                    SvgPicture.asset(
-                              'assets/icons/pdf_file.svg',
-                              height: 25,
-                            ),
-                    Text('photo.jpg', style: TextStyle(fontWeight: FontWeight.w300, color: Colors.blue),),
-                    SizedBox(height: 5,),
-                    Text('Diunggah pada 24 Februari 2023')
-                  ],
+        ]),
+        DataRow(cells: [
+          DataCell(Text('1')),
+          DataCell(Text('Mengelola alat K3')),
+          DataCell(Text(
+              'Menyortir perlengkapan K3 dengan susunan yang lebih efektif')),
+          DataCell(Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text('Bersama Karyawan : '),
+                SizedBox(
+                  height: 5,
                 ),
-              )
-            ),
-    
-          ]),
-          DataRow(cells: [
-            DataCell(
-              Text('Contoh Text')
-            ),
-    
-            DataCell(
-              Text('Contoh Text')
-            ),
-    
-            DataCell(
-              Text('Contoh Text')
-            ),
-    
-            DataCell(
-              Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    // Text('Bersama Karyawan : '),
-                    SizedBox(height: 5,),
-                    SvgPicture.asset(
-                              'assets/icons/pdf_file.svg',
-                              height: 25,
-                            ),
-                    Text('photo.jpg', style: TextStyle(fontWeight: FontWeight.w300, color: Colors.blue),),
-                    SizedBox(height: 5,),
-                    Text('Diunggah pada 24 Februari 2023')
-                  ],
+                SvgPicture.asset(
+                  'assets/icons/pdf_file.svg',
+                  height: 25,
                 ),
-              )
-            ),
-    
-          ]),
-          DataRow(cells: [
-            DataCell(
-              Text('Contoh Text')
-            ),
-    
-            DataCell(
-              Text('Contoh Text')
-            ),
-    
-            DataCell(
-              Text('Contoh Text')
-            ),
-    
-            DataCell(
-              Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text('Bersama Karyawan : '),
-                    SizedBox(height: 5,),
-                    SvgPicture.asset(
-                              'assets/icons/pdf_file.svg',
-                              height: 25,
-                            ),
-                    Text('photo.jpg', style: TextStyle(fontWeight: FontWeight.w300, color: Colors.blue),),
-                    SizedBox(height: 5,),
-                    Text('Diunggah pada 24 Februari 2023')
-                  ],
+                Text(
+                  'photo.jpg',
+                  style: TextStyle(
+                      fontWeight: FontWeight.w300, color: Colors.blue),
                 ),
-              )
+                SizedBox(
+                  height: 5,
+                ),
+                Text('Diunggah pada 24 Februari 2023')
+              ],
             ),
-    
-          ])
-        ],
+          )),
+          DataCell(
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 10),
+              child: TextField(
+                textAlign: TextAlign.center,
+                keyboardType: TextInputType.text,
+                onChanged: (val) {},
+              ),
+            ),
+          ),
+        ]),
+      ],
     );
   }
 }
-
 
 class Participant extends StatelessWidget {
   const Participant(
@@ -431,12 +445,14 @@ class Participant extends StatelessWidget {
             ),
           ],
         ),
-        child: isTableNull ?
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SizedBox(height: 20,),
-              ClipRRect(
+        child: isTableNull
+            ? Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    height: 20,
+                  ),
+                  ClipRRect(
                     borderRadius: BorderRadius.circular(12),
                     child: Image.asset(
                       'assets/profile.png',
@@ -446,115 +462,116 @@ class Participant extends StatelessWidget {
                     ),
                   ),
                   SizedBox(
-                                height: 15,
-                              ),
-              Text(
-                        name.capitalize!,
-                        overflow: TextOverflow.clip,
-                        style: TextStyle(
-                            color: Colors.blueGrey.shade700, fontSize: 14),
-                      ),
-                      SizedBox(
-                        height: 2,
-                      ),
-                      
-                      SizedBox(
-                          child: Column(
-                            children: [
-                              SizedBox(
-                                height: 2,
-                              ),
-                              Container(
-                                  // margin: EdgeInsets.only(left: sizeControl.getWidthFromPrecentage(1)),
-                                  width: sizeControl.getWidthFromPrecentage(10),
-                                  child: RichText(
-                                      overflow: TextOverflow.clip,
-                                      text: TextSpan(
-                                        style: TextStyle(
-                                          color: Colors.blueGrey.shade700,
-                                        ),
-                                        children: <TextSpan>[
-                                          TextSpan(
-                                              text: 'NIM : ',
-                                              style: const TextStyle(
-                                                  fontWeight: FontWeight.bold)),
-                                          TextSpan(text: '190051397046'),
-                                        ],
-                                      )))
-                            ],
-                          ),
+                    height: 15,
+                  ),
+                  Text(
+                    name.capitalize!,
+                    overflow: TextOverflow.clip,
+                    style: TextStyle(
+                        color: Colors.blueGrey.shade700, fontSize: 14),
+                  ),
+                  SizedBox(
+                    height: 2,
+                  ),
+                  SizedBox(
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          height: 2,
                         ),
-            ],
-          )
-         : Column(
-          children: [
-            SizedBox(
-              height: 5,
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: sizeControl.getWidthFromPrecentage(1)),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                crossAxisAlignment: isTableNull
-                    ? CrossAxisAlignment.start
-                    : CrossAxisAlignment.center,
-                children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(12),
-                    child: Image.asset(
-                      'assets/profile.png',
-                      height: sizeControl.getWidthFromPrecentage(6),
-                      width: sizeControl.getWidthFromPrecentage(5),
-                      fit: BoxFit.fill,
+                        Container(
+                            // margin: EdgeInsets.only(left: sizeControl.getWidthFromPrecentage(1)),
+                            width: sizeControl.getWidthFromPrecentage(10),
+                            child: RichText(
+                                overflow: TextOverflow.clip,
+                                text: TextSpan(
+                                  style: TextStyle(
+                                    color: Colors.blueGrey.shade700,
+                                  ),
+                                  children: <TextSpan>[
+                                    TextSpan(
+                                        text: 'NIM : ',
+                                        style: const TextStyle(
+                                            fontWeight: FontWeight.bold)),
+                                    TextSpan(text: '190051397046'),
+                                  ],
+                                )))
+                      ],
                     ),
                   ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        name.capitalize!,
-                        overflow: TextOverflow.clip,
-                        style: TextStyle(
-                            color: Colors.blueGrey.shade700, fontSize: 14),
-                      ),
-                      SizedBox(
-                        height: 2,
-                      ),
-                      
-                      SizedBox(
-                          child: Column(
-                            children: [
-                              SizedBox(
-                                height: 2,
-                              ),
-                              Container(
-                                  // margin: EdgeInsets.only(left: sizeControl.getWidthFromPrecentage(1)),
-                                  width: sizeControl.getWidthFromPrecentage(10),
-                                  child: RichText(
-                                      overflow: TextOverflow.clip,
-                                      text: TextSpan(
-                                        style: TextStyle(
-                                          color: Colors.blueGrey.shade700,
-                                        ),
-                                        children: <TextSpan>[
-                                          TextSpan(
-                                              text: 'NIM : ',
-                                              style: const TextStyle(
-                                                  fontWeight: FontWeight.bold)),
-                                          TextSpan(text: '190051397046'),
-                                        ],
-                                      )))
-                            ],
+                ],
+              )
+            : Column(
+                children: [
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: sizeControl.getWidthFromPrecentage(1)),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      crossAxisAlignment: isTableNull
+                          ? CrossAxisAlignment.start
+                          : CrossAxisAlignment.center,
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(12),
+                          child: Image.asset(
+                            'assets/profile.png',
+                            height: sizeControl.getWidthFromPrecentage(6),
+                            width: sizeControl.getWidthFromPrecentage(5),
+                            fit: BoxFit.fill,
                           ),
                         ),
-                    ],
-                  )
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              name.capitalize!,
+                              overflow: TextOverflow.clip,
+                              style: TextStyle(
+                                  color: Colors.blueGrey.shade700,
+                                  fontSize: 14),
+                            ),
+                            SizedBox(
+                              height: 2,
+                            ),
+                            SizedBox(
+                              child: Column(
+                                children: [
+                                  SizedBox(
+                                    height: 2,
+                                  ),
+                                  Container(
+                                      // margin: EdgeInsets.only(left: sizeControl.getWidthFromPrecentage(1)),
+                                      width: sizeControl
+                                          .getWidthFromPrecentage(10),
+                                      child: RichText(
+                                          overflow: TextOverflow.clip,
+                                          text: TextSpan(
+                                            style: TextStyle(
+                                              color: Colors.blueGrey.shade700,
+                                            ),
+                                            children: <TextSpan>[
+                                              TextSpan(
+                                                  text: 'NIM : ',
+                                                  style: const TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold)),
+                                              TextSpan(text: '190051397046'),
+                                            ],
+                                          )))
+                                ],
+                              ),
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
                 ],
               ),
-            ),
-          ],
-        ),
       ),
     );
   }
@@ -605,11 +622,8 @@ class ParticipantDetail extends StatelessWidget {
 }
 
 class SearchWidget extends StatelessWidget {
-  const SearchWidget({
-    Key? key,
-    required this.sizeControl,
-    this.width
-  }) : super(key: key);
+  const SearchWidget({Key? key, required this.sizeControl, this.width})
+      : super(key: key);
 
   final SizeController sizeControl;
   final double? width;
@@ -641,7 +655,9 @@ class SearchWidget extends StatelessWidget {
         children: [
           SizedBox(
             height: 45,
-            width: width == null ? sizeControl.getWidthFromPrecentage(14) : width! - sizeControl.getWidthFromPrecentage(4),
+            width: width == null
+                ? sizeControl.getWidthFromPrecentage(14)
+                : width! - sizeControl.getWidthFromPrecentage(4),
             child: TextField(
               decoration: InputDecoration(
                 hintText: 'Cari',
