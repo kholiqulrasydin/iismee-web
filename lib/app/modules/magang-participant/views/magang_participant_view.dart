@@ -75,7 +75,7 @@ class MagangParticipantView extends GetView<MagangParticipantController> {
                             Text('Status  '),
                             PeriodeDropDown(
                               values: [
-                                'Masih Magang',
+                                'Aktif Magang',
                                 'Sudah Berakhir',
                               ],
                             ),
@@ -125,7 +125,7 @@ class MagangParticipantView extends GetView<MagangParticipantController> {
                                 PeriodeDropDown(
                                   values: [
                                     'Semua',
-                                    'Masih Magang',
+                                    'Aktif Magang',
                                     'Sudah Berakhir',
                                   ],
                                 ),
@@ -186,7 +186,7 @@ class MagangParticipantView extends GetView<MagangParticipantController> {
 
           Container(
               margin: EdgeInsets.symmetric(
-                  horizontal: sizeControl.getWidthFromPrecentage(8)),
+                  horizontal: sizeControl.getWidthFromPrecentage(4)),
               child: Column(
                 children: [
                   Row(
@@ -264,25 +264,14 @@ class Participant extends StatelessWidget {
                           style: TextStyle(color: Colors.blueGrey.shade700),
                         ),
                         Text(
-                          'Masih Magang',
+                          'Aktif Magang',
                           style: TextStyle(color: Colors.teal.shade700),
                         )
                       ],
                     )
                   ],
                 ),
-                GesturedDropDown(
-                  values: [
-                    ItemMenu(title: 'Log Book & Presensi', onTap: () {print('Go to Logbook');}),
-                    ItemMenu(title: 'Lihat Laporan', onTap: () {print('Go to Laporan');}),
-                    ItemMenu(title: 'Lihat Nilai Akhir', onTap: () {print('Go to Nilai Akhir');})
-                  ],
-                  isHasValue: false,
-                  icon: Icon(
-                    Icons.more_vert_rounded,
-                    color: Colors.blueGrey.shade700,
-                  ),
-                )
+                const ButtonDropdown()
               ],
             ),
           ),
@@ -304,296 +293,143 @@ class Participant extends StatelessWidget {
           Padding(
             padding: EdgeInsets.symmetric(
                 horizontal: sizeControl.getWidthFromPrecentage(1)),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              crossAxisAlignment: CrossAxisAlignment.start,
+            child: Column(
               children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(12),
-                  child: Image.asset(
-                    'assets/profile.png',
-                    height: sizeControl.getWidthFromPrecentage(7.5),
-                    width: sizeControl.getWidthFromPrecentage(5),
-                    fit: BoxFit.fill,
-                  ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(12),
+                      child: Image.asset(
+                        'assets/profile.png',
+                        height: 75,
+                        width: 50,
+                        fit: BoxFit.fill,
+                      ),
+                    ),
+                    SizedBox(
+                      width: sizeControl.getWidthFromPrecentage(20),
+                      child: Column(
+                        children: [
+                          Text(
+                            'nandya aura febyanissa yudiasmara'.capitalize!,
+                            overflow: TextOverflow.clip,
+                            style: TextStyle(
+                                color: Colors.blueGrey.shade700, fontSize: 20),
+                          ),
+                          SizedBox(
+                            height: 2,
+                          ),
+                          Row(
+                            children: [
+                              Icon(Icons.view_quilt_rounded),
+                              Text('D4 Manajemen Informatika')
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Expanded(
+                                  child: Divider(
+                                color: Colors.blueGrey.shade400,
+                                thickness: 0.2,
+                              ))
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
                 SizedBox(
-                  width: sizeControl.getWidthFromPrecentage(20),
-                  child: Column(
-                    children: [
-                      Text(
-                        'nandya aura febyanissa yudiasmara'.capitalize!,
-                        overflow: TextOverflow.clip,
-                        style: TextStyle(
-                            color: Colors.blueGrey.shade700, fontSize: 20),
-                      ),
-                      SizedBox(
-                        height: 2,
-                      ),
-                      Row(
-                        children: [
-                          Icon(Icons.view_quilt_rounded),
-                          Text('D4 Manajemen Informatika')
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Expanded(
-                              child: Divider(
-                            color: Colors.blueGrey.shade400,
-                            thickness: 0.2,
-                          ))
-                        ],
-                      ),
-                      SizedBox(
-                        height: 2,
-                      ),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                            width: 4,
-                          ),
-                          Icon(
-                            Icons.arrow_right_rounded,
-                            color: Colors.blueGrey.shade900,
-                          ),
-                          SizedBox(
-                              width: sizeControl.getWidthFromPrecentage(15),
-                              child: RichText(
-                                  overflow: TextOverflow.clip,
-                                  text: TextSpan(
-                                    style: TextStyle(
-                                      color: Colors.blueGrey.shade700,
-                                    ),
-                                    children: <TextSpan>[
-                                      TextSpan(
-                                          text: 'Nama Instansi : ',
-                                          style: const TextStyle(
-                                              fontWeight: FontWeight.bold)),
-                                      TextSpan(
-                                          text:
-                                              'PT. Pelayaran Nasional Indonesia'),
-                                    ],
-                                  )))
-                        ],
-                      ),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                            width: 4,
-                          ),
-                          Icon(
-                            Icons.arrow_right_rounded,
-                            color: Colors.blueGrey.shade900,
-                          ),
-                          SizedBox(
-                              width: sizeControl.getWidthFromPrecentage(15),
-                              child: RichText(
-                                  overflow: TextOverflow.clip,
-                                  text: TextSpan(
-                                    style: TextStyle(
-                                      color: Colors.blueGrey.shade700,
-                                    ),
-                                    children: <TextSpan>[
-                                      TextSpan(
-                                          text: 'Bidang Instansi : ',
-                                          style: const TextStyle(
-                                              fontWeight: FontWeight.bold)),
-                                      TextSpan(
-                                          text:
-                                              'Teknologi'),
-                                    ],
-                                  )))
-                        ],
-                      ),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                            width: 4,
-                          ),
-                          Icon(
-                            Icons.arrow_right_rounded,
-                            color: Colors.blueGrey.shade900,
-                          ),
-                          SizedBox(
-                              width: sizeControl.getWidthFromPrecentage(15),
-                              child: RichText(
-                                  overflow: TextOverflow.clip,
-                                  text: TextSpan(
-                                    style: TextStyle(
-                                      color: Colors.blueGrey.shade700,
-                                    ),
-                                    children: <TextSpan>[
-                                      TextSpan(
-                                          text: 'Periode Magang : ',
-                                          style: const TextStyle(
-                                              fontWeight: FontWeight.bold)),
-                                      TextSpan(
-                                          text:
-                                              'Semester 2021 / 2022'),
-                                    ],
-                                  )))
-                        ],
-                      ),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                            width: 4,
-                          ),
-                          Icon(
-                            Icons.arrow_right_rounded,
-                            color: Colors.blueGrey.shade900,
-                          ),
-                          SizedBox(
-                              width: sizeControl.getWidthFromPrecentage(15),
-                              child: RichText(
-                                  overflow: TextOverflow.clip,
-                                  text: TextSpan(
-                                    style: TextStyle(
-                                      color: Colors.blueGrey.shade700,
-                                    ),
-                                    children: <TextSpan>[
-                                      TextSpan(
-                                          text: 'Program : ',
-                                          style: const TextStyle(
-                                              fontWeight: FontWeight.bold)),
-                                      TextSpan(
-                                          text:
-                                              'Mandiri Program Studi (20 SKS)'),
-                                    ],
-                                  )))
-                        ],
-                      ),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                            width: 4,
-                          ),
-                          Icon(
-                            Icons.arrow_right_rounded,
-                            color: Colors.blueGrey.shade900,
-                          ),
-                          SizedBox(
-                              width: sizeControl.getWidthFromPrecentage(15),
-                              child: RichText(
-                                  overflow: TextOverflow.clip,
-                                  text: TextSpan(
-                                    style: TextStyle(
-                                      color: Colors.blueGrey.shade700,
-                                    ),
-                                    children: <TextSpan>[
-                                      TextSpan(
-                                          text: 'Jenis Magang : ',
-                                          style: const TextStyle(
-                                              fontWeight: FontWeight.bold)),
-                                      TextSpan(
-                                          text:
-                                              'Praktik Industri'),
-                                    ],
-                                  )))
-                        ],
-                      ),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                            width: 4,
-                          ),
-                          Icon(
-                            Icons.arrow_right_rounded,
-                            color: Colors.blueGrey.shade900,
-                          ),
-                          SizedBox(
-                              width: sizeControl.getWidthFromPrecentage(15),
-                              child: RichText(
-                                  overflow: TextOverflow.clip,
-                                  text: TextSpan(
-                                    style: TextStyle(
-                                      color: Colors.blueGrey.shade700,
-                                    ),
-                                    children: <TextSpan>[
-                                      TextSpan(
-                                          text: 'Jenis Konversi : ',
-                                          style: const TextStyle(
-                                              fontWeight: FontWeight.bold)),
-                                      TextSpan(
-                                          text:
-                                              'Konversi Matakuliah Umum'),
-                                    ],
-                                  )))
-                        ],
-                      ),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                            width: 4,
-                          ),
-                          Icon(
-                            Icons.arrow_right_rounded,
-                            color: Colors.blueGrey.shade900,
-                          ),
-                          SizedBox(
-                              width: sizeControl.getWidthFromPrecentage(15),
-                              child: RichText(
-                                  overflow: TextOverflow.clip,
-                                  text: TextSpan(
-                                    style: TextStyle(
-                                      color: Colors.blueGrey.shade700,
-                                    ),
-                                    children: <TextSpan>[
-                                      TextSpan(
-                                          text: 'Posisi Magang : ',
-                                          style: const TextStyle(
-                                              fontWeight: FontWeight.bold)),
-                                      TextSpan(
-                                          text:
-                                              'Layanan Aplikasi'),
-                                    ],
-                                  )))
-                        ],
-                      ),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                            width: 4,
-                          ),
-                          Icon(
-                            Icons.arrow_right_rounded,
-                            color: Colors.blueGrey.shade900,
-                          ),
-                          SizedBox(
-                              width: sizeControl.getWidthFromPrecentage(15),
-                              child: RichText(
-                                  overflow: TextOverflow.clip,
-                                  text: TextSpan(
-                                    style: TextStyle(
-                                      color: Colors.blueGrey.shade700,
-                                    ),
-                                    children: <TextSpan>[
-                                      TextSpan(
-                                          text: 'Tanggal Pelaksanaan : ',
-                                          style: const TextStyle(
-                                              fontWeight: FontWeight.bold)),
-                                      TextSpan(
-                                          text:
-                                              '19-05-2022 Sampai 24-07-2022'),
-                                    ],
-                                  )))
-                        ],
-                      )
-                    ],
-                  ),
-                )
+                  height: 2,
+                ),
+                MagangParticipantProfileItem(
+                  sizeControl: sizeControl,
+                  label: 'Nama Instansi',
+                  detail: 'PT. Pelayaran Nasional Indonesia',
+                ),
+                MagangParticipantProfileItem(
+                  sizeControl: sizeControl,
+                  label: 'Bidang Instansi',
+                  detail: 'Teknologi',
+                ),
+                MagangParticipantProfileItem(
+                  sizeControl: sizeControl,
+                  label: 'Periode Magang',
+                  detail: 'Semester 2021 / 2022',
+                ),
+                MagangParticipantProfileItem(
+                  sizeControl: sizeControl,
+                  label: 'Program',
+                  detail: 'Mandiri Program Studi (20 SKS)',
+                ),
+                MagangParticipantProfileItem(
+                  sizeControl: sizeControl,
+                  label: 'Jenis Magang',
+                  detail: 'Praktik Industri',
+                ),
+                MagangParticipantProfileItem(
+                  sizeControl: sizeControl,
+                  label: 'Jenis Konversi',
+                  detail: 'Konversi Matakuliah',
+                ),
+                MagangParticipantProfileItem(
+                  sizeControl: sizeControl,
+                  label: 'Posisi Magang',
+                  detail: 'Layanan Aplikasi',
+                ),
+                MagangParticipantProfileItem(
+                  sizeControl: sizeControl,
+                  label: 'Tanggal Pelaksanaan',
+                  detail: '19-05-2022 Sampai 24-07-2022',
+                ),
               ],
             ),
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class MagangParticipantProfileItem extends StatelessWidget {
+  const MagangParticipantProfileItem({
+    super.key,
+    required this.sizeControl,
+    required this.label,
+    required this.detail,
+  });
+
+  final SizeController sizeControl;
+  final String label;
+  final String detail;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 4),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(
+            width: 4,
           ),
+          Icon(
+            Icons.arrow_right_rounded,
+            color: Colors.blueGrey.shade900,
+          ),
+          SizedBox(
+              width: sizeControl.getWidthFromPrecentage(15),
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('$label : ',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.blueGrey.shade700)),
+                    Text(detail),
+                  ]))
         ],
       ),
     );
