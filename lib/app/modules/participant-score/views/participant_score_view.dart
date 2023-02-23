@@ -22,7 +22,7 @@ class ParticipantScoreView extends GetView<ParticipantScoreController> {
       return MainAdminLayout(
         body: Padding(
           padding: EdgeInsets.symmetric(
-              horizontal: sizeControl.getWidthFromPrecentage(5)),
+              horizontal: sizeControl.getWidthFromPrecentage(2)),
           child: Column(
             children: [
               if (sizeControl.isLargeScreen.value)
@@ -30,12 +30,12 @@ class ParticipantScoreView extends GetView<ParticipantScoreController> {
                   margin: EdgeInsets.symmetric(
                       vertical: sizeControl.getHeightFromPrecentage(2)),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       SearchWidget(sizeControl: sizeControl),
                       SizedBox(
-                        width: 500,
+                        width: 600,
                         height: 50,
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -63,6 +63,7 @@ class ParticipantScoreView extends GetView<ParticipantScoreController> {
                       // width: sizeControl.getWidthFromPrecentage(controller.selectedParticipant != null ? 45 : 35),
                       height: 600,
                       alignment: Alignment.center,
+                      // child: controller.table.value,
                       child: controller.table.value,
                     ),
                   )
@@ -74,6 +75,206 @@ class ParticipantScoreView extends GetView<ParticipantScoreController> {
         sizeControl: sizeControl,
       );
     }));
+  }
+}
+
+class PerencanaanProgramTable extends StatelessWidget {
+  const PerencanaanProgramTable({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Column(
+        children: [
+          Container(
+            width: 800,
+            height: 50,
+            decoration: BoxDecoration(
+                color: Colors.transparent,
+                // borderRadius: BorderRadius.only(
+                //     topLeft: Radius.circular(15),
+                //     topRight: Radius.circular(15)),
+                border: Border(
+                    bottom: BorderSide(color: Colors.blueGrey),
+                    top: BorderSide(color: Colors.blueGrey))
+                // borderRadius: BorderRadius.circular(15),
+                // boxShadow: [
+                //   BoxShadow(
+                //     color: Colors.grey.withOpacity(0.5),
+                //     spreadRadius: 1,
+                //     blurRadius: 3,
+                //     offset: const Offset(
+                //         -1, 1), // changes position of shadow
+                //   ),
+                // ],
+                ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Container(
+                  width: 20,
+                  alignment: Alignment.centerLeft,
+                  child: Text("No"),
+                ),
+                Container(
+                  width: 250,
+                  alignment: Alignment.centerLeft,
+                  child: Text("Aspek"),
+                ),
+                Container(
+                  width: 200,
+                  alignment: Alignment.centerLeft,
+                  child: Text("Variabel"),
+                ),
+                Container(
+                  width: 50,
+                  alignment: Alignment.centerLeft,
+                  child: Text("Skor"),
+                ),
+                Container(
+                  width: 100,
+                  alignment: Alignment.centerLeft,
+                  child: Text("Nilai Akhir"),
+                )
+              ],
+            ),
+          ),
+          Expanded(
+            child: SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              child: Column(
+                children: DummyInstrument.perencanaanProgramA.map((e) {
+                  return TableItem(
+                      no: (DummyInstrument.perencanaanProgramA.indexOf(e) + 1)
+                          .toString(),
+                      aspek: e.aspect,
+                      detailVariable: e.variableDetail,
+                      skor: e.score);
+                }).toList(),
+              ),
+            ),
+          ),
+          Container(
+            width: 800,
+            height: 50,
+            margin: EdgeInsets.only(top: 20),
+            decoration: BoxDecoration(
+                color: Colors.transparent,
+                border: Border(
+                    bottom: BorderSide(color: Colors.blueGrey),
+                    top: BorderSide(color: Colors.blueGrey))),
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class TableItem extends StatefulWidget {
+  TableItem(
+      {super.key,
+      required this.no,
+      required this.aspek,
+      required this.detailVariable,
+      required this.skor,
+      this.onChangedNilai,
+      this.isEmptyAction});
+
+  final String no;
+  final String aspek;
+  final List<String> detailVariable;
+  final List<String> skor;
+  final Function(String onChanged)? onChangedNilai;
+  final Function()? isEmptyAction;
+
+  @override
+  State<TableItem> createState() => _TableItemState();
+}
+
+class _TableItemState extends State<TableItem> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      // margin: EdgeInsets.only(left: 10),
+      width: 800,
+      padding: EdgeInsets.symmetric(vertical: 20),
+      decoration: BoxDecoration(
+          border: Border(bottom: BorderSide(color: Colors.blueGrey.shade300))),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Container(
+            width: 20,
+            alignment: Alignment.center,
+            child: Text(widget.no),
+          ),
+          Container(
+            width: 250,
+            alignment: Alignment.centerLeft,
+            child: Text(widget.aspek),
+          ),
+          SizedBox(
+            width: 380,
+            child: Column(
+              children: widget.detailVariable.map((e) {
+                return Container(
+                  padding: EdgeInsets.symmetric(vertical: 5),
+                  // decoration: BoxDecoration(
+                  //     border: Border(
+                  //         bottom: BorderSide(
+                  //             color: Colors
+                  //                 .blueGrey))),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Container(
+                        width: 200,
+                        alignment: Alignment.centerLeft,
+                        child: Text(e),
+                      ),
+                      Container(
+                        width: 50,
+                        alignment: Alignment.centerLeft,
+                        child:
+                            Text(widget.skor[widget.detailVariable.indexOf(e)]),
+                      ),
+                    ],
+                  ),
+                );
+              }).toList(),
+            ),
+          ),
+          Container(
+            width: 100,
+            alignment: Alignment.centerLeft,
+            child: TextField(
+              textAlign: TextAlign.center,
+              keyboardType: TextInputType.number,
+              inputFormatters: [
+                FilteringTextInputFormatter.allow(RegExp(r'^[1-3][0,3]*'))
+              ],
+              onChanged: (val) {
+                print(val);
+                if (val.isEmpty) {
+                  print("value is empty");
+                  if (widget.isEmptyAction != null) {
+                    widget.isEmptyAction!();
+                  }
+                } else {
+                  if (widget.onChangedNilai != null) {
+                    widget.onChangedNilai!(val);
+                  }
+                }
+              },
+            ),
+          )
+        ],
+      ),
+    );
   }
 }
 

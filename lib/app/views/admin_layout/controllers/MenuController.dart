@@ -4,7 +4,7 @@ class MenuController extends ChangeNotifier {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   GlobalKey<ScaffoldState> get scaffoldKey => _scaffoldKey;
-  int selectedDrawerItem = 0;
+  int selectedDrawerItem = 3;
   int role = 1;
 
   void controlMenu() {

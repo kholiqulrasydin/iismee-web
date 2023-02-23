@@ -62,7 +62,7 @@ class ParticipantScoreController extends GetxController {
   void buildPageMenu() {
     menuPages = List.generate(mpk.length, (index) {
       return PageMenu(
-          title: mpk[index],
+          title: 'MPK ' + mpk[index],
           isSelected: selectedMpk.value == index,
           onTap: () {
             selectMpk(index);
@@ -113,7 +113,7 @@ class ParticipantScoreController extends GetxController {
     late Widget result;
     switch (selectedMpk.value) {
       case 0:
-        result = PerencanaanProgramA();
+        result = PerencanaanProgramTable();
         break;
       case 1:
         result = PerencanaanProgramA();
