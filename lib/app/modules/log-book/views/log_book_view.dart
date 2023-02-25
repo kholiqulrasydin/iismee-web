@@ -67,7 +67,7 @@ class LogBookView extends GetView<LogBookController> {
                                   Text('Status  '),
                                   PeriodeDropDown(
                                     values: [
-                                      'Masih Magang',
+                                      'Aktif Magang',
                                       'Sudah Berakhir',
                                     ],
                                   ),

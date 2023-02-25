@@ -14,6 +14,8 @@ import '../modules/magang-participant/bindings/magang_participant_binding.dart';
 import '../modules/magang-participant/views/magang_participant_view.dart';
 import '../modules/participant-score/bindings/participant_score_binding.dart';
 import '../modules/participant-score/views/participant_score_view.dart';
+import '../modules/presensi-mahasiswa/bindings/presensi_mahasiswa_binding.dart';
+import '../modules/presensi-mahasiswa/views/presensi_mahasiswa_view.dart';
 import '../modules/presensi/bindings/presensi_binding.dart';
 import '../modules/presensi/views/presensi_view.dart';
 
@@ -72,6 +74,12 @@ class AppPages {
       title: 'dosen_participant_score',
       page: () => ParticipantScoreView(),
       binding: ParticipantScoreBinding(),
+    ),
+    GetPage(
+      name: _Paths.PRESENSI_MAHASISWA,
+      title: 'dosen_presensi_mahasiswa',
+      page: () => PresensiMahasiswaView(),
+      binding: PresensiMahasiswaBinding(),
     ),
   ];
 }

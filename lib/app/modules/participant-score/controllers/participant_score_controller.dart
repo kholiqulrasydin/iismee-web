@@ -116,10 +116,10 @@ class ParticipantScoreController extends GetxController {
         result = PerencanaanProgramTable();
         break;
       case 1:
-        result = PerencanaanProgramA();
+        result = PelaksanaanProgram();
         break;
       case 2:
-        result = PerencanaanProgramA();
+        result = PelaporanProgram();
         break;
 
       default:

@@ -216,11 +216,11 @@ class DummyInstrument {
         aspect: "Ketepatan waktu datang dan pulang dengan presensi ",
         variableDetail: [],
         score: [
-          "1.	Tidak tepat waktu"
-              "2.	Kurang tepat waktu"
-              "3.	Cukup tepat waktiu"
-              "4.	Tepat waktu"
-              "5.	Sangat tepat waktu"
+          "1.	Tidak tepat waktu",
+          "2.	Kurang tepat waktu",
+          "3.	Cukup tepat waktiu",
+          "4.	Tepat waktu",
+          "5.	Sangat tepat waktu"
         ]),
     Instrument(
         aspect: "Keaktifan mahasiswa dalam melaksanakan magang",
@@ -255,7 +255,7 @@ class DummyInstrument {
           "5.	Sangat tinggi"
         ]),
     Instrument(
-        aspect: "Kesesuaian mata kuliah dengang pekerjaaan",
+        aspect: "Kesesuaian mata kuliah dengan pekerjaaan",
         variableDetail: [
           "Mahasiswa menuliskan matakuliah yang digunakan untuk mendukung pekerajaan hari ini"
         ],
@@ -270,22 +270,22 @@ class DummyInstrument {
         aspect: "Motivasi mahasiswa untuk melaksanakan magang",
         variableDetail: [],
         score: [
-          "1.	Rendah sekali"
-              "2.	Rendah"
-              "3.	Cukup tinggi"
-              "4.	Tinggi"
-              "5.	Sangat tinggi"
+          "1.	Rendah sekali",
+          "2.	Rendah",
+          "3.	Cukup tinggi",
+          "4.	Tinggi",
+          "5.	Sangat tinggi"
         ]),
     Instrument(
         aspect:
             "apakah anda selalu bekerja sama dengan tim di tempat kerja (karyawan)",
         variableDetail: [],
         score: [
-          "1.	Tidak pernah"
-              "2.	jarang"
-              "3.	kadang-kadang"
-              "4.	sering"
-              "5.	Selalu"
+          "1.	Tidak pernah",
+          "2.	jarang",
+          "3.	kadang-kadang",
+          "4.	sering",
+          "5.	Selalu"
         ]),
     Instrument(
         aspect: "Kerjasama mahasiswa dalam melaksanakan magang ",

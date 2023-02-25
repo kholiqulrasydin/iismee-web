@@ -73,13 +73,15 @@ class _ButtonDropdownState extends State<ButtonDropdown> {
 }
 
 class MenuItems {
-  static const List<MenuItem> firstItems = [home, share, settings];
-  static const List<MenuItem> secondItems = [logout];
+  static const List<MenuItem> firstItems = [logbook, presensi];
+  static const List<MenuItem> secondItems = [nilaiMpk];
 
-  static const home = MenuItem(text: 'Home', icon: Icons.home);
-  static const share = MenuItem(text: 'Share', icon: Icons.share);
-  static const settings = MenuItem(text: 'Settings', icon: Icons.settings);
-  static const logout = MenuItem(text: 'Log Out', icon: Icons.logout);
+  static const logbook =
+      MenuItem(text: 'Logbook', icon: Icons.library_books_rounded);
+  static const presensi =
+      MenuItem(text: 'Presensi', icon: Icons.people_alt_outlined);
+  // static const settings = MenuItem(text: 'Settings', icon: Icons.settings);
+  static const nilaiMpk = MenuItem(text: 'Nilai MPK', icon: Icons.note_rounded);
 
   static Widget buildItem(MenuItem item) {
     return Row(
@@ -100,16 +102,16 @@ class MenuItems {
 
   static onChanged(BuildContext context, MenuItem item) {
     switch (item) {
-      case MenuItems.home:
+      case MenuItems.logbook:
         //Do something
         break;
-      case MenuItems.settings:
+      // case MenuItems.settings:
+      //   //Do something
+      //   break;
+      case MenuItems.presensi:
         //Do something
         break;
-      case MenuItems.share:
-        //Do something
-        break;
-      case MenuItems.logout:
+      case MenuItems.nilaiMpk:
         //Do something
         break;
     }

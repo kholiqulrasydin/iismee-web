@@ -61,7 +61,7 @@ class ParticipantScoreView extends GetView<ParticipantScoreController> {
                     child: AnimatedContainer(
                       duration: const Duration(milliseconds: 500),
                       // width: sizeControl.getWidthFromPrecentage(controller.selectedParticipant != null ? 45 : 35),
-                      height: 600,
+                      height: sizeControl.getHeightFromPrecentage(80),
                       alignment: Alignment.center,
                       // child: controller.table.value,
                       child: controller.table.value,
@@ -78,17 +78,508 @@ class ParticipantScoreView extends GetView<ParticipantScoreController> {
   }
 }
 
-class PerencanaanProgramTable extends StatelessWidget {
-  const PerencanaanProgramTable({
-    super.key,
-  });
+class PelaporanProgram extends StatefulWidget {
+  const PelaporanProgram({super.key});
+
+  @override
+  State<PelaporanProgram> createState() => _PelaporanProgramState();
+}
+
+class _PelaporanProgramState extends State<PelaporanProgram> {
+  List<Instrument> pelaporanProgram = DummyInstrument.pelaporanProgramA;
+  int scoreTotal = 0;
+  giveScore(int index, int? value) {
+    if (value == null) {
+      print("Score is null");
+      setState(() {
+        pelaporanProgram[index].finalScore = null;
+      });
+    } else {
+      setState(() {
+        pelaporanProgram[index].finalScore = value;
+      });
+      getfinalScoreTotal();
+    }
+  }
+
+  getfinalScoreTotal() {
+    int total = 0;
+    pelaporanProgram.forEach((element) {
+      if (element.finalScore != null) {
+        total += element.finalScore!;
+      }
+    });
+    total = (total / 45 * 100).toInt();
+    setState(() {
+      scoreTotal = total;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
         children: [
+          Container(
+            margin: EdgeInsets.symmetric(horizontal: 50, vertical: 10),
+            child: Row(
+              children: [
+                IconButton(
+                    onPressed: () {},
+                    icon: Icon(
+                      Icons.print_rounded,
+                      color: Colors.blueGrey,
+                    )),
+                SizedBox(
+                  width: 20,
+                ),
+                MaterialButton(
+                  minWidth: 100,
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                  onPressed: () {},
+                  color: Colors.teal,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8)),
+                  child: Text(
+                    'Simpan',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            width: 800,
+            height: 50,
+            decoration: BoxDecoration(
+                color: Colors.transparent,
+                // borderRadius: BorderRadius.only(
+                //     topLeft: Radius.circular(15),
+                //     topRight: Radius.circular(15)),
+                border: Border(
+                    bottom: BorderSide(color: Colors.blueGrey),
+                    top: BorderSide(color: Colors.blueGrey))
+                // borderRadius: BorderRadius.circular(15),
+                // boxShadow: [
+                //   BoxShadow(
+                //     color: Colors.grey.withOpacity(0.5),
+                //     spreadRadius: 1,
+                //     blurRadius: 3,
+                //     offset: const Offset(
+                //         -1, 1), // changes position of shadow
+                //   ),
+                // ],
+                ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Container(
+                  width: 20,
+                  alignment: Alignment.centerLeft,
+                  child: Text("No"),
+                ),
+                Container(
+                  width: 250,
+                  alignment: Alignment.centerLeft,
+                  child: Text("Indikator Penilaian"),
+                ),
+                SizedBox(
+                  width: 50,
+                ),
+                Container(
+                  width: 150,
+                  alignment: Alignment.centerLeft,
+                  child: Text("Bobot Skala"),
+                ),
+                Container(
+                  width: 100,
+                  alignment: Alignment.centerLeft,
+                  child: Text("Nilai"),
+                )
+              ],
+            ),
+          ),
+          Expanded(
+            child: SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              child: Column(
+                children: pelaporanProgram.map((e) {
+                  return PelaksanaanTableItem(
+                      no: (pelaporanProgram.indexOf(e) + 1).toString(),
+                      aspek: e.aspect,
+                      detailVariable: e.variableDetail,
+                      skor: e.score,
+                      showBottomDivider: (pelaporanProgram.indexOf(e) + 1) ==
+                          pelaporanProgram.length,
+                      onChangedNilai: (val) {
+                        print(val);
+                        if (val.isEmpty) {
+                          print("value is empty");
+                          giveScore(pelaporanProgram.indexOf(e), null);
+                        } else {
+                          giveScore(
+                              pelaporanProgram.indexOf(e), int.parse(val));
+                        }
+                      });
+                }).toList(),
+              ),
+            ),
+          ),
+          Container(
+            width: 800,
+            height: 50,
+            margin: EdgeInsets.only(top: 20),
+            decoration: BoxDecoration(
+                color: Colors.transparent,
+                border: Border(
+                    bottom: BorderSide(color: Colors.blueGrey),
+                    top: BorderSide(color: Colors.blueGrey))),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text('Total Nilai Akhir : '),
+                SizedBox(
+                  width: 140,
+                ),
+                Text(scoreTotal.toString()),
+                SizedBox(
+                  width: 50,
+                ),
+              ],
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class PelaksanaanProgram extends StatefulWidget {
+  const PelaksanaanProgram({super.key});
+
+  @override
+  State<PelaksanaanProgram> createState() => _PelaksanaanProgramState();
+}
+
+class _PelaksanaanProgramState extends State<PelaksanaanProgram> {
+  List<Instrument> pelaksanaanProgram = DummyInstrument.pelaksanaanProgram;
+  int scoreTotal = 0;
+  giveScore(int index, int? value) {
+    if (value == null) {
+      print("Score is null");
+      setState(() {
+        pelaksanaanProgram[index].finalScore = null;
+      });
+    } else {
+      setState(() {
+        pelaksanaanProgram[index].finalScore = value;
+      });
+      getfinalScoreTotal();
+    }
+  }
+
+  getfinalScoreTotal() {
+    int total = 0;
+    pelaksanaanProgram.forEach((element) {
+      if (element.finalScore != null) {
+        total += element.finalScore!;
+      }
+    });
+    total = (total / 33 * 100).toInt();
+    setState(() {
+      scoreTotal = total;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          Container(
+            margin: EdgeInsets.symmetric(horizontal: 50, vertical: 10),
+            child: Row(
+              children: [
+                IconButton(
+                    onPressed: () {},
+                    icon: Icon(
+                      Icons.print_rounded,
+                      color: Colors.blueGrey,
+                    )),
+                SizedBox(
+                  width: 20,
+                ),
+                MaterialButton(
+                  minWidth: 100,
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                  onPressed: () {},
+                  color: Colors.teal,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8)),
+                  child: Text(
+                    'Simpan',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            width: 800,
+            height: 50,
+            decoration: BoxDecoration(
+                color: Colors.transparent,
+                // borderRadius: BorderRadius.only(
+                //     topLeft: Radius.circular(15),
+                //     topRight: Radius.circular(15)),
+                border: Border(
+                    bottom: BorderSide(color: Colors.blueGrey),
+                    top: BorderSide(color: Colors.blueGrey))
+                // borderRadius: BorderRadius.circular(15),
+                // boxShadow: [
+                //   BoxShadow(
+                //     color: Colors.grey.withOpacity(0.5),
+                //     spreadRadius: 1,
+                //     blurRadius: 3,
+                //     offset: const Offset(
+                //         -1, 1), // changes position of shadow
+                //   ),
+                // ],
+                ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Container(
+                  width: 20,
+                  alignment: Alignment.centerLeft,
+                  child: Text("No"),
+                ),
+                Container(
+                  width: 250,
+                  alignment: Alignment.centerLeft,
+                  child: Text("Indikator Penilaian"),
+                ),
+                Container(
+                  width: 150,
+                  alignment: Alignment.centerLeft,
+                  child: Text("Bobot Skala"),
+                ),
+                Container(
+                  width: 100,
+                  alignment: Alignment.centerLeft,
+                  child: Text("Nilai"),
+                )
+              ],
+            ),
+          ),
+          Expanded(
+            child: SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              child: Column(
+                children: pelaksanaanProgram.map((e) {
+                  return PelaksanaanTableItem(
+                      no: (pelaksanaanProgram.indexOf(e) + 1).toString(),
+                      aspek: e.aspect,
+                      detailVariable: e.variableDetail,
+                      skor: e.score,
+                      showBottomDivider: (pelaksanaanProgram.indexOf(e) + 1) ==
+                          pelaksanaanProgram.length,
+                      onChangedNilai: (val) {
+                        print(val);
+                        if (val.isEmpty) {
+                          print("value is empty");
+                          giveScore(pelaksanaanProgram.indexOf(e), null);
+                        } else {
+                          giveScore(
+                              pelaksanaanProgram.indexOf(e), int.parse(val));
+                        }
+                      });
+                }).toList(),
+              ),
+            ),
+          ),
+          Container(
+            width: 800,
+            height: 50,
+            margin: EdgeInsets.only(top: 20),
+            decoration: BoxDecoration(
+                color: Colors.transparent,
+                border: Border(
+                    bottom: BorderSide(color: Colors.blueGrey),
+                    top: BorderSide(color: Colors.blueGrey))),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text('Total Nilai Akhir : '),
+                SizedBox(
+                  width: 140,
+                ),
+                Text(scoreTotal.toString()),
+                SizedBox(
+                  width: 50,
+                ),
+              ],
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class PerencanaanProgramTable extends StatefulWidget {
+  const PerencanaanProgramTable({
+    super.key,
+  });
+
+  @override
+  State<PerencanaanProgramTable> createState() =>
+      _PerencanaanProgramTableState();
+}
+
+class _PerencanaanProgramTableState extends State<PerencanaanProgramTable> {
+  List<Instrument> perencanaanProgram = DummyInstrument.perencanaanProgramA;
+  int scoreTotal = 0;
+  giveScore(int index, int? value) {
+    if (value == null) {
+      print("Score is null");
+      setState(() {
+        perencanaanProgram[index].finalScore = null;
+      });
+    } else {
+      setState(() {
+        perencanaanProgram[index].finalScore = value;
+      });
+      getfinalScoreTotal();
+    }
+  }
+
+  getfinalScoreTotal() {
+    int total = 0;
+    perencanaanProgram.forEach((element) {
+      if (element.finalScore != null) {
+        total += element.finalScore!;
+      }
+    });
+    total = (total / 33 * 100).toInt();
+    setState(() {
+      scoreTotal = total;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          Container(
+            margin: EdgeInsets.symmetric(horizontal: 50, vertical: 20),
+            // padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  margin: EdgeInsets.only(right: 20),
+                  child: Text(
+                    'File Laporan : ',
+                    style: TextStyle(color: Colors.blueGrey.shade600),
+                  ),
+                ),
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                  margin: EdgeInsets.only(right: 280),
+                  width: 200,
+                  height: 60,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(13),
+                    // boxShadow: [
+                    //   BoxShadow(
+                    //     color: Colors.grey.withOpacity(0.5),
+                    //     spreadRadius: 1,
+                    //     blurRadius: 3,
+                    //     offset:
+                    //         const Offset(-1, 1), // changes position of shadow
+                    //   ),
+                    // ],
+                  ),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      SvgPicture.asset(
+                        'assets/icons/pdf_file.svg',
+                        height: 40,
+                      ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'nama_file.pdf',
+                            style: TextStyle(color: Colors.teal),
+                            textAlign: TextAlign.left,
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Terakhir Diperbarui : ',
+                                style: TextStyle(
+                                    fontSize: 10,
+                                    color: Colors.blueGrey.shade600),
+                              ),
+                              Text(
+                                '24-02-2023 pukul 18.30',
+                                style: TextStyle(
+                                    fontSize: 10,
+                                    color: Colors.blueGrey.shade600),
+                              )
+                            ],
+                          )
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+                Row(
+                  children: [
+                    IconButton(
+                        onPressed: () {},
+                        icon: Icon(
+                          Icons.print_rounded,
+                          color: Colors.blueGrey,
+                        )),
+                    SizedBox(
+                      width: 20,
+                    ),
+                    MaterialButton(
+                      minWidth: 100,
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                      onPressed: () {},
+                      color: Colors.teal,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8)),
+                      child: Text(
+                        'Simpan',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
           Container(
             width: 800,
             height: 50,
@@ -134,6 +625,9 @@ class PerencanaanProgramTable extends StatelessWidget {
                   alignment: Alignment.centerLeft,
                   child: Text("Skor"),
                 ),
+                SizedBox(
+                  width: 10,
+                ),
                 Container(
                   width: 100,
                   alignment: Alignment.centerLeft,
@@ -146,13 +640,24 @@ class PerencanaanProgramTable extends StatelessWidget {
             child: SingleChildScrollView(
               scrollDirection: Axis.vertical,
               child: Column(
-                children: DummyInstrument.perencanaanProgramA.map((e) {
+                children: perencanaanProgram.map((e) {
                   return TableItem(
-                      no: (DummyInstrument.perencanaanProgramA.indexOf(e) + 1)
-                          .toString(),
+                      no: (perencanaanProgram.indexOf(e) + 1).toString(),
                       aspek: e.aspect,
                       detailVariable: e.variableDetail,
-                      skor: e.score);
+                      skor: e.score,
+                      showBottomDivider: (perencanaanProgram.indexOf(e) + 1) ==
+                          perencanaanProgram.length,
+                      onChangedNilai: (val) {
+                        print(val);
+                        if (val.isEmpty) {
+                          print("value is empty");
+                          giveScore(perencanaanProgram.indexOf(e), null);
+                        } else {
+                          giveScore(
+                              perencanaanProgram.indexOf(e), int.parse(val));
+                        }
+                      });
                 }).toList(),
               ),
             ),
@@ -166,6 +671,123 @@ class PerencanaanProgramTable extends StatelessWidget {
                 border: Border(
                     bottom: BorderSide(color: Colors.blueGrey),
                     top: BorderSide(color: Colors.blueGrey))),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text('Total Nilai Akhir : '),
+                SizedBox(
+                  width: 140,
+                ),
+                Text(scoreTotal.toString()),
+                SizedBox(
+                  width: 50,
+                ),
+              ],
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class PelaksanaanTableItem extends StatefulWidget {
+  PelaksanaanTableItem(
+      {super.key,
+      required this.no,
+      required this.aspek,
+      required this.detailVariable,
+      required this.skor,
+      this.onChangedNilai,
+      this.isEmptyAction,
+      this.showBottomDivider});
+
+  final String no;
+  final String aspek;
+  final List<String> detailVariable;
+  final List<String> skor;
+  final Function(String onChanged)? onChangedNilai;
+  final Function()? isEmptyAction;
+  final bool? showBottomDivider;
+
+  @override
+  State<PelaksanaanTableItem> createState() => _PelaksanaanTableItemState();
+}
+
+class _PelaksanaanTableItemState extends State<PelaksanaanTableItem> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      // margin: EdgeInsets.only(left: 10),
+      width: 800,
+      padding: EdgeInsets.symmetric(vertical: 20),
+      decoration: BoxDecoration(
+          border: Border(bottom: BorderSide(color: Colors.blueGrey.shade300))),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Container(
+            width: 20,
+            alignment: Alignment.center,
+            child: Text(widget.no),
+          ),
+          Container(
+            width: 300,
+            alignment: Alignment.centerLeft,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(widget.aspek),
+                SizedBox(
+                  height: 10,
+                ),
+                Column(
+                  children: widget.detailVariable
+                      .map((e) => Container(
+                          margin: EdgeInsets.only(top: 5),
+                          child: Text(
+                              '${widget.detailVariable.indexOf(e) + 1}. ${e}')))
+                      .toList(),
+                )
+              ],
+            ),
+          ),
+          Container(
+            width: 200,
+            alignment: Alignment.center,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: widget.skor
+                  .map((e) => Container(
+                      margin: EdgeInsets.only(top: 5), child: Text(e)))
+                  .toList(),
+            ),
+          ),
+          Container(
+            width: 100,
+            margin: EdgeInsets.only(right: 30),
+            alignment: Alignment.centerLeft,
+            child: TextField(
+              textAlign: TextAlign.center,
+              keyboardType: TextInputType.number,
+              inputFormatters: [
+                FilteringTextInputFormatter.allow(RegExp(r'^[1-5][0,5]*'))
+              ],
+              onChanged: (val) {
+                print(val);
+                if (val.isEmpty) {
+                  print("value is empty");
+                  if (widget.isEmptyAction != null) {
+                    widget.isEmptyAction!();
+                  }
+                } else {
+                  if (widget.onChangedNilai != null) {
+                    widget.onChangedNilai!(val);
+                  }
+                }
+              },
+            ),
           )
         ],
       ),
@@ -181,7 +803,8 @@ class TableItem extends StatefulWidget {
       required this.detailVariable,
       required this.skor,
       this.onChangedNilai,
-      this.isEmptyAction});
+      this.isEmptyAction,
+      this.showBottomDivider});
 
   final String no;
   final String aspek;
@@ -189,6 +812,7 @@ class TableItem extends StatefulWidget {
   final List<String> skor;
   final Function(String onChanged)? onChangedNilai;
   final Function()? isEmptyAction;
+  final bool? showBottomDivider;
 
   @override
   State<TableItem> createState() => _TableItemState();
@@ -250,6 +874,7 @@ class _TableItemState extends State<TableItem> {
           ),
           Container(
             width: 100,
+            margin: EdgeInsets.only(right: 30),
             alignment: Alignment.centerLeft,
             child: TextField(
               textAlign: TextAlign.center,
@@ -977,184 +1602,184 @@ class _PerencanaanProgramAState extends State<PerencanaanProgramA> {
   }
 }
 
-class PelaksanaanProgram extends StatefulWidget {
-  const PelaksanaanProgram({super.key});
+// class PelaksanaanProgram extends StatefulWidget {
+//   const PelaksanaanProgram({super.key});
 
-  @override
-  State<PelaksanaanProgram> createState() => _PelaksanaanProgramState();
-}
+//   @override
+//   State<PelaksanaanProgram> createState() => _PelaksanaanProgramState();
+// }
 
-class _PelaksanaanProgramState extends State<PelaksanaanProgram> {
-  List<Instrument> perencanaanProgramA = DummyInstrument.perencanaanProgramA;
-  int scoreTotal = 0;
+// class _PelaksanaanProgramState extends State<PelaksanaanProgram> {
+//   List<Instrument> perencanaanProgramA = DummyInstrument.perencanaanProgramA;
+//   int scoreTotal = 0;
 
-  giveScore(int index, int? value) {
-    if (value == null) {
-      print("Score is null");
-      setState(() {
-        perencanaanProgramA[index].finalScore = null;
-      });
-    } else {
-      setState(() {
-        perencanaanProgramA[index].finalScore = value;
-      });
-      getfinalScoreTotal();
-    }
-  }
+//   giveScore(int index, int? value) {
+//     if (value == null) {
+//       print("Score is null");
+//       setState(() {
+//         perencanaanProgramA[index].finalScore = null;
+//       });
+//     } else {
+//       setState(() {
+//         perencanaanProgramA[index].finalScore = value;
+//       });
+//       getfinalScoreTotal();
+//     }
+//   }
 
-  getfinalScoreTotal() {
-    int total = 0;
-    perencanaanProgramA.forEach((element) {
-      if (element.finalScore != null) {
-        total += element.finalScore!;
-      }
-    });
-    total = (total / 33 * 100).toInt();
-    setState(() {
-      scoreTotal = total;
-    });
-  }
+//   getfinalScoreTotal() {
+//     int total = 0;
+//     perencanaanProgramA.forEach((element) {
+//       if (element.finalScore != null) {
+//         total += element.finalScore!;
+//       }
+//     });
+//     total = (total / 33 * 100).toInt();
+//     setState(() {
+//       scoreTotal = total;
+//     });
+//   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        DataTable2(
-          columnSpacing: 12,
-          horizontalMargin: 12,
-          minWidth: 600,
-          dataRowHeight: 250,
-          showBottomBorder: true,
-          columns: [
-            DataColumn2(label: Text('No'), fixedWidth: 50, size: ColumnSize.M),
-            DataColumn2(
-                label: Text('Aspek'), fixedWidth: 200, size: ColumnSize.L),
-            DataColumn2(
-                label: Text('Variabel Penilaian dan Skor'),
-                fixedWidth: 270,
-                size: ColumnSize.L),
-            // DataColumn2(label: Text('Skor'), fixedWidth: 50, size: ColumnSize.M),
-            DataColumn2(
-                label: Text('Skor Penilaian Variabel'),
-                fixedWidth: 200,
-                size: ColumnSize.S),
-          ],
-          rows: perencanaanProgramA
-              .map((e) => DataRow(cells: [
-                    DataCell(
-                        Text((perencanaanProgramA.indexOf(e) + 1).toString())),
-                    DataCell(Text(e.aspect)),
-                    DataCell(Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: e.variableDetail
-                          .map((element) => SizedBox(
-                                width: 270,
-                                child: Column(
-                                  children: [
-                                    Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        SizedBox(
-                                          width: 200,
-                                          child: Text(
-                                            element,
-                                            textAlign: TextAlign.left,
-                                          ),
-                                        ),
-                                        Text(e.score[
-                                            e.variableDetail.indexOf(element)])
-                                      ],
-                                    ),
-                                    Row(
-                                      children: const [
-                                        Expanded(
-                                          child: Divider(
-                                            color: Colors.black26,
-                                          ),
-                                        )
-                                      ],
-                                    )
-                                  ],
-                                ),
-                              ))
-                          .toList(),
-                    )),
-                    // DataCell(Column(
-                    //   crossAxisAlignment: CrossAxisAlignment.start,
-                    //   mainAxisAlignment: MainAxisAlignment.center,
-                    //   children: e.score
-                    //       .map((element) => SizedBox(
-                    //             height: 80,
-                    //             child: Column(
-                    //               children: [
-                    //                 Text(element),
-                    //                 Row(
-                    //                   children: const [
-                    //                     Expanded(
-                    //                       child: Divider(
-                    //                         color: Colors.black26,
-                    //                       ),
-                    //                     )
-                    //                   ],
-                    //                 )
-                    //               ],
-                    //             ),
-                    //           ))
-                    //       .toList(),
-                    // )),
-                    DataCell(Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 50),
-                      child: TextField(
-                        textAlign: TextAlign.center,
-                        keyboardType: TextInputType.number,
-                        inputFormatters: [
-                          FilteringTextInputFormatter.allow(
-                              RegExp(r'^[1-3][0,3]*'))
-                        ],
-                        onChanged: (val) {
-                          print(val);
-                          if (val.isEmpty) {
-                            print("value is empty");
-                            giveScore(perencanaanProgramA.indexOf(e), null);
-                          } else {
-                            giveScore(
-                                perencanaanProgramA.indexOf(e), int.parse(val));
-                          }
-                        },
-                      ),
-                    ))
-                  ]))
-              .toList(),
-        ),
-        Positioned(
-          bottom: 0,
-          right: 0,
-          child: Container(
-            color: Color.fromARGB(252, 242, 242, 255),
-            width: 220,
-            height: 40,
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                SizedBox(
-                  height: 20,
-                ),
-                Row(
-                  children: [
-                    Text("Total Skor Penilaian Variabel : "),
-                    Text(scoreTotal.toString())
-                  ],
-                )
-              ],
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return Stack(
+//       children: [
+//         DataTable2(
+//           columnSpacing: 12,
+//           horizontalMargin: 12,
+//           minWidth: 600,
+//           dataRowHeight: 250,
+//           showBottomBorder: true,
+//           columns: [
+//             DataColumn2(label: Text('No'), fixedWidth: 50, size: ColumnSize.M),
+//             DataColumn2(
+//                 label: Text('Aspek'), fixedWidth: 200, size: ColumnSize.L),
+//             DataColumn2(
+//                 label: Text('Variabel Penilaian dan Skor'),
+//                 fixedWidth: 270,
+//                 size: ColumnSize.L),
+//             // DataColumn2(label: Text('Skor'), fixedWidth: 50, size: ColumnSize.M),
+//             DataColumn2(
+//                 label: Text('Skor Penilaian Variabel'),
+//                 fixedWidth: 200,
+//                 size: ColumnSize.S),
+//           ],
+//           rows: perencanaanProgramA
+//               .map((e) => DataRow(cells: [
+//                     DataCell(
+//                         Text((perencanaanProgramA.indexOf(e) + 1).toString())),
+//                     DataCell(Text(e.aspect)),
+//                     DataCell(Column(
+//                       crossAxisAlignment: CrossAxisAlignment.start,
+//                       mainAxisAlignment: MainAxisAlignment.center,
+//                       children: e.variableDetail
+//                           .map((element) => SizedBox(
+//                                 width: 270,
+//                                 child: Column(
+//                                   children: [
+//                                     Row(
+//                                       crossAxisAlignment:
+//                                           CrossAxisAlignment.center,
+//                                       mainAxisAlignment:
+//                                           MainAxisAlignment.spaceBetween,
+//                                       children: [
+//                                         SizedBox(
+//                                           width: 200,
+//                                           child: Text(
+//                                             element,
+//                                             textAlign: TextAlign.left,
+//                                           ),
+//                                         ),
+//                                         Text(e.score[
+//                                             e.variableDetail.indexOf(element)])
+//                                       ],
+//                                     ),
+//                                     Row(
+//                                       children: const [
+//                                         Expanded(
+//                                           child: Divider(
+//                                             color: Colors.black26,
+//                                           ),
+//                                         )
+//                                       ],
+//                                     )
+//                                   ],
+//                                 ),
+//                               ))
+//                           .toList(),
+//                     )),
+//                     // DataCell(Column(
+//                     //   crossAxisAlignment: CrossAxisAlignment.start,
+//                     //   mainAxisAlignment: MainAxisAlignment.center,
+//                     //   children: e.score
+//                     //       .map((element) => SizedBox(
+//                     //             height: 80,
+//                     //             child: Column(
+//                     //               children: [
+//                     //                 Text(element),
+//                     //                 Row(
+//                     //                   children: const [
+//                     //                     Expanded(
+//                     //                       child: Divider(
+//                     //                         color: Colors.black26,
+//                     //                       ),
+//                     //                     )
+//                     //                   ],
+//                     //                 )
+//                     //               ],
+//                     //             ),
+//                     //           ))
+//                     //       .toList(),
+//                     // )),
+//                     DataCell(Padding(
+//                       padding: const EdgeInsets.symmetric(horizontal: 50),
+//                       child: TextField(
+//                         textAlign: TextAlign.center,
+//                         keyboardType: TextInputType.number,
+//                         inputFormatters: [
+//                           FilteringTextInputFormatter.allow(
+//                               RegExp(r'^[1-3][0,3]*'))
+//                         ],
+//                         onChanged: (val) {
+//                           print(val);
+//                           if (val.isEmpty) {
+//                             print("value is empty");
+//                             giveScore(perencanaanProgramA.indexOf(e), null);
+//                           } else {
+//                             giveScore(
+//                                 perencanaanProgramA.indexOf(e), int.parse(val));
+//                           }
+//                         },
+//                       ),
+//                     ))
+//                   ]))
+//               .toList(),
+//         ),
+//         Positioned(
+//           bottom: 0,
+//           right: 0,
+//           child: Container(
+//             color: Color.fromARGB(252, 242, 242, 255),
+//             width: 220,
+//             height: 40,
+//             child: Row(
+//               crossAxisAlignment: CrossAxisAlignment.end,
+//               mainAxisAlignment: MainAxisAlignment.end,
+//               children: [
+//                 SizedBox(
+//                   height: 20,
+//                 ),
+//                 Row(
+//                   children: [
+//                     Text("Total Skor Penilaian Variabel : "),
+//                     Text(scoreTotal.toString())
+//                   ],
+//                 )
+//               ],
+//             ),
+//           ),
+//         ),
+//       ],
+//     );
+//   }
+// }

@@ -11,6 +11,7 @@ abstract class Routes {
   static const MAGANG_PARTICIPANT = _Paths.MAGANG_PARTICIPANT;
   static const LOG_BOOK = _Paths.LOG_BOOK;
   static const PARTICIPANT_SCORE = _Paths.PARTICIPANT_SCORE;
+  static const PRESENSI_MAHASISWA = _Paths.PRESENSI_MAHASISWA;
 }
 
 abstract class _Paths {
@@ -23,4 +24,5 @@ abstract class _Paths {
   static const MAGANG_PARTICIPANT = '/magang-participant';
   static const LOG_BOOK = '/log-book';
   static const PARTICIPANT_SCORE = '/participant-score';
+  static const PRESENSI_MAHASISWA = '/presensi-mahasiswa';
 }

@@ -9,6 +9,7 @@ import 'package:iismee/app/modules/Login/views/login_view.dart';
 import 'package:iismee/app/modules/laporan/controllers/laporan_controller.dart';
 import 'package:iismee/app/modules/log-book/controllers/log_book_controller.dart';
 import 'package:iismee/app/modules/participant-score/controllers/participant_score_controller.dart';
+import 'package:iismee/app/modules/presensi-mahasiswa/controllers/presensi_mahasiswa_controller.dart';
 import 'package:iismee/app/modules/presensi/controllers/presensi_controller.dart';
 import 'package:iismee/app/modules/presensi/views/presensi_view.dart';
 import 'package:iismee/app/routes/app_pages.dart';
@@ -120,6 +121,9 @@ class MainScreen extends StatelessWidget {
                                   2) {
                                 Get.lazyPut<LogBookController>(
                                   () => LogBookController(),
+                                );
+                                Get.lazyPut<PresensiMahasiswaController>(
+                                  () => PresensiMahasiswaController(),
                                 );
                               }
 
