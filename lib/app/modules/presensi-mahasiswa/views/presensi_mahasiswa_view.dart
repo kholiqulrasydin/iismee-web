@@ -178,128 +178,153 @@ class PresensiMahasiswaView extends GetView<PresensiMahasiswaController> {
                               width: sizeControl.getWidthFromPrecentage(30),
                               child: Column(
                                 children: [
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
+                                  Container(
+                                    margin: EdgeInsets.only(bottom: 50),
+                                    padding: EdgeInsets.only(bottom: 20),
+                                    decoration: BoxDecoration(
+                                        border: Border(
+                                            bottom: BorderSide(
+                                                color:
+                                                    Colors.blueGrey.shade200))),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: [
+                                        ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(12),
+                                            child: Image.asset(
+                                              'assets/profile.png',
+                                              height: 70,
+                                              width: 50,
+                                              fit: BoxFit.fill,
+                                            )),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceAround,
+                                          children: [
+                                            SizedBox(
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  RichText(
+                                                      overflow:
+                                                          TextOverflow.clip,
+                                                      text: TextSpan(
+                                                        style: TextStyle(
+                                                          color: Colors.blueGrey
+                                                              .shade700,
+                                                        ),
+                                                        children: <TextSpan>[
+                                                          TextSpan(
+                                                              text: 'Nama : ',
+                                                              style: const TextStyle(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold)),
+                                                          TextSpan(
+                                                              text: controller
+                                                                      .participantList[
+                                                                  controller
+                                                                      .selectedParticipant!
+                                                                      .value]['nama']),
+                                                        ],
+                                                      )),
+                                                  RichText(
+                                                      overflow:
+                                                          TextOverflow.clip,
+                                                      text: TextSpan(
+                                                        style: TextStyle(
+                                                          color: Colors.blueGrey
+                                                              .shade700,
+                                                        ),
+                                                        children: <TextSpan>[
+                                                          TextSpan(
+                                                              text: 'NIM : ',
+                                                              style: const TextStyle(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold)),
+                                                          TextSpan(
+                                                              text: controller
+                                                                      .participantList[
+                                                                  controller
+                                                                      .selectedParticipant!
+                                                                      .value]['nim']),
+                                                        ],
+                                                      )),
+                                                ],
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              width: 10,
+                                            ),
+                                            SizedBox(
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  RichText(
+                                                      overflow:
+                                                          TextOverflow.clip,
+                                                      text: TextSpan(
+                                                        style: TextStyle(
+                                                          color: Colors.blueGrey
+                                                              .shade700,
+                                                        ),
+                                                        children: <TextSpan>[
+                                                          TextSpan(
+                                                              text:
+                                                                  'Total Presensi : ',
+                                                              style: const TextStyle(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold)),
+                                                          TextSpan(
+                                                              text:
+                                                                  '5 dari 280 hari'),
+                                                        ],
+                                                      )),
+                                                  RichText(
+                                                      overflow:
+                                                          TextOverflow.clip,
+                                                      text: TextSpan(
+                                                        style: TextStyle(
+                                                          color: Colors.blueGrey
+                                                              .shade700,
+                                                        ),
+                                                        children: <TextSpan>[
+                                                          TextSpan(
+                                                              text:
+                                                                  'Total Izin : ',
+                                                              style: const TextStyle(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold)),
+                                                          TextSpan(
+                                                              text:
+                                                                  '1 dari 5 presensi'),
+                                                        ],
+                                                      )),
+                                                ],
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Column(
                                     children: [
-                                      ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(12),
-                                          child: Image.asset(
-                                            'assets/profile.png',
-                                            height: 70,
-                                            width: 50,
-                                            fit: BoxFit.fill,
-                                          )),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceAround,
-                                        children: [
-                                          SizedBox(
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                RichText(
-                                                    overflow: TextOverflow.clip,
-                                                    text: TextSpan(
-                                                      style: TextStyle(
-                                                        color: Colors
-                                                            .blueGrey.shade700,
-                                                      ),
-                                                      children: <TextSpan>[
-                                                        TextSpan(
-                                                            text: 'Nama : ',
-                                                            style: const TextStyle(
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold)),
-                                                        TextSpan(
-                                                            text: controller
-                                                                    .participantList[
-                                                                controller
-                                                                    .selectedParticipant!
-                                                                    .value]['nama']),
-                                                      ],
-                                                    )),
-                                                RichText(
-                                                    overflow: TextOverflow.clip,
-                                                    text: TextSpan(
-                                                      style: TextStyle(
-                                                        color: Colors
-                                                            .blueGrey.shade700,
-                                                      ),
-                                                      children: <TextSpan>[
-                                                        TextSpan(
-                                                            text: 'NIM : ',
-                                                            style: const TextStyle(
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold)),
-                                                        TextSpan(
-                                                            text: controller
-                                                                    .participantList[
-                                                                controller
-                                                                    .selectedParticipant!
-                                                                    .value]['nim']),
-                                                      ],
-                                                    )),
-                                              ],
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            width: 10,
-                                          ),
-                                          SizedBox(
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                RichText(
-                                                    overflow: TextOverflow.clip,
-                                                    text: TextSpan(
-                                                      style: TextStyle(
-                                                        color: Colors
-                                                            .blueGrey.shade700,
-                                                      ),
-                                                      children: <TextSpan>[
-                                                        TextSpan(
-                                                            text:
-                                                                'Total Presensi : ',
-                                                            style: const TextStyle(
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold)),
-                                                        TextSpan(
-                                                            text:
-                                                                '5 dari 280 hari'),
-                                                      ],
-                                                    )),
-                                                RichText(
-                                                    overflow: TextOverflow.clip,
-                                                    text: TextSpan(
-                                                      style: TextStyle(
-                                                        color: Colors
-                                                            .blueGrey.shade700,
-                                                      ),
-                                                      children: <TextSpan>[
-                                                        TextSpan(
-                                                            text:
-                                                                'Total Izin : ',
-                                                            style: const TextStyle(
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold)),
-                                                        TextSpan(
-                                                            text:
-                                                                '1 dari 5 presensi'),
-                                                      ],
-                                                    )),
-                                              ],
-                                            ),
-                                          )
-                                        ],
-                                      ),
+                                      Text('Presensi Hari ini : '),
+                                      Container(
+                                        margin: EdgeInsets.only(
+                                            left: sizeControl
+                                                .getWidthFromPrecentage(2),
+                                            top: 30),
+                                        child: Container(),
+                                      )
                                     ],
                                   )
                                 ],
