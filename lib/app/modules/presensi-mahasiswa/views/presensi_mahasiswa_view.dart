@@ -316,6 +316,8 @@ class PresensiMahasiswaView extends GetView<PresensiMahasiswaController> {
                                     ),
                                   ),
                                   Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Text('Presensi Hari ini : '),
                                       Container(
@@ -323,7 +325,99 @@ class PresensiMahasiswaView extends GetView<PresensiMahasiswaController> {
                                             left: sizeControl
                                                 .getWidthFromPrecentage(2),
                                             top: 30),
-                                        child: Container(),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              children: [
+                                                Icon(
+                                                  Icons.arrow_forward_rounded,
+                                                  color: Colors.blueGrey,
+                                                  size: 11,
+                                                ),
+                                                Container(
+                                                  margin:
+                                                      EdgeInsets.only(left: 10),
+                                                  child: RichText(
+                                                      overflow:
+                                                          TextOverflow.clip,
+                                                      text: TextSpan(
+                                                        style: TextStyle(
+                                                          color: Colors.blueGrey
+                                                              .shade700,
+                                                        ),
+                                                        children: <TextSpan>[
+                                                          TextSpan(
+                                                              text:
+                                                                  'Status Presensi : ',
+                                                              style: const TextStyle(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold)),
+                                                          TextSpan(
+                                                              text: 'Izin'),
+                                                        ],
+                                                      )),
+                                                ),
+                                              ],
+                                            ),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              children: [
+                                                Icon(
+                                                  Icons.arrow_forward_rounded,
+                                                  color: Colors.blueGrey,
+                                                  size: 11,
+                                                ),
+                                                Container(
+                                                  margin:
+                                                      EdgeInsets.only(left: 10),
+                                                  child: RichText(
+                                                      overflow:
+                                                          TextOverflow.clip,
+                                                      text: TextSpan(
+                                                        style: TextStyle(
+                                                          color: Colors.blueGrey
+                                                              .shade700,
+                                                        ),
+                                                        children: <TextSpan>[
+                                                          TextSpan(
+                                                              text:
+                                                                  'Keterangan : ',
+                                                              style: const TextStyle(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold)),
+                                                          TextSpan(
+                                                              text: 'Sakit'),
+                                                        ],
+                                                      )),
+                                                ),
+                                              ],
+                                            ),
+                                            Container(
+                                              margin: EdgeInsets.symmetric(
+                                                  vertical: 10),
+                                              child: Text(
+                                                'Surat Keterangan Sakit : ',
+                                              ),
+                                            ),
+                                            Container(
+                                              margin: EdgeInsets.symmetric(
+                                                  vertical: 10),
+                                              child: Image.asset(
+                                                'assets/images/contoh-surat-sakit.jpg',
+                                                // width: 250,
+                                                height: 350,
+                                                fit: BoxFit.fitHeight,
+                                              ),
+                                            )
+                                          ],
+                                        ),
                                       )
                                     ],
                                   )

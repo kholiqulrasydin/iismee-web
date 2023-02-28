@@ -10,55 +10,55 @@ class PresensiMahasiswaController extends GetxController {
       'nama': 'Agus Subarjo',
       'instansi': 'PT. Gudang Garam tbk',
       'nim': '190581397089',
-      'statusPresensiHariIni': true
+      'statusPresensiHariIni': 0
     },
     {
       'nama': 'Nandya Santoso',
       'instansi': 'PT. Unilever',
       'nim': '190581397089',
-      'statusPresensiHariIni': false
+      'statusPresensiHariIni': 1
     },
     {
       'nama': 'Laila Canggung',
       'instansi': 'PT. Yamaha Music',
       'nim': '190581397089',
-      'statusPresensiHariIni': true
+      'statusPresensiHariIni': 2
     },
     {
       'nama': 'Agus Subarjo',
       'instansi': 'PT. Gudang Garam tbk',
       'nim': '190581397089',
-      'statusPresensiHariIni': true
+      'statusPresensiHariIni': 0
     },
     {
       'nama': 'Nandya Santoso',
       'instansi': 'PT. Unilever',
       'nim': '190581397089',
-      'statusPresensiHariIni': false
+      'statusPresensiHariIni': 1
     },
     {
       'nama': 'Laila Canggung',
       'instansi': 'PT. Yamaha Music',
       'nim': '190581397089',
-      'statusPresensiHariIni': true
+      'statusPresensiHariIni': 0
     },
     {
       'nama': 'Agus Subarjo',
       'instansi': 'PT. Gudang Garam tbk',
       'nim': '190581397089',
-      'statusPresensiHariIni': false
+      'statusPresensiHariIni': 1
     },
     {
       'nama': 'Nandya Santoso',
       'instansi': 'PT. Unilever',
       'nim': '190581397089',
-      'statusPresensiHariIni': true
+      'statusPresensiHariIni': 0
     },
     {
       'nama': 'Laila Canggung',
       'instansi': 'PT. Yamaha Music',
       'nim': '190581397089',
-      'statusPresensiHariIni': true
+      'statusPresensiHariIni': 0
     },
   ].obs;
 
