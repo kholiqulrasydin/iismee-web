@@ -6,8 +6,8 @@ import '../controllers/presensi_controller.dart';
 class PresensiBinding extends Bindings {
   @override
   void dependencies() {
-    // Get.lazyPut<PresensiController>(
-    //   () => PresensiController(),
-    // );
+    Get.lazyPut<PresensiController>(
+      () => PresensiController(),
+    );
   }
 }

@@ -12,6 +12,8 @@ import '../modules/log-book/bindings/log_book_binding.dart';
 import '../modules/log-book/views/log_book_view.dart';
 import '../modules/magang-participant/bindings/magang_participant_binding.dart';
 import '../modules/magang-participant/views/magang_participant_view.dart';
+import '../modules/nilai/bindings/nilai_binding.dart';
+import '../modules/nilai/views/nilai_view.dart';
 import '../modules/participant-score/bindings/participant_score_binding.dart';
 import '../modules/participant-score/views/participant_score_view.dart';
 import '../modules/presensi-mahasiswa/bindings/presensi_mahasiswa_binding.dart';
@@ -50,6 +52,12 @@ class AppPages {
       title: 'menu_task',
       page: () => LaporanView(),
       binding: LaporanBinding(),
+    ),
+    GetPage(
+      name: _Paths.NILAI,
+      title: 'nilai',
+      page: () => NilaiView(),
+      binding: NilaiBinding(),
     ),
     GetPage(
       name: _Paths.DOSEN_DASHBOARD,

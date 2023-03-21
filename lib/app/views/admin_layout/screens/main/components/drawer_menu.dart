@@ -28,17 +28,11 @@ class _SideMenuState extends State<SideMenu> {
   ];
 
   placePages() {
-    List<GetPage> pages = context.read<navMenu.MenuController>().role > 1
-        ? AppPages.routes
-        : AppPages.routes
-            .where((element) => element.title!.split('_')[0] == 'dosen')
-            .toList();
+    List<GetPage> pages = context.read<navMenu.MenuController>().pages;
     List<DrawerListTile> listItem = [];
-    for (int i = context.read<navMenu.MenuController>().role > 1 ? 1 : 0;
-        i <
-            (context.read<navMenu.MenuController>().role > 1
-                ? 4
-                : pages.length);
+    print(pages.length);
+    for (int i = 0;
+        i < context.read<navMenu.MenuController>().pages.length;
         i++) {
       listItem.add(DrawerListTile(
         title: context.read<navMenu.MenuController>().role > 1
@@ -47,10 +41,8 @@ class _SideMenuState extends State<SideMenu> {
         svgSrc: "assets/icons/${pages[i].title}.svg",
         press: () {
           Get.to(pages[i].page);
-          context.read<navMenu.MenuController>().role > 1
-              ? context.read<navMenu.MenuController>().selectedDrawerItem =
-                  i - 1
-              : context.read<navMenu.MenuController>().selectedDrawerItem = i;
+          print('Go to ${pages[i].name} page');
+          context.read<navMenu.MenuController>().selectedDrawerItem = i;
           setState(() {});
         },
         isSelected: false,
