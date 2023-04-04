@@ -180,6 +180,52 @@ class Api {
       return Response(statusCode: 500, data: {});
     }
   }
+
+  static Future<Response> uploadFile(
+      {required Uint8List file,
+      required String routes,
+      required Map<String, String> body}) async {
+    html.File resultImageFile =
+        html.File(file, '${getRandomString(5)}.${guessFileType(file) ?? ''}');
+    String token = storage.read('token');
+    try {
+      print(Uri.parse('$hostUrl$routes').toString());
+      // Map<String, dynamic> fields = {'file': resultImageFile};
+      final request =
+          http.MultipartRequest('POST', Uri.parse('$hostUrl$routes'));
+      // request.fields['filecontext'] = body['filecontext'] ?? '';
+      // if (body.containsKey('docId')) {
+      //   request.fields['docId'] = body['docId']!;
+      // }
+      request.fields.addAll(body);
+      request.headers.addAll({
+        // "Access-Control-Allow-Origin": "*", // Required for CORS support to work
+        'Accept': 'application/json',
+        'Content-Type': 'multipart/form-data',
+        'Authorization': 'Bearer $token'
+      });
+      String extFile = guessFileType(file) ?? '';
+      print('File extension is' + extFile);
+      request.files.add(
+        http.MultipartFile.fromString(
+          'file',
+          resultImageFile.toString(),
+          filename: '${getRandomString(5)}.${guessFileType(file) ?? ''}',
+        ),
+      );
+
+      final streamedRespnse = await request.send();
+      final response = await http.Response.fromStream(streamedRespnse);
+      return Response(
+          statusCode:
+              (jsonDecode(response.body) as Map<String, dynamic>)['statusCode'],
+          data: (jsonDecode(response.body)
+              as Map<String, dynamic>)['responseData']);
+    } catch (e) {
+      print(e.toString());
+      return Response(statusCode: 500, data: {});
+    }
+  }
 }
 
 class Response {

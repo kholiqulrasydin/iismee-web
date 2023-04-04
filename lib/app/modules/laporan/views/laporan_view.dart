@@ -490,6 +490,104 @@ class LaporanView extends GetView<LaporanController> {
   }
 }
 
+class KelengkapanBerkas extends StatelessWidget {
+  KelengkapanBerkas({super.key});
+  final sizeControl = Get.find<SizeController>();
+  final controller = Get.find<LaporanController>();
+
+  @override
+  Widget build(BuildContext context) {
+    return GetBuilder<LaporanController>(builder: (context) {
+      return Column(
+        children: [
+          SizedBox(height: 20),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              SizedBox(
+                width: sizeControl.getWidthFromPrecentage(
+                    sizeControl.isLargeScreen.value ? 18 : 55),
+                child: Text(
+                  'Apakah Proposalmu memuat latar belakang?',
+                  overflow: TextOverflow.clip,
+                ),
+              ),
+              SizedBox(
+                width: sizeControl.getWidthFromPrecentage(
+                    sizeControl.isLargeScreen.value ? 5 : 16),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Checkbox(
+                        value: controller.latarBelakang.value,
+                        onChanged: (val) {
+                          controller.latarBelakangOnChange(val!);
+                        }),
+                    Text('Ya')
+                  ],
+                ),
+              )
+            ],
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              SizedBox(
+                width: sizeControl.getWidthFromPrecentage(
+                    sizeControl.isLargeScreen.value ? 18 : 55),
+                child: Text(
+                  'Apakah proposalmu memuat Tujuan?',
+                  overflow: TextOverflow.clip,
+                ),
+              ),
+              SizedBox(
+                width: sizeControl.getWidthFromPrecentage(
+                    sizeControl.isLargeScreen.value ? 5 : 16),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Checkbox(
+                        value: controller.tujuan.value,
+                        onChanged: (val) {
+                          controller.tujuanOnChange(val!);
+                        }),
+                    Text('Ya')
+                  ],
+                ),
+              )
+            ],
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          MaterialButton(
+            onPressed: () {
+              controller.saveData();
+            },
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15),
+            ),
+            padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+            color: Colors.teal,
+            minWidth: 200,
+            child: controller.onAsync.value == true
+                ? CircularProgressIndicator(
+                    color: Colors.white,
+                  )
+                : Text(
+                    'Simpan',
+                    style: TextStyle(color: Colors.white, fontSize: 18),
+                  ),
+          ),
+        ],
+      );
+    });
+  }
+}
+
 class PdfViewerScreen extends StatefulWidget {
   final Uint8List bytes;
 
@@ -568,12 +666,12 @@ class _UploadFileState extends State<UploadFile> {
           ? Row(
               children: [
                 Container(
-                  width: 200,
-                  height: 300,
+                  width: 100,
+                  height: 350,
                   child: PdfViewerScreen(bytes: controller.filePdf!.value),
                 ),
                 SizedBox(
-                  width: 50,
+                  width: 20,
                 ),
                 Container(
                   width: 40,
