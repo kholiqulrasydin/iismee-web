@@ -37,7 +37,7 @@ class _SideMenuState extends State<SideMenu> {
         i < context.read<navMenu.MenuController>().pages.length;
         i++) {
       listItem.add(DrawerListTile(
-        title: context.read<navMenu.MenuController>().role > 1
+        title: context.read<navMenu.MenuController>().role == 1
             ? pages[i].name.substring(1).capitalizeFirst.toString()
             : "${pages[i].name.substring(1).split('-')[0].capitalizeFirst} ${pages[i].name.substring(1).split('-')[1].capitalizeFirst}",
         svgSrc: "assets/icons/${pages[i].title}.svg",

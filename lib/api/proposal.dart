@@ -75,9 +75,4 @@ class ProposalApi {
       return false;
     }
   }
-
-  static Future<bool> checkIfExists() async {
-    return await Api.get(routes: 'activity/check').then(
-        (value) => value.statusCode == 200 ? value.data!['result'] : false);
-  }
 }
