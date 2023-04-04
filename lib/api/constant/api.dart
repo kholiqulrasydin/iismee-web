@@ -43,7 +43,11 @@ class Api {
           bytes[5] == 0x61) {
         return 'gif';
       } // add more file types here
-      if (bytes.length == 5 && listEquality.equals(bytes, pdfSignature)) {
+      if (bytes.length > 3 &&
+          (bytes[0] == 0x25 &&
+              bytes[1] == 0x50 &&
+              bytes[2] == 0x44 &&
+              bytes[3] == 0x46)) {
         return 'pdf';
       }
     }

@@ -1,4 +1,6 @@
 import 'package:calendar_view/calendar_view.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -28,7 +30,7 @@ class PresensiAktivitas extends GetView<ActivityController> {
               padding: EdgeInsets.symmetric(
                   vertical: 30,
                   horizontal: sizeControl.getWidthFromPrecentage(2)),
-              height: 600,
+              height: 700,
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(15),
@@ -41,197 +43,258 @@ class PresensiAktivitas extends GetView<ActivityController> {
                   ),
                 ],
               ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    height: 50,
-                    alignment: Alignment.topLeft,
-                    child: Text(
-                      'Tambah Aktivitas',
-                      style: TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.blueGrey.shade600),
-                    ),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      SizedBox(
-                        width: sizeControl.getWidthFromPrecentage(
-                            sizeControl.isLargeScreen.value ? 12 : 55),
-                        child: Text(
-                          'Apakah ada keterlibatan dengan karyawan ?',
-                          overflow: TextOverflow.clip,
+              child: controller.isExists.value
+                  ? Center(
+                      child: Text('Anda sudah upload logbook hari ini'),
+                    )
+                  : Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          height: 50,
+                          alignment: Alignment.topLeft,
+                          child: Text(
+                            'Tambah Aktivitas',
+                            style: TextStyle(
+                                fontSize: 24,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.blueGrey.shade600),
+                          ),
                         ),
-                      ),
-                      SizedBox(
-                        width: sizeControl.getWidthFromPrecentage(
-                            sizeControl.isLargeScreen.value ? 5 : 16),
-                        child: Row(
+                        Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            Checkbox(value: false, onChanged: (isEmployeed) {}),
-                            Text('Ya')
+                            SizedBox(
+                              width: sizeControl.getWidthFromPrecentage(
+                                  sizeControl.isLargeScreen.value ? 12 : 55),
+                              child: Text(
+                                'Apakah ada keterlibatan dengan karyawan ?',
+                                overflow: TextOverflow.clip,
+                              ),
+                            ),
+                            SizedBox(
+                              width: sizeControl.getWidthFromPrecentage(
+                                  sizeControl.isLargeScreen.value ? 5 : 16),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  Checkbox(
+                                      value: controller.isWithEmployee.value,
+                                      onChanged:
+                                          controller.isWithEmployeeChanged),
+                                  Text('Ya')
+                                ],
+                              ),
+                            )
                           ],
                         ),
-                      )
-                    ],
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Container(
-                    width: sizeControl.getWidthFromPrecentage(20),
-                    height: 60,
-                    padding: const EdgeInsets.all(4.0),
-                    child: TextFormField(
-                      keyboardType: TextInputType.text,
-                      decoration: InputDecoration(
-                        label: const Text('Detail Kegiatan'),
-                        // labelStyle: TextStyle(color: Colors.blue),
-                        focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(15),
-                            borderSide: const BorderSide(
-                              color: Colors.blue,
+                        SizedBox(
+                          height: 20,
+                        ),
+
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            SizedBox(
+                              width: sizeControl.getWidthFromPrecentage(
+                                  sizeControl.isLargeScreen.value ? 12 : 55),
+                              child: Text(
+                                'Apakah ada keterlibatan dengan tim ?',
+                                overflow: TextOverflow.clip,
+                              ),
+                            ),
+                            SizedBox(
+                              width: sizeControl.getWidthFromPrecentage(
+                                  sizeControl.isLargeScreen.value ? 5 : 16),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  Checkbox(
+                                      value: controller.isWithTeam.value,
+                                      onChanged: controller.isWithTeamChanged),
+                                  Text('Ya')
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Container(
+                          width: sizeControl.getWidthFromPrecentage(20),
+                          height: 60,
+                          padding: const EdgeInsets.all(4.0),
+                          child: TextFormField(
+                            onChanged: controller.detailsOnChanged,
+                            keyboardType: TextInputType.text,
+                            decoration: InputDecoration(
+                              label: const Text('Detail Kegiatan'),
+                              // labelStyle: TextStyle(color: Colors.blue),
+                              focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                  borderSide: const BorderSide(
+                                    color: Colors.blue,
+                                  )),
+                              enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                  borderSide: BorderSide(
+                                    color: Colors.blueGrey.shade600,
+                                  )),
+                            ),
+                          ),
+                        ),
+                        // Text('Masalah : '),
+                        Container(
+                            width: sizeControl.getWidthFromPrecentage(
+                                sizeControl.isLargeScreen.value ? 20 : 85),
+                            padding: const EdgeInsets.all(4.0),
+                            height: 100,
+                            // decoration: BoxDecoration(
+                            // border: Border.all(color: Colors.blueGrey),
+                            // borderRadius: BorderRadius.circular(15)),
+                            child: TextFormField(
+                              onChanged: controller.problemOnChanged,
+                              inputFormatters: [
+                                LengthLimitingTextInputFormatter(2555)
+                              ],
+                              style: TextStyle(fontSize: 14),
+                              maxLines: 10,
+                              decoration: InputDecoration(
+                                focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(15),
+                                    borderSide: const BorderSide(
+                                      color: Colors.blue,
+                                    )),
+                                enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(15),
+                                    borderSide: BorderSide(
+                                      color: Colors.blueGrey.shade600,
+                                    )),
+                                hintMaxLines: 10,
+                                label: const Text('Masalah'),
+                                hintStyle: TextStyle(fontSize: 14),
+                                hintText: 'Tuliskan sebuah masalah disini ..  ',
+                                border: InputBorder.none,
+                              ),
                             )),
-                        enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(15),
-                            borderSide: BorderSide(
+
+                        Container(
+                            width: sizeControl.getWidthFromPrecentage(
+                                sizeControl.isLargeScreen.value ? 20 : 85),
+                            padding: const EdgeInsets.all(4.0),
+                            height: 100,
+                            // decoration: BoxDecoration(
+                            // border: Border.all(color: Colors.blueGrey),
+                            // borderRadius: BorderRadius.circular(15)),
+                            child: TextFormField(
+                              onChanged: controller.solutionOnChanged,
+                              inputFormatters: [
+                                LengthLimitingTextInputFormatter(2555)
+                              ],
+                              style: TextStyle(fontSize: 14),
+                              maxLines: 10,
+                              decoration: InputDecoration(
+                                focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(15),
+                                    borderSide: const BorderSide(
+                                      color: Colors.blue,
+                                    )),
+                                enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(15),
+                                    borderSide: BorderSide(
+                                      color: Colors.blueGrey.shade600,
+                                    )),
+                                hintMaxLines: 10,
+                                label: const Text('Solusi'),
+                                hintStyle: TextStyle(fontSize: 14),
+                                hintText:
+                                    'Tuliskan Solusi untuk masalahmu disini ..  ',
+                                border: InputBorder.none,
+                              ),
+                            )),
+
+                        SizedBox(
+                          height: 10,
+                        ),
+
+                        Container(
+                          width: sizeControl.getWidthFromPrecentage(
+                              sizeControl.isLargeScreen.value ? 20 : 85),
+                          padding: const EdgeInsets.all(4.0),
+                          height: 100,
+                          // decoration: BoxDecoration(
+                          // border: Border.all(color: Colors.blueGrey),
+                          // borderRadius: BorderRadius.circular(15)),
+                          child: DashedRect(
                               color: Colors.blueGrey.shade600,
-                            )),
-                      ),
-                    ),
-                  ),
-                  // Text('Masalah : '),
-                  Container(
-                      width: sizeControl.getWidthFromPrecentage(
-                          sizeControl.isLargeScreen.value ? 20 : 85),
-                      padding: const EdgeInsets.all(4.0),
-                      height: 100,
-                      // decoration: BoxDecoration(
-                      // border: Border.all(color: Colors.blueGrey),
-                      // borderRadius: BorderRadius.circular(15)),
-                      child: TextFormField(
-                        inputFormatters: [
-                          LengthLimitingTextInputFormatter(2555)
-                        ],
-                        style: TextStyle(fontSize: 14),
-                        maxLines: 10,
-                        decoration: InputDecoration(
-                          focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(15),
-                              borderSide: const BorderSide(
-                                color: Colors.blue,
+                              strokeWidth: 2.0,
+                              gap: 3.0,
+                              child: Padding(
+                                padding: EdgeInsets.only(
+                                    left: 10,
+                                    top: 24,
+                                    bottom: 24,
+                                    right:
+                                        sizeControl.getWidthFromPrecentage(10)),
+                                child: MaterialButton(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 4, vertical: 2),
+                                  onPressed: () async {
+                                    FilePickerResult? result = await FilePicker
+                                        .platform
+                                        .pickFiles(type: FileType.image);
+                                    if (result != null) {
+                                      if (kIsWeb) {
+                                        Uint8List bytes =
+                                            result.files.single.bytes!;
+                                        controller.imageFileOnChanged(bytes);
+                                      }
+                                    }
+                                  },
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(15),
+                                  ),
+                                  color: Colors.blue,
+                                  child: Text(
+                                    controller.imageFile != null
+                                        ? 'File terpasang'
+                                        : 'Pilih File',
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                ),
                               )),
-                          enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(15),
-                              borderSide: BorderSide(
-                                color: Colors.blueGrey.shade600,
-                              )),
-                          hintMaxLines: 10,
-                          label: const Text('Masalah'),
-                          hintStyle: TextStyle(fontSize: 14),
-                          hintText: 'Tuliskan sebuah masalah disini ..  ',
-                          border: InputBorder.none,
                         ),
-                      )),
 
-                  Container(
-                      width: sizeControl.getWidthFromPrecentage(
-                          sizeControl.isLargeScreen.value ? 20 : 85),
-                      padding: const EdgeInsets.all(4.0),
-                      height: 100,
-                      // decoration: BoxDecoration(
-                      // border: Border.all(color: Colors.blueGrey),
-                      // borderRadius: BorderRadius.circular(15)),
-                      child: TextFormField(
-                        inputFormatters: [
-                          LengthLimitingTextInputFormatter(2555)
-                        ],
-                        style: TextStyle(fontSize: 14),
-                        maxLines: 10,
-                        decoration: InputDecoration(
-                          focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(15),
-                              borderSide: const BorderSide(
-                                color: Colors.blue,
-                              )),
-                          enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(15),
-                              borderSide: BorderSide(
-                                color: Colors.blueGrey.shade600,
-                              )),
-                          hintMaxLines: 10,
-                          label: const Text('Solusi'),
-                          hintStyle: TextStyle(fontSize: 14),
-                          hintText:
-                              'Tuliskan Solusi untuk masalahmu disini ..  ',
-                          border: InputBorder.none,
-                        ),
-                      )),
-
-                  SizedBox(
-                    height: 10,
-                  ),
-
-                  Container(
-                    width: sizeControl.getWidthFromPrecentage(
-                        sizeControl.isLargeScreen.value ? 20 : 85),
-                    padding: const EdgeInsets.all(4.0),
-                    height: 100,
-                    // decoration: BoxDecoration(
-                    // border: Border.all(color: Colors.blueGrey),
-                    // borderRadius: BorderRadius.circular(15)),
-                    child: DashedRect(
-                        color: Colors.blueGrey.shade600,
-                        strokeWidth: 2.0,
-                        gap: 3.0,
-                        child: Padding(
-                          padding: EdgeInsets.only(
-                              left: 10,
-                              top: 24,
-                              bottom: 24,
-                              right: sizeControl.getWidthFromPrecentage(10)),
+                        Container(
+                          width: sizeControl.getWidthFromPrecentage(14),
+                          height: 35,
+                          margin: EdgeInsets.symmetric(
+                              horizontal: sizeControl.getWidthFromPrecentage(5),
+                              vertical: 14),
                           child: MaterialButton(
                             padding: EdgeInsets.symmetric(
                                 horizontal: 4, vertical: 2),
-                            onPressed: () {},
+                            onPressed: controller.save,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(15),
                             ),
-                            color: Colors.blue,
-                            child: Text(
-                              'Pilih File',
-                              style: TextStyle(color: Colors.white),
-                            ),
+                            color: Colors.teal,
+                            child: controller.onAsync.value
+                                ? CircularProgressIndicator(
+                                    color: Colors.white,
+                                  )
+                                : Text(
+                                    'Simpan',
+                                    style: TextStyle(color: Colors.white),
+                                  ),
                           ),
-                        )),
-                  ),
-
-                  Container(
-                    width: sizeControl.getWidthFromPrecentage(14),
-                    height: 35,
-                    margin: EdgeInsets.symmetric(
-                        horizontal: sizeControl.getWidthFromPrecentage(5),
-                        vertical: 14),
-                    child: MaterialButton(
-                      padding: EdgeInsets.symmetric(horizontal: 4, vertical: 2),
-                      onPressed: () {},
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                      color: Colors.teal,
-                      child: Text(
-                        'Simpan',
-                        style: TextStyle(color: Colors.white),
-                      ),
+                        )
+                      ],
                     ),
-                  )
-                ],
-              ),
             )
           ],
         ),

@@ -3,6 +3,13 @@ import 'dart:typed_data';
 import 'package:iismee/api/constant/api.dart';
 
 class ProposalApi {
+  static Future<bool> isProposalSaved() async {
+    return await Api.get(routes: '/proposal/fetch').then((value) =>
+        value.statusCode == 200
+            ? (value.data!['proposal'] as List).last['fileName'] != null
+            : false);
+  }
+
   static Future<int?> isProposalExists() async {
     return await Api.get(routes: '/proposal/fetch').then((value) =>
         value.statusCode == 200
@@ -12,16 +19,16 @@ class ProposalApi {
 
   static Future<bool> beginUpdateProposal(Uint8List file, String judul,
       String tema, bool islatarBlk, bool isTujuan, int docId) async {
+    print('your proposal id is ${docId}');
     Response saveDataRes = await Api.post(routes: '/proposal/update', data: {
       'judul': judul,
       'tema': tema,
-      'using_latar_belakang': islatarBlk,
-      'using_tujuan': isTujuan,
+      'using_latar_belakang': islatarBlk ? 1 : 0,
+      'using_tujuan': isTujuan ? 1 : 0,
       'id': docId
     });
 
     if (saveDataRes.statusCode == 200) {
-      docId = saveDataRes.data!['result']['id'];
       print('begin uploading file .. ');
       Response res = await Api.uploadFile(
           file: file,
@@ -67,5 +74,10 @@ class ProposalApi {
     } else {
       return false;
     }
+  }
+
+  static Future<bool> checkIfExists() async {
+    return await Api.get(routes: 'activity/check').then(
+        (value) => value.statusCode == 200 ? value.data!['result'] : false);
   }
 }

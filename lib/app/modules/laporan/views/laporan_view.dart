@@ -100,9 +100,14 @@ class LaporanView extends GetView<LaporanController> {
                                     color: Colors.blueGrey.shade800),
                               ),
                               Text(
-                                'Belum diupload',
+                                controller.isProposalExists
+                                    ? 'Sudah diunggah'
+                                    : 'Belum diunggah',
                                 style: TextStyle(
-                                    fontSize: 16, color: Colors.red.shade800),
+                                    fontSize: 16,
+                                    color: controller.isProposalExists
+                                        ? Colors.blue.shade800
+                                        : Colors.red.shade800),
                               ),
                               Row(
                                 children: [
@@ -161,9 +166,14 @@ class LaporanView extends GetView<LaporanController> {
                                     color: Colors.blueGrey.shade800),
                               ),
                               Text(
-                                'Belum disimpan',
+                                controller.isProposalSaved
+                                    ? 'Sudah disimpan'
+                                    : 'Belum disimpan',
                                 style: TextStyle(
-                                    fontSize: 16, color: Colors.red.shade800),
+                                    fontSize: 16,
+                                    color: controller.isProposalSaved
+                                        ? Colors.blue.shade800
+                                        : Colors.red.shade800),
                               ),
                               Row(
                                 children: [

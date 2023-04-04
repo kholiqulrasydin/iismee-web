@@ -31,6 +31,7 @@ class LaporanController extends GetxController {
   RxBool onAsync = false.obs;
   bool isProposalExists = false;
   int? proposalId;
+  bool isProposalSaved = false;
 
   Color getColor(int index) {
     if (index == processIndex.value) {
@@ -66,15 +67,26 @@ class LaporanController extends GetxController {
     int? id = await ProposalApi.isProposalExists();
     isProposalExists = id != null;
     if (isProposalExists) {
+      selectedPage = 3.obs;
+      processIndex = 3.obs;
+      proposalId = id;
+      update();
+    }
+  }
+
+  void checkIfSaved() async {
+    bool saved = await ProposalApi.isProposalSaved();
+    isProposalSaved = saved;
+    if (isProposalExists) {
       selectedPage = 4.obs;
       processIndex = 4.obs;
-      proposalId = id;
       update();
     }
   }
 
   void saveData() async {
     onAsync = true.obs;
+    update();
     if (judul != null && tema != null && filePdf != null) {
       bool isSaved = isProposalExists
           ? await ProposalApi.beginUpdateProposal(filePdf!.value, judul!.value,
@@ -154,6 +166,7 @@ class LaporanController extends GetxController {
     super.onReady();
     buildProgressList();
     checkIfExists();
+    checkIfSaved();
   }
 
   @override

@@ -4,6 +4,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:iismee/api/constant/api.dart';
+import 'package:iismee/api/user.dart';
 import 'package:iismee/app/views/admin_layout/screens/main/main_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:iismee/app/views/admin_layout/controllers/MenuController.dart'
@@ -106,6 +107,7 @@ class Authenticator {
         default:
       }
       storage.write('role', role);
+      await UserApi.getUserData();
       showToast('Selamat datang ${getToken.data!["userData"]["name"]}', false,
           fToast);
     } else {

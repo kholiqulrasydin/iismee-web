@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:iismee/api/auth.dart';
+import 'package:iismee/api/user.dart';
 import 'package:iismee/app/routes/app_pages.dart';
 import 'package:iismee/app/views/admin_layout/constants.dart';
 import 'package:iismee/app/views/admin_layout/controllers/MenuController.dart'
@@ -173,10 +174,31 @@ class DrawerListTile extends StatelessWidget {
   }
 }
 
-class ProfileCard extends StatelessWidget {
+class ProfileCard extends StatefulWidget {
   const ProfileCard({
     Key? key,
   }) : super(key: key);
+
+  @override
+  State<ProfileCard> createState() => _ProfileCardState();
+}
+
+class _ProfileCardState extends State<ProfileCard> {
+  Map<String, dynamic>? userData;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    setUserData();
+  }
+
+  void setUserData() async {
+    Map<String, dynamic> data = UserApi.storage.read('userData');
+    setState(() {
+      userData = data;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -192,32 +214,34 @@ class ProfileCard extends StatelessWidget {
         borderRadius: const BorderRadius.all(Radius.circular(10)),
         border: Border.all(color: primaryBackgroundColor),
       ),
-      child: Row(
-        children: [
-          Image.asset(
-            "assets/images/profile_pic.png",
-            height: 38,
-          ),
-          if (!Responsive.isMobile(context))
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: defaultPadding / 2),
-              child: Text(
-                "Nandya Asmara",
-                style: TextStyle(color: Colors.blueGrey.shade800),
-              ),
+      child: userData == null
+          ? Center(child: CircularProgressIndicator())
+          : Row(
+              children: [
+                Image.asset(
+                  "assets/images/profile_pic.png",
+                  height: 38,
+                ),
+                if (!Responsive.isMobile(context))
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: defaultPadding / 2),
+                    child: Text(
+                      userData!['name'],
+                      style: TextStyle(color: Colors.blueGrey.shade800),
+                    ),
+                  ),
+                IconButton(
+                  onPressed: () {
+                    Authenticator.signOut();
+                  },
+                  icon: Icon(
+                    Icons.keyboard_arrow_down,
+                    color: Colors.blueGrey.shade800,
+                  ),
+                ),
+              ],
             ),
-          IconButton(
-            onPressed: () {
-              Authenticator.signOut();
-            },
-            icon: Icon(
-              Icons.keyboard_arrow_down,
-              color: Colors.blueGrey.shade800,
-            ),
-          ),
-        ],
-      ),
     );
   }
 }
