@@ -34,11 +34,6 @@ class _ButtonDropdownState extends State<ButtonDropdown> {
             style: TextStyle(color: Colors.white),
           ),
         ),
-        customItemsHeights: [
-          ...List<double>.filled(MenuItems.firstItems.length, 48),
-          8,
-          ...List<double>.filled(MenuItems.secondItems.length, 48),
-        ],
         items: [
           ...MenuItems.firstItems.map(
             (item) => DropdownMenuItem<MenuItem>(
@@ -57,16 +52,24 @@ class _ButtonDropdownState extends State<ButtonDropdown> {
         onChanged: (value) {
           MenuItems.onChanged(context, value as MenuItem);
         },
-        itemHeight: 48,
-        itemPadding: const EdgeInsets.only(left: 16, right: 16),
-        dropdownWidth: 160,
-        dropdownPadding: const EdgeInsets.symmetric(vertical: 6),
-        dropdownDecoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(4),
-          color: Colors.white,
+        menuItemStyleData: MenuItemStyleData(
+          customHeights: [
+            ...List<double>.filled(MenuItems.firstItems.length, 48),
+            8,
+            ...List<double>.filled(MenuItems.secondItems.length, 48),
+          ],
+          padding: const EdgeInsets.only(left: 16, right: 16),
+          height: 48,
         ),
-        dropdownElevation: 8,
-        offset: const Offset(0, 8),
+        dropdownStyleData: DropdownStyleData(
+            width: 160,
+            padding: const EdgeInsets.symmetric(vertical: 6),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(4),
+              color: Colors.white,
+            ),
+            elevation: 8,
+            offset: const Offset(0, 8)),
       ),
     );
   }

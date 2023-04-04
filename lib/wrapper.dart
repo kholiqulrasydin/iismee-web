@@ -29,7 +29,6 @@ class _WrapperState extends State<Wrapper> {
 
     context.read<navMenu.MenuController>().fToast = FToast();
     context.read<navMenu.MenuController>().fToast!.init(context);
-    // Authenticator.signOut();
   }
 
   @override

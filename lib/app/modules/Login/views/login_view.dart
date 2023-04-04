@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'dart:html' as html;
 
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -243,6 +244,10 @@ class _LoginFormState extends State<LoginForm> {
                             print('setting role into ' + role.toString());
                             menuController.role = role;
                             menuController.buildPages();
+                            html.window.location.reload();
+                            // Navigator.of(context).pushReplacement(
+                            //     MaterialPageRoute(
+                            //         builder: ((context) => Wrapper())));
                             // context.read<navMenu.MenuController>().role = role;
 
                             // context.read<navMenu.MenuController>().buildPages();

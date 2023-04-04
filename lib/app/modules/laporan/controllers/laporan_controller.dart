@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iismee/app/controllers/size_controller.dart';
@@ -16,6 +18,11 @@ class LaporanController extends GetxController {
 
   RxInt selectedPage = 1.obs;
   RxInt processIndex = 1.obs;
+  RxString? judul;
+  RxString? tema;
+  Rx<Uint8List>? filePdf;
+  RxBool latarBelakang = false.obs;
+  RxBool tujuan = false.obs;
 
   Color getColor(int index) {
     if (index == processIndex.value) {
@@ -25,6 +32,26 @@ class LaporanController extends GetxController {
     } else {
       return todoColor;
     }
+  }
+
+  void judulOnChange(String val) {
+    judul = val.obs;
+    update();
+  }
+
+  void temaOnChange(String val) {
+    tema = val.obs;
+    update();
+  }
+
+  void latarBelakangOnChange(bool val) {
+    latarBelakang = val.obs;
+    update();
+  }
+
+  void tujuanOnChange(bool val) {
+    tujuan = val.obs;
+    update();
   }
 
   RxList<Map<String, dynamic>>? progressList;
@@ -51,15 +78,16 @@ class LaporanController extends GetxController {
   }
 
   void nextForm() {
-    if(selectedPage.value < 4){
+    if (selectedPage.value < 4 && processIndex < 4) {
       selectedPage = selectedPage + 1;
+      processIndex = processIndex + 1;
       buildProgressList();
     }
   }
 
   void changeForm(int index) {
-      selectedPage = index.obs;
-      buildProgressList();
+    selectedPage = index.obs;
+    buildProgressList();
   }
 
   buildProgressList() {
@@ -70,13 +98,12 @@ class LaporanController extends GetxController {
         'title': 'Form',
         'body': LaporanForm(
           sizeControl: sizeControl,
-          onPressed: nextForm,
         )
       },
       {
         'icon': Icons.file_copy_rounded,
         'title': 'Unggah Berkas',
-        'body': const SizedBox()
+        'body': UploadFile(sizeControl: sizeControl)
       },
       {
         'icon': Icons.task,

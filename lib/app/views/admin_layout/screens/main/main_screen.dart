@@ -119,32 +119,32 @@ class _MainScreenState extends State<MainScreen> {
                             darkTheme: darkTheme,
                             themeMode: ThemeMode.system,
                             initialBinding: BindingsBuilder(() {
-                              // if (menuController.role == 1) {
-                              //   Get.lazyPut<PresensiController>(
-                              //     () => PresensiController(),
-                              //   );
+                              if (menuController.role == 1) {
+                                Get.lazyPut<PresensiController>(
+                                  () => PresensiController(),
+                                );
 
-                              //   Get.lazyPut<LaporanController>(
-                              //     () => LaporanController(),
-                              //   );
+                                Get.lazyPut<LaporanController>(
+                                  () => LaporanController(),
+                                );
 
-                              //   Get.lazyPut<NilaiController>(
-                              //     () => NilaiController(),
-                              //   );
-                              // }
+                                Get.lazyPut<NilaiController>(
+                                  () => NilaiController(),
+                                );
+                              }
 
-                              // if (context.read<navMenu.MenuController>().role ==
-                              //     2) {
-                              //   Get.lazyPut<LogBookController>(
-                              //     () => LogBookController(),
-                              //   );
-                              //   Get.lazyPut<PresensiMahasiswaController>(
-                              //     () => PresensiMahasiswaController(),
-                              //   );
-                              //   Get.lazyPut<ParticipantScoreController>(
-                              //     () => ParticipantScoreController(),
-                              //   );
-                              // }
+                              if (context.read<navMenu.MenuController>().role ==
+                                  2) {
+                                Get.lazyPut<LogBookController>(
+                                  () => LogBookController(),
+                                );
+                                Get.lazyPut<PresensiMahasiswaController>(
+                                  () => PresensiMahasiswaController(),
+                                );
+                                Get.lazyPut<ParticipantScoreController>(
+                                  () => ParticipantScoreController(),
+                                );
+                              }
 
                               Get.lazyPut<SizeController>(
                                 () => SizeController(),

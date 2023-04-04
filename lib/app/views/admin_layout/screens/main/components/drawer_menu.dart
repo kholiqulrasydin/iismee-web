@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:iismee/api/auth.dart';
 import 'package:iismee/app/routes/app_pages.dart';
 import 'package:iismee/app/views/admin_layout/constants.dart';
 import 'package:iismee/app/views/admin_layout/controllers/MenuController.dart'
@@ -40,7 +41,8 @@ class _SideMenuState extends State<SideMenu> {
             : "${pages[i].name.substring(1).split('-')[0].capitalizeFirst} ${pages[i].name.substring(1).split('-')[1].capitalizeFirst}",
         svgSrc: "assets/icons/${pages[i].title}.svg",
         press: () {
-          Get.to(pages[i].page);
+          // Get.to(pages[i].page);
+          Get.toNamed(pages[i].name);
           print('Go to ${pages[i].name} page');
           context.read<navMenu.MenuController>().selectedDrawerItem = i;
           setState(() {});
@@ -205,9 +207,14 @@ class ProfileCard extends StatelessWidget {
                 style: TextStyle(color: Colors.blueGrey.shade800),
               ),
             ),
-          Icon(
-            Icons.keyboard_arrow_down,
-            color: Colors.blueGrey.shade800,
+          IconButton(
+            onPressed: () {
+              Authenticator.signOut();
+            },
+            icon: Icon(
+              Icons.keyboard_arrow_down,
+              color: Colors.blueGrey.shade800,
+            ),
           ),
         ],
       ),

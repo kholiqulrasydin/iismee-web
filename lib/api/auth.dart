@@ -8,6 +8,7 @@ import 'package:iismee/app/views/admin_layout/screens/main/main_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:iismee/app/views/admin_layout/controllers/MenuController.dart'
     as navMenu;
+import 'dart:html' as html;
 
 class Authenticator {
   static final storage = GetStorage();
@@ -69,7 +70,10 @@ class Authenticator {
   }
 
   static Future<void> signOut() async {
-    await _auth.signOut();
+    await _auth.signOut().then((value) {
+      storage.erase();
+      html.window.location.reload();
+    });
   }
 
   static Future<String?> getToken() async {

@@ -37,10 +37,10 @@ class MainIismee extends StatelessWidget {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'IISMEE Dashboard',
-        theme: ThemeData.dark().copyWith(
+        theme: ThemeData.light().copyWith(
+          brightness: Brightness.light,
           scaffoldBackgroundColor: bgColor,
-          textTheme: GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme)
-              .apply(bodyColor: Colors.white),
+          textTheme: GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme),
           canvasColor: secondaryColor,
         ),
         home: MultiProvider(providers: [
