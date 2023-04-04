@@ -33,11 +33,9 @@ class _SideMenuState extends State<SideMenu> {
     List<GetPage> pages = context.read<navMenu.MenuController>().pages;
     List<DrawerListTile> listItem = [];
     print(pages.length);
-    for (int i = 0;
-        i < context.read<navMenu.MenuController>().pages.length;
-        i++) {
+    for (int i = 0; i < pages.length; i++) {
       listItem.add(DrawerListTile(
-        title: context.read<navMenu.MenuController>().role == 1
+        title: !pages[i].name.contains('-')
             ? pages[i].name.substring(1).capitalizeFirst.toString()
             : "${pages[i].name.substring(1).split('-')[0].capitalizeFirst} ${pages[i].name.substring(1).split('-')[1].capitalizeFirst}",
         svgSrc: "assets/icons/${pages[i].title}.svg",

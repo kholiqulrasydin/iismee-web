@@ -30,12 +30,12 @@ class MenuController extends ChangeNotifier {
             .where((element) => element.name == 'login')
             .toList();
         break;
-      case 2:
+      case 1:
         pages = AppPages.routes
             .where((element) => element.title!.contains('dosen'))
             .toList();
         break;
-      case 1:
+      case 2:
         pages = AppPages.routes
             .where((element) =>
                 !element.title!.contains('dosen') && element.title! != 'login')

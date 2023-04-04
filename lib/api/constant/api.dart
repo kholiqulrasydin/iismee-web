@@ -8,7 +8,7 @@ import 'dart:html' as html;
 
 import 'package:iismee/api/constant/bytes/equality.dart';
 
-const hostUrl = "http://127.0.0.1:8000/api";
+const hostUrl = "https://iismee.com/api";
 
 const _chars = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
 
